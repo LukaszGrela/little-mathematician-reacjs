@@ -1,0 +1,29 @@
+.game-hud {
+    background-color: #ccc;
+    padding: 10px 0;
+    margin-bottom: 10px;
+}
+.game-hud .container {
+    width: 300px;
+    margin: 0 auto;
+}
+.game-hud .container div {
+    display: inline-block;
+    padding: 0 10px;
+    width: 80px;
+}
+
+.question-counter {
+    float: left;
+    text-align: left;
+}
+
+.correct-answers {
+    color: green;
+}
+
+.timer {
+    float: right;
+    height: 10px;
+    background-color: chocolate;
+}

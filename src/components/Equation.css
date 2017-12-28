@@ -1,0 +1,14 @@
+.equation {
+    margin: 0 auto;
+    width: 300px;
+}
+
+.part {
+    width: 50px;
+    padding: 15px 5px;
+    margin: 5px;
+    display: table-cell;
+}
+.question {
+    border: 1px solid #ccc;
+}
