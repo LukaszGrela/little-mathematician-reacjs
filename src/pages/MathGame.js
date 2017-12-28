@@ -14,10 +14,13 @@ import GameOver from '../components/GameOver'
 import { randomRange, randomOption } from "../utils/math";
 
 
-class GameAddition extends Component {
+class MathGame extends Component {
 
     constructor(props) {
         super(props);
+
+        //
+        console.log('MathGame', props);
 
         // setup
         const questionCount = props.questionCount || 10,
@@ -151,7 +154,7 @@ class GameAddition extends Component {
      * @param {number} answer User selected answer
      */
     handleAnswerSelection(answer) {
-        console.log("GameAddition#handleAnswerSelection", answer);
+        console.log("MathGame#handleAnswerSelection", answer);
         let questions = this.state.questions,
             distractors = [],
             hudQuestionCurrent = this.state.hudQuestionCurrent,
@@ -241,4 +244,4 @@ class GameAddition extends Component {
     }
 }
 
-export default GameAddition;
+export default MathGame;

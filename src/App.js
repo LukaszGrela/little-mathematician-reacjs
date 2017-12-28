@@ -6,7 +6,7 @@ import { Switch, Route, withRouter } from "react-router-dom";
 import NoMatch from './pages/NoMatch'
 import Menu from './pages/Menu'
 import About from './pages/About'
-import GameAddition from './pages/GameAddition'
+import MathGame from './pages/MathGame'
 
 // components
 import Footer from './components/Footer'
@@ -33,11 +33,11 @@ class App extends Component {
       gameName = '';
     switch (action) {
       case 'plus':
-        to = '/addition';
+        to = '/game:addition';
         gameName = 'Addition';
         break;
       case 'minus':
-        to = '/subtraction'
+        to = '/game:subtraction'
         gameName = 'Subtraction';
         break;
       case 'multiply':
@@ -69,8 +69,8 @@ class App extends Component {
           <Switch>
             <Route exact path='/' component={() => <Menu onAction={this.handleMenuAction} />} />
 
-            <Route path='/addition' component={() => <GameAddition onAction={this.handleMenuAction} />} />
-            
+            <Route path='/game:type' component={(p) => <MathGame {...p.match.params} onAction={this.handleMenuAction} />} />
+
             <Route path='/about' component={About} />
             <Route component={NoMatch} />
           </Switch>
