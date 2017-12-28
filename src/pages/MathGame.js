@@ -82,8 +82,12 @@ class MathGame extends Component {
         for (let index = 0; index < questionCount; index++) {
             let a = randomRange(from, to),
                 b = randomRange(from, to);
-            a = Math.max(a, b);
-            b = Math.min(a, b);
+                
+            if(a<b) {
+                //swap
+                a = b + (b=a, 0);
+            }
+
             let result = a - b
                 , ask = randomOption(["result", "a", "b"]),
                 distractors = [];
