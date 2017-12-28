@@ -25,10 +25,11 @@ class MathGame extends Component {
         // setup
         const questionCount = props.questionCount || 10,
             from = props.from || 1,
-            to = props.to || 10;
+            to = props.to || 10,
+            type = props.type || ':addition';
 
         // generate questions
-        const q = this.prepareQuestions(from, to, questionCount);
+        const q = this.prepareQuestions(from, to, questionCount, type);
 
         // prepare state
         this.state = {
@@ -39,7 +40,9 @@ class MathGame extends Component {
             to: to,
             answerOptions: q[0].distractors,
             questions: q,
-            gameOver: false
+            gameOver: false,
+            operation: q[0].operation,
+            type
         }
         // user answers
         this.userAnswers = [];
@@ -55,17 +58,39 @@ class MathGame extends Component {
      * @param {number} from minimum value of equation operand
      * @param {number} to maximum value of equation operand
      * @param {number} questionCount number of questions to generate
+     * @param {string} type type of the game
+     * @returns {array} List of questions
      */
-    prepareQuestions(from, to, questionCount) {
+    prepareQuestions(from, to, questionCount, type) {
+        console.log('MathGame#prepareQuestions', type);
+        switch (type) {
+            case ':subtraction':
+                return this.prepareQuestionsSubtraction(from, to, questionCount);
+
+
+            case ':addition':
+            default:
+                return this.prepareQuestionsAddition(from, to, questionCount);
+
+        }
+    }
+
+    prepareQuestionsSubtraction(from, to, questionCount) {
 
         // initiate the game 
         let questions = [];
         for (let index = 0; index < questionCount; index++) {
             let a = randomRange(from, to),
-                b = randomRange(from, to)
-                , result = a + b
+                b = randomRange(from, to);
+            a = Math.max(a, b);
+            b = Math.min(a, b);
+            let result = a - b
                 , ask = randomOption(["result", "a", "b"]),
                 distractors = [];
+
+
+
+
             if (ask === 'result') {
 
                 distractors = [
@@ -99,7 +124,67 @@ class MathGame extends Component {
                 result: result,
                 ask: ask,
                 distractors: distractors,
-                correct: distractors[0]
+                correct: distractors[0],
+                operation: '-',
+            });
+
+        }
+        return questions;
+    }
+    /**
+     * Prepares question with addition to answer
+     * @param {number} from minimum value of equation operand
+     * @param {number} to maximum value of equation operand
+     * @param {number} questionCount number of questions to generate
+     */
+    prepareQuestionsAddition(from, to, questionCount) {
+        // initiate the game 
+        let questions = [];
+        for (let index = 0; index < questionCount; index++) {
+            let a = randomRange(from, to),
+                b = randomRange(from, to)
+                , result = a + b
+                , ask = randomOption(["result", "a", "b"]),
+                distractors = [];
+
+
+
+
+            if (ask === 'result') {
+
+                distractors = [
+                    result,
+                    result + randomRange(1, 3),
+                    result + randomRange(4, 7),
+                    result - randomRange(1, 3),
+                ]
+            }
+            else if (ask === 'a') {
+
+                distractors = [
+                    a,
+                    a + randomRange(1, 3),
+                    a + randomRange(4, 7),
+                    a - randomRange(4, 7),
+                ]
+            }
+            else {
+                distractors = [
+                    b,
+                    b + randomRange(1, 3),
+                    b + randomRange(4, 7),
+                    b - randomRange(1, 3),
+                ]
+            }
+            questions.push({
+                id: index,
+                operandA: a,
+                operandB: b,
+                result: result,
+                ask: ask,
+                distractors: distractors,
+                correct: distractors[0],
+                operation: '+',
             });
 
         }
@@ -107,9 +192,18 @@ class MathGame extends Component {
     }
 
 
+
+
+
+    /**
+     * Restarts the game
+     */
     restartGame() {
         this.userAnswers = [];
-        const q = this.prepareQuestions(this.state.from, this.state.to, this.state.questionCount);
+        const q = this.prepareQuestions(this.state.from,
+            this.state.to,
+            this.state.questionCount,
+            this.state.type);
         //
         this.setState({
             hudQuestionCurrent: 1,
@@ -196,7 +290,7 @@ class MathGame extends Component {
         const questions = this.state.questions;
         const current = questions[0];
 
-        return <Equation operation="+" {...current} />;
+        return <Equation operation={this.state.operation} {...current} />;
     }
 
     /**
