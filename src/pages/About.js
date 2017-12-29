@@ -5,6 +5,7 @@ class About extends Component {
     render() {
         return (
             <div>
+                Simple Math game made in ReactJS.
                 Icons in menu by Leona Grande from the Noun Project.
             </div>
         );

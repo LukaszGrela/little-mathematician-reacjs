@@ -13,3 +13,7 @@
 .answer:focus {
     outline: none;
 }
+
+.hidden {
+    visibility: hidden;
+}

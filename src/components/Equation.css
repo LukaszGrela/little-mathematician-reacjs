@@ -11,5 +11,16 @@
     display: table-cell;
 }
 .question {
-    border: 1px solid #ccc;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+}
+
+.correct .question {
+    border-color: green;
+    border-radius: 15px;
+}
+
+.incorrect .question {
+    border-color: red;
+    border-radius: 0;
 }

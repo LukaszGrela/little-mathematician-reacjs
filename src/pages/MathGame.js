@@ -371,7 +371,33 @@ class MathGame extends Component {
      */
     handleAnswerSelection(answer) {
         console.log("MathGame#handleAnswerSelection", answer);
-        let {questions, hudQuestionCurrent, hudCorrectAnswers} = this.state,
+        // assess answer
+        let { questions, hudQuestionCurrent, hudCorrectAnswers } = this.state,
+            current = questions[0];
+
+        // record user answer
+        current.answer = {
+            user: answer,
+            correct: answer === current.correct
+        };
+        if (current.answer.correct) hudCorrectAnswers++;
+        questions[0] = current;
+
+        //TODO: update equation with user selection
+        //TODO: mark equation with red(cross) or green(tick)
+        //TODO: show feedback panel with continue button to see GO or next Q
+
+
+        //
+        this.setState({
+            hudCorrectAnswers,
+            questions: questions,
+            userAnswer: answer
+        });
+    }
+
+    temp(answer) {
+        let { questions, hudQuestionCurrent, hudCorrectAnswers } = this.state,
             distractors = [],
             gameOver = false;
 
@@ -387,10 +413,6 @@ class MathGame extends Component {
         // store answered question
         this.userAnswers.push(answeredQuestion);
 
-        //TODO: show score update (star)
-        //TODO: update equation with user selection
-        //TODO: mark equation with red(cross) or green(tick)
-        //TODO: show feedback panel with continue button to see GO or next Q
 
         if (questions.length === 0) {
             //end of the game
@@ -409,6 +431,8 @@ class MathGame extends Component {
         });
     }
 
+
+
     /**
      * Returns question (equation) fragment
      */
@@ -417,7 +441,9 @@ class MathGame extends Component {
         const questions = this.state.questions;
         const current = questions[0];
 
-        return <Equation operation={this.state.operation} {...current} />;
+        return <Equation
+            operation={this.state.operation} {...current}
+            userAnswer={this.state.userAnswer} />;
     }
 
     /**
