@@ -6,7 +6,8 @@ class About extends Component {
         return (
             <div>
                 Simple Math game made in ReactJS.
-                Icons in menu by Leona Grande from the Noun Project.
+                Icons in menu (and logo) by Leona Grande from the Noun Project.
+                Other icons from material ui icons, www.materialui.co/
             </div>
         );
     }

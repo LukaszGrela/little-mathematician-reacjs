@@ -9,9 +9,10 @@ import GameHud from '../components/GameHud'
 import GameAnswers from '../components/GameAnswers'
 import Equation from '../components/Equation'
 import GameOver from '../components/GameOver'
+import Feedback from '../components/Feedback'
 
 
-import { randomRange, randomOption } from "../utils/math";
+import { randomRange, randomOption, shuffle } from "../utils/math";
 
 
 import './MathGame.css'
@@ -53,6 +54,7 @@ class MathGame extends Component {
         this.handleAnswerSelection = this.handleAnswerSelection.bind(this);
         this.handleNavigation = this.handleNavigation.bind(this);
         this.getNextEquation = this.getNextEquationView.bind(this);
+        this.handleFeedbackAction = this.handleFeedbackAction.bind(this);
     }
 
     /**
@@ -129,8 +131,8 @@ class MathGame extends Component {
                 operandB: b,
                 result: result,
                 ask: ask,
-                distractors: distractors,
                 correct: distractors[0],
+                distractors: shuffle(distractors),
                 operation: '/',
             });
 
@@ -183,8 +185,8 @@ class MathGame extends Component {
                 operandB: b,
                 result: result,
                 ask: ask,
-                distractors: distractors,
                 correct: distractors[0],
+                distractors: shuffle(distractors),
                 operation: 'x',
             });
 
@@ -245,8 +247,8 @@ class MathGame extends Component {
                 operandB: b,
                 result: result,
                 ask: ask,
-                distractors: distractors,
                 correct: distractors[0],
+                distractors: shuffle(distractors),
                 operation: '-',
             });
 
@@ -304,8 +306,8 @@ class MathGame extends Component {
                 operandB: b,
                 result: result,
                 ask: ask,
-                distractors: distractors,
                 correct: distractors[0],
+                distractors: shuffle(distractors),
                 operation: '+',
             });
 
@@ -332,7 +334,9 @@ class MathGame extends Component {
             hudCorrectAnswers: 0,
             questions: q,
             answerOptions: q[0].distractors,
-            gameOver: false
+            gameOver: false,
+            userAnswer: null,
+            selectionId: null
         });
     }
 
@@ -365,15 +369,23 @@ class MathGame extends Component {
     }
 
 
+    handleFeedbackAction() {
+        // next question
+        this.nextQuestion();
+    }
+
     /**
      * Handles action on the GameAnswer object
      * @param {number} answer User selected answer
+     * @param {number} optionId key number of the clicked button
      */
-    handleAnswerSelection(answer) {
+    handleAnswerSelection(answer, optionId) {
         console.log("MathGame#handleAnswerSelection", answer);
         // assess answer
         let { questions, hudQuestionCurrent, hudCorrectAnswers } = this.state,
             current = questions[0];
+
+        if(!!current.answer) return;
 
         // record user answer
         current.answer = {
@@ -383,32 +395,22 @@ class MathGame extends Component {
         if (current.answer.correct) hudCorrectAnswers++;
         questions[0] = current;
 
-        //TODO: update equation with user selection
-        //TODO: mark equation with red(cross) or green(tick)
-        //TODO: show feedback panel with continue button to see GO or next Q
-
-
         //
         this.setState({
             hudCorrectAnswers,
             questions: questions,
-            userAnswer: answer
+            userAnswer: answer,
+            selectionId: optionId
         });
     }
 
-    temp(answer) {
-        let { questions, hudQuestionCurrent, hudCorrectAnswers } = this.state,
+    nextQuestion() {
+        let { questions, hudQuestionCurrent } = this.state,
             distractors = [],
             gameOver = false;
 
         // remove used question
         let answeredQuestion = questions.shift();
-        // record user answer
-        answeredQuestion.answer = {
-            user: answer,
-            correct: answer === answeredQuestion.correct
-        };
-        if (answeredQuestion.answer.correct) hudCorrectAnswers++;
 
         // store answered question
         this.userAnswers.push(answeredQuestion);
@@ -424,10 +426,11 @@ class MathGame extends Component {
         //
         this.setState({
             hudQuestionCurrent,
-            hudCorrectAnswers,
             questions: questions,
             answerOptions: distractors,
-            gameOver
+            gameOver,
+            userAnswer: null,
+            selectionId: null
         });
     }
 
@@ -450,6 +453,10 @@ class MathGame extends Component {
      * Returns game fragment
      */
     gameView() {
+        if (this.state.questions.length === 0) return null;
+        const questions = this.state.questions;
+        const current = questions[0];
+
         return (
             <div className='game-view'>
                 <GameHud {...this.state} type={this.state.type} />
@@ -457,8 +464,13 @@ class MathGame extends Component {
                     this.getNextEquationView()
                 }
                 {
+                    /* show feedback panel if question has user answer */
+                    current.answer ? <Feedback {...current} onAction={this.handleFeedbackAction} /> : null
+                }
+                {
                     this.state.questions.length > 0 ?
                         <GameAnswers
+                            selectionId={this.state.selectionId}
                             options={this.state.answerOptions}
                             onSelection={this.handleAnswerSelection} />
                         : null
