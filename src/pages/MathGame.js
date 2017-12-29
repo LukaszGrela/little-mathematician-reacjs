@@ -52,7 +52,7 @@ class MathGame extends Component {
         //
         this.handleAnswerSelection = this.handleAnswerSelection.bind(this);
         this.handleNavigation = this.handleNavigation.bind(this);
-        this.getNextEquation = this.getNextEquation.bind(this);
+        this.getNextEquation = this.getNextEquationView.bind(this);
     }
 
     /**
@@ -371,21 +371,26 @@ class MathGame extends Component {
      */
     handleAnswerSelection(answer) {
         console.log("MathGame#handleAnswerSelection", answer);
-        let questions = this.state.questions,
+        let {questions, hudQuestionCurrent, hudCorrectAnswers} = this.state,
             distractors = [],
-            hudQuestionCurrent = this.state.hudQuestionCurrent,
-            hudCorrectAnswers = this.state.hudCorrectAnswers,
             gameOver = false;
-        //remove used question
-        let answeredQuestion = questions.shift();
 
+        // remove used question
+        let answeredQuestion = questions.shift();
+        // record user answer
         answeredQuestion.answer = {
             user: answer,
             correct: answer === answeredQuestion.correct
         };
         if (answeredQuestion.answer.correct) hudCorrectAnswers++;
 
+        // store answered question
         this.userAnswers.push(answeredQuestion);
+
+        //TODO: show score update (star)
+        //TODO: update equation with user selection
+        //TODO: mark equation with red(cross) or green(tick)
+        //TODO: show feedback panel with continue button to see GO or next Q
 
         if (questions.length === 0) {
             //end of the game
@@ -407,7 +412,7 @@ class MathGame extends Component {
     /**
      * Returns question (equation) fragment
      */
-    getNextEquation() {
+    getNextEquationView() {
         if (this.state.questions.length === 0) return null;
         const questions = this.state.questions;
         const current = questions[0];
@@ -423,7 +428,7 @@ class MathGame extends Component {
             <div className='game-view'>
                 <GameHud {...this.state} type={this.state.type} />
                 {
-                    this.getNextEquation()
+                    this.getNextEquationView()
                 }
                 {
                     this.state.questions.length > 0 ?
