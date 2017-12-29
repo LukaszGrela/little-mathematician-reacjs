@@ -37,14 +37,15 @@ class App extends Component {
         gameName = 'Addition';
         break;
       case 'minus':
-        to = '/game:subtraction'
+        to = '/game:subtraction';
         gameName = 'Subtraction';
         break;
       case 'multiply':
-        to = '/game:multiplication'
+        to = '/game:multiplication';
         gameName = 'Multiplication';
         break;
       case 'divide':
+        to = '/game:division';
         gameName = 'Division';
 
         break;
