@@ -67,13 +67,70 @@ class MathGame extends Component {
             case ':subtraction':
                 return this.prepareQuestionsSubtraction(from, to, questionCount);
 
-
+            case ':multiplication':
+                return this.prepareQuestionsMultiplication(from, to, questionCount);
             case ':addition':
             default:
                 return this.prepareQuestionsAddition(from, to, questionCount);
 
         }
     }
+
+    prepareQuestionsMultiplication(from, to, questionCount) {
+
+        // initiate the game 
+        let questions = [];
+        for (let index = 0; index < questionCount; index++) {
+            let a = randomRange(from, to),
+                b = randomRange(from, to)
+                , result = a * b
+                , ask = randomOption(["result", "a", "b"]),
+                distractors = [];
+
+
+
+
+            if (ask === 'result') {
+
+                distractors = [
+                    result,
+                    result + randomRange(1, 3),
+                    result + randomRange(4, 7),
+                    result - randomRange(1, 3),
+                ]
+            }
+            else if (ask === 'a') {
+
+                distractors = [
+                    a,
+                    a + randomRange(1, 3),
+                    a + randomRange(4, 7),
+                    a - randomRange(4, 7),
+                ]
+            }
+            else {
+                distractors = [
+                    b,
+                    b + randomRange(1, 3),
+                    b + randomRange(4, 7),
+                    b - randomRange(1, 3),
+                ]
+            }
+            questions.push({
+                id: index,
+                operandA: a,
+                operandB: b,
+                result: result,
+                ask: ask,
+                distractors: distractors,
+                correct: distractors[0],
+                operation: 'x',
+            });
+
+        }
+        return questions;
+    }
+
 
     prepareQuestionsSubtraction(from, to, questionCount) {
 
@@ -82,10 +139,10 @@ class MathGame extends Component {
         for (let index = 0; index < questionCount; index++) {
             let a = randomRange(from, to),
                 b = randomRange(from, to);
-                
-            if(a<b) {
+
+            if (a < b) {
                 //swap
-                a = b + (b=a, 0);
+                a = b + (b = a, 0);
             }
 
             let result = a - b

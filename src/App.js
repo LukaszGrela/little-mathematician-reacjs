@@ -41,6 +41,7 @@ class App extends Component {
         gameName = 'Subtraction';
         break;
       case 'multiply':
+        to = '/game:multiplication'
         gameName = 'Multiplication';
         break;
       case 'divide':
