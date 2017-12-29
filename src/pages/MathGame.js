@@ -14,6 +14,8 @@ import GameOver from '../components/GameOver'
 import { randomRange, randomOption } from "../utils/math";
 
 
+import './MathGame.css'
+
 class MathGame extends Component {
 
     constructor(props) {
@@ -446,7 +448,7 @@ class MathGame extends Component {
 
     render() {
         return (
-            <div className='game game-addition'>
+            <div className={'game game-' + this.state.type.split(':').join('')}>
                 {
                     this.state.gameOver ?
                         this.gameOverView()

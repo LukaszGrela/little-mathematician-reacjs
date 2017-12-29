@@ -73,7 +73,7 @@ class App extends Component {
               <IconArrowBack /></button> : <LogoIcon />}
           </div>
         </header>
-        <section>
+        <section className='content'>
           <Switch>
             <Route exact path='/' component={() => <Menu onAction={this.handleMenuAction} />} />
 
