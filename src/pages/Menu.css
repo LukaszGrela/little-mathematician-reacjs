@@ -11,3 +11,19 @@
     width: 56px;
     height: 56px;
 }
+
+.menu button #button-icon-plus {
+    fill: #388E3C;
+}
+
+.menu button #button-icon-minus {
+    fill: #8BC34A;
+}
+
+.menu button #button-icon-multiply {
+    fill: #CDDC39;
+}
+
+.menu button #button-icon-divide {
+    fill: #FFEB3B;
+}

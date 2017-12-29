@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 
 import './Menu.css'
+import ButtonIconPlus from '../icons/ButtonIconPlus';
+import ButtonIconMinus from '../icons/ButtonIconMinus';
+import ButtonIconMultiply from '../icons/ButtonIconMultiply';
+import ButtonIconDivide from '../icons/ButtonIconDivide';
 
 class Menu extends Component {
     state = {}
@@ -22,24 +26,24 @@ class Menu extends Component {
                     <button onClick={() => {
                         this.handleClick("plus");
                     }}>
-                        <img src='./assets/button-icons-plus.svg' />
+                        <ButtonIconPlus />
                     </button>
                     <button onClick={() => {
                         this.handleClick("minus");
                     }}>
-                        <img src='./assets/button-icons-minus.svg' />
+                        <ButtonIconMinus />
                     </button>
                 </div>
                 <div className="row">
                     <button onClick={() => {
                         this.handleClick("multiply");
                     }}>
-                        <img src='./assets/button-icons-multiply.svg' />
+                        <ButtonIconMultiply />
                     </button>
                     <button onClick={() => {
                         this.handleClick("divide");
                     }}>
-                        <img src='./assets/button-icons-divide.svg' />
+                        <ButtonIconDivide />
                     </button>
                 </div>
             </div>

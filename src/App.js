@@ -14,6 +14,8 @@ import Footer from './components/Footer'
 // css
 import './App.css';
 
+import LogoIcon from './icons/LogoIcon';
+
 class App extends Component {
 
   constructor(props) {
@@ -64,7 +66,8 @@ class App extends Component {
         <header className={"App-header" + (this.state.location !== '/' ? " in-page" : "")}>
           <h1 className="App-title">Little Mathematician</h1>
           {this.state.gameName !== '' ? <h3>{this.state.gameName}</h3> : null}
-          <img src='./assets/little-mathematician-logo.svg' />
+          {/*<img src='./assets/little-mathematician-logo.svg' />*/}
+          <LogoIcon />
           {this.state.location !== '/' ? <button onClick={() => { this.handleMenuAction() }}>Back</button> : null}
         </header>
         <section>

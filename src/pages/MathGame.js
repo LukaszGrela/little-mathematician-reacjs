@@ -26,7 +26,8 @@ class MathGame extends Component {
         const questionCount = props.questionCount || 10,
             from = props.from || 1,
             to = props.to || 10,
-            type = props.type || ':addition';
+            type = props.type || ':addition',
+            gameColor = props.gameColor || '#388E3C';
 
         // generate questions
         const q = this.prepareQuestions(from, to, questionCount, type);
@@ -42,7 +43,8 @@ class MathGame extends Component {
             questions: q,
             gameOver: false,
             operation: q[0].operation,
-            type
+            type,
+            gameColor
         }
         // user answers
         this.userAnswers = [];
@@ -91,8 +93,8 @@ class MathGame extends Component {
                 , ask = randomOption(["result", "a", "b"]),
                 distractors = [];
 
-                b=a;
-                a=mul;
+            b = a;
+            a = mul;
 
 
             if (ask === 'result') {
@@ -419,7 +421,7 @@ class MathGame extends Component {
     gameView() {
         return (
             <div className='game-view'>
-                <GameHud {...this.state} />
+                <GameHud {...this.state} color={this.state.gameColor} />
                 {
                     this.getNextEquation()
                 }

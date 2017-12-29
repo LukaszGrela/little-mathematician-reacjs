@@ -3,17 +3,19 @@
 }
 
 .App-header {
-  background-color: #222;
+  background-color: #303F9F;
   height: 50px;
   padding: 20px;
   color: white;
 }
 
-.App-header img {
-  height: 30px;
+.App-header svg#logo-icon {
   position: absolute;
+  height: 30px;
   left: 8px;
   top: 34px;
+
+  fill: #fff;
 }
 
 .App-title {
@@ -31,6 +33,7 @@
 h3 {
   font-size: 1em;
   margin-top: 0.25em;
+  color: #C5CAE9;
 }
 
 .App-header button {

@@ -1,5 +1,5 @@
 .game-hud {
-    background-color: #ccc;
+    background-color: transparent;
     padding: 10px 0;
     margin-bottom: 10px;
 }
@@ -26,4 +26,20 @@
     float: right;
     height: 10px;
     background-color: chocolate;
+}
+
+.game-hud.addition {
+    border-bottom: 2px solid #388E3C;
+}
+
+.game-hud.subtraction {
+    border-bottom: 2px solid #8BC34A;
+}
+
+.game-hud.multiplication {
+    border-bottom: 2px solid #CDDC39;
+}
+
+.game-hud.division {
+    border-bottom: 2px solid #FFEB3B;
 }

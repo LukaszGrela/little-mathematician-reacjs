@@ -6,7 +6,7 @@ class GameHud extends Component {
     state = {}
     render() {
         return (
-            <div className='game-hud'>
+            <div className={'game-hud ' + this.props.type.split(':').join('')}>
                 <div className='container'>
                     <div className='question-counter'>{this.props.hudQuestionCurrent} / {this.props.questionCount}</div>
                     <div className='correct-answers'>{this.props.hudCorrectAnswers}</div>
