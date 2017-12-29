@@ -14,18 +14,12 @@
 }
 
 .question-counter {
-    float: left;
     text-align: left;
 }
 
 .correct-answers {
     color: green;
-}
-
-.timer {
-    float: right;
-    height: 10px;
-    background-color: chocolate;
+    text-align: right;
 }
 
 .game-hud.addition {

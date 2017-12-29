@@ -10,7 +10,6 @@ class GameHud extends Component {
                 <div className='container'>
                     <div className='question-counter'>{this.props.hudQuestionCurrent} / {this.props.questionCount}</div>
                     <div className='correct-answers'>{this.props.hudCorrectAnswers}</div>
-                    <div className='timer'></div>
                 </div>
             </div>
         );

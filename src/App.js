@@ -15,6 +15,7 @@ import Footer from './components/Footer'
 import './App.css';
 
 import LogoIcon from './icons/LogoIcon';
+import IconArrowBack from './icons/IconArrowBack';
 
 class App extends Component {
 
@@ -67,8 +68,10 @@ class App extends Component {
           <h1 className="App-title">Little Mathematician</h1>
           {this.state.gameName !== '' ? <h3>{this.state.gameName}</h3> : null}
           {/*<img src='./assets/little-mathematician-logo.svg' />*/}
-          <LogoIcon />
-          {this.state.location !== '/' ? <button onClick={() => { this.handleMenuAction() }}>Back</button> : null}
+          <div className='leftIconSlot'>
+            {this.state.location !== '/' ? <button onClick={() => { this.handleMenuAction() }}>
+              <IconArrowBack /></button> : <LogoIcon />}
+          </div>
         </header>
         <section>
           <Switch>
