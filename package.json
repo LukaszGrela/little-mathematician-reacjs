@@ -2,6 +2,7 @@
   "name": "little-mathematician",
   "version": "0.12.0",
   "private": true,
+  "homepage": "http://greladesign.com/little-mathematician",
   "dependencies": {
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
