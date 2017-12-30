@@ -41,3 +41,12 @@
 .feedback .message {
     display: inline-block;
 }
+
+
+
+.feedback .message .correct-answer {
+    color: green;
+    font-weight: bold;
+    font-size: 1.25em;
+    margin-left: 8px;
+}

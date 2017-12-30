@@ -16,7 +16,7 @@ class Feedback extends Component {
                         answer.correct ?
                             'Well done!'
                             :
-                            'Not so, correct answer is ' + correct
+                            ['Not so, correct answer is ',<span key='correct-span' className='correct-answer'>{correct}</span>]
                     }
                 </div>
                 <button onClick={() => {
