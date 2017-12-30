@@ -23,15 +23,41 @@ import IconSave from './icons/IconSave';
 
 class App extends Component {
 
+  config = {};
+
   constructor(props) {
     super(props);
     this.state = {
       location: props.location.pathname || '/'
     }
-    console.log('App#constructor', this.props);
+    //  defaults
+    this.config = {
+      general: {
+        questionCount: 10,
+        from: 0,
+        to: 10
+      }
+    };
+    // 
+    this.handleConfigSave = this.handleConfigSave.bind(this);
     this.handleNavigationAction = this.handleNavigationAction.bind(this);
   }
 
+
+  getConfig(game) {
+    let config = Object.assign({}, this.config.general);
+    console.log('getConfig', game, config);
+    switch (game) {
+      case ':subtraction':
+      
+      break;
+      
+      case ':addition':
+      default:
+        break;
+    }
+    return config;
+  }
 
   getTitleFragment() {
 
@@ -87,12 +113,17 @@ class App extends Component {
         <button key={'settings-btn'} className='button-settings' onClick={() => { this.handleNavigationAction('config') }}><IconSettings /></button>
       ];
     } else if (location === '/config') {
-      return <button key={'save-btn'} className='button-settings-save' onClick={() => { this.handleNavigationAction('config') }}><IconSave /></button>
-       
+      return <button key={'save-btn'} className='button-settings-save' onClick={() => { this.handleConfigSave(); }}><IconSave /></button>
+
     }
     return null;
   }
-
+  handleConfigSave() {
+    let config = this.configView.getSettings();
+    console.log('handleConfigSave', config);
+    this.config = config;
+    this.handleNavigationAction();
+  }
   handleNavigationAction(action) {
     console.log("App", action);
     let to = '/';
@@ -148,10 +179,10 @@ class App extends Component {
             <Route exact path='/' component={() => <Menu onAction={this.handleNavigationAction} />} />
 
             <Route path='/game:type' component={(p) => <MathGame {...p.match.params}
-              from={10} to={20} questionCount={25}
+              {...this.getConfig(p.match.params.type)}
               onAction={this.handleNavigationAction} />} />
 
-            <Route path='/config' component={(p) => <Config />} />
+            <Route path='/config' component={(p) => <Config ref={(ref) => this.configView = ref} {...this.config} />} />
             <Route path='/about' component={About} />
             <Route component={NoMatch} />
           </Switch>
