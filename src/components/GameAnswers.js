@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 
 import './GameAnswers.css'
-import { shuffle } from '../utils/math';
 
 class GameAnswers extends Component {
 

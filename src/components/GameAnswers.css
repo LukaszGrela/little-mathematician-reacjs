@@ -2,6 +2,12 @@
     width: 300px;
     margin: 0 auto;
 }
+
+.game-answers button {
+    /* reset */
+    background-color: white;
+}
+
 .answer {
     padding: 20px;
     margin: 2px;
@@ -9,6 +15,8 @@
     min-width: 70px;
     border: 1px solid #ccc;
 }
+
+
 
 .answer:focus {
     outline: none;
