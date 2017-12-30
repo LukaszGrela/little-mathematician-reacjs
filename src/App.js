@@ -49,9 +49,9 @@ class App extends Component {
     console.log('getConfig', game, config);
     switch (game) {
       case ':subtraction':
-      
-      break;
-      
+
+        break;
+
       case ':addition':
       default:
         break;
@@ -179,8 +179,12 @@ class App extends Component {
             <Route exact path='/' component={() => <Menu onAction={this.handleNavigationAction} />} />
 
             <Route path='/game:type' component={(p) => <MathGame {...p.match.params}
-              {...this.getConfig(p.match.params.type)}
-              onAction={this.handleNavigationAction} />} />
+              {...this.getConfig(p.match.params.type) }
+              onAction={(userAnswer) => {
+                this.handleNavigationAction()
+              }
+              } />}
+            />
 
             <Route path='/config' component={(p) => <Config ref={(ref) => this.configView = ref} {...this.config} />} />
             <Route path='/about' component={About} />

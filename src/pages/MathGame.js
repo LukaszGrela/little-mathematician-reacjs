@@ -385,7 +385,7 @@ class MathGame extends Component {
         let { questions, hudCorrectAnswers } = this.state,
             current = questions[0];
 
-        if(!!current.answer) return;
+        if (!!current.answer) return;
 
         // record user answer
         current.answer = {
@@ -483,7 +483,9 @@ class MathGame extends Component {
      */
     gameOverView() {
         return (
-            <GameOver {...this.state} onAction={this.handleNavigation} />
+            <GameOver {...this.state}
+                userAnswers={this.userAnswers}
+                onAction={this.handleNavigation} />
         )
     }
 

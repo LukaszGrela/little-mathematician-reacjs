@@ -1,0 +1,70 @@
+.game-over {
+    padding-top: 1rem;
+    text-align: left;
+    width: 300px;
+    margin: 0 auto;
+}
+.game-over .title {
+    font-size: 2rem;
+    margin: 1.5rem 0;
+    text-align: center;
+}
+.game-over .content {
+    display: block;
+    margin: 1.5rem 0;
+}
+.game-over .footer {
+    display: block;
+    text-align: center;
+    margin: 1.5rem 0;
+}
+
+.game-over .title .p1 {
+    color: #388E3C;
+}
+
+.game-over .title .p2 {
+    color: #8BC34A;
+}
+
+.game-over .title .p3 {
+    color: #CDDC39;
+}
+
+.game-over .footer button {
+    height: 75px;
+    width: 75px;
+    margin: 10px;
+    border: none;
+    background: none;
+}
+
+.game-over .footer button svg {
+    fill: #fff;
+    width: 50px;
+    height: 50px;
+    -webkit-transition: all .5s ease;
+    -o-transition: all .5s ease;
+    transition: all .5s ease;
+}
+/*
+.game-over .footer button svg.icon-menu {
+    fill: #E64A19;
+}
+.game-over .footer button svg.icon-replay {
+    fill: #FF9800;
+}
+*/
+.game-over .footer button.menu-button {
+    background-color: #E64A19;
+}
+.game-over .footer button.replay-button {
+    background-color: #FF9800;
+}
+
+
+.game-over .footer button:hover svg {
+    -webkit-transform: rotate(1turn);
+    -ms-transform: rotate(1turn);
+    transform: rotate(1turn);
+}

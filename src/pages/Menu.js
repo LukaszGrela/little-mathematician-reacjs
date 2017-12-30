@@ -23,26 +23,38 @@ class Menu extends Component {
         return (
             <div className="menu">
                 <div className="row">
-                    <button onClick={() => {
-                        this.handleClick("plus");
-                    }}>
+                    <button
+                        className='addition'
+                        onClick={() => {
+                            this.handleClick("plus");
+                        }}>
+                        <span className="badge score">{0}</span>
                         <ButtonIconPlus />
                     </button>
-                    <button onClick={() => {
-                        this.handleClick("minus");
-                    }}>
+                    <button
+                        className='subtraction'
+                        onClick={() => {
+                            this.handleClick("minus");
+                        }}>
+                        <span className="badge score">{0}</span>
                         <ButtonIconMinus />
                     </button>
                 </div>
                 <div className="row">
-                    <button onClick={() => {
-                        this.handleClick("multiply");
-                    }}>
+                    <button
+                        className='multiplication'
+                        onClick={() => {
+                            this.handleClick("multiply");
+                        }}>
+                        <span className="badge score">{0}</span>
                         <ButtonIconMultiply />
                     </button>
-                    <button onClick={() => {
-                        this.handleClick("divide");
-                    }}>
+                    <button
+                        className='division'
+                        onClick={() => {
+                            this.handleClick("divide");
+                        }}>
+                        <span className="badge score">{0}</span>
                         <ButtonIconDivide />
                     </button>
                 </div>
