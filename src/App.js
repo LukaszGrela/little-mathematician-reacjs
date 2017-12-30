@@ -139,7 +139,7 @@ class App extends Component {
    */
   getLeftIconSlotFragment() {
     const { location } = this.state;
-    if (location === '/') {
+    if (location !== '/') {
       return <button onClick={() => { this.handleNavigationAction() }}>
         <IconArrowBack /></button>
 
