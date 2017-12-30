@@ -382,7 +382,7 @@ class MathGame extends Component {
     handleAnswerSelection(answer, optionId) {
         console.log("MathGame#handleAnswerSelection", answer);
         // assess answer
-        let { questions, hudQuestionCurrent, hudCorrectAnswers } = this.state,
+        let { questions, hudCorrectAnswers } = this.state,
             current = questions[0];
 
         if(!!current.answer) return;

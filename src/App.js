@@ -18,50 +18,88 @@ import LogoIcon from './icons/LogoIcon';
 import IconArrowBack from './icons/IconArrowBack';
 import IconInfo from './icons/IconInfo';
 import IconSettings from './icons/IconSettings';
+import Config from './pages/Config';
 
 class App extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      location: props.location.pathname || '/',
-      gameName: ''
+      location: props.location.pathname || '/'
     }
 
-    console.log('App', props.location);
     this.handleMenuAction = this.handleNavigationAction.bind(this);
+  }
+
+
+  getTitle() {
+    
+    const { pathname } = this.props.location;
+    let title = '';
+    
+    switch (pathname) {
+      case '/game:addition':
+      title = 'Addition';
+      break;
+      
+      case '/game:subtraction':
+      title = 'Subtraction';
+      break;
+      
+      case '/game:multiplication':
+      title = 'Multiplication';
+      break;
+      
+      case '/game:division':
+      title = 'Division';
+      break;
+      
+      case '/config':
+      title = 'Config';
+      break;
+      
+      case '/about':
+      title = 'About';
+      break;
+      
+      case '/':
+      default:
+      title = '';
+      break;
+    }
+    
+    console.log('getTitle', pathname, title);
+
+    if (title !== '')
+      return <h3>{title}</h3>
+    else return null;
+
+
+
   }
 
   handleNavigationAction(action) {
     console.log("App", action);
-    let to = '/',
-      gameName = '';
+    let to = '/';
     switch (action) {
       case 'plus':
         to = '/game:addition';
-        gameName = 'Addition';
         break;
       case 'minus':
         to = '/game:subtraction';
-        gameName = 'Subtraction';
         break;
       case 'multiply':
         to = '/game:multiplication';
-        gameName = 'Multiplication';
         break;
       case 'divide':
         to = '/game:division';
-        gameName = 'Division';
 
         break;
 
-
       case 'about':
-        gameName = 'About';
         to = '/about';
         break;
       case 'config':
-        gameName = 'Config';
         to = '/config'
         break;
 
@@ -70,7 +108,7 @@ class App extends Component {
         break;
     }
     this.props.history.push(to);
-    this.setState({ location: to, gameName })
+    this.setState({ location: to })
   }
 
   render() {
@@ -78,8 +116,7 @@ class App extends Component {
       <div className="App">
         <header className={"App-header" + (this.state.location !== '/' ? " in-page" : "")}>
           <h1 className="App-title">Little Mathematician</h1>
-          {this.state.gameName !== '' ? <h3>{this.state.gameName}</h3> : null}
-          {/*<img src='./assets/little-mathematician-logo.svg' />*/}
+          {this.getTitle()}
           <div className='leftIconSlot'>
             {this.state.location !== '/' ? <button onClick={() => { this.handleNavigationAction() }}>
               <IconArrowBack /></button> : <LogoIcon />}
@@ -100,6 +137,7 @@ class App extends Component {
               from={10} to={20} questionCount={25}
               onAction={this.handleNavigationAction} />} />
 
+            <Route path='/config' component={(p) => <Config />} />
             <Route path='/about' component={About} />
             <Route component={NoMatch} />
           </Switch>
