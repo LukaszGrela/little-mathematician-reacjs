@@ -405,7 +405,7 @@ class MathGame extends Component {
     }
 
     nextQuestion() {
-        let { questions, hudQuestionCurrent } = this.state,
+        let { questions, hudQuestionCurrent, hudCorrectAnswers } = this.state,
             distractors = [],
             gameOver = false;
 
@@ -419,6 +419,8 @@ class MathGame extends Component {
         if (questions.length === 0) {
             //end of the game
             gameOver = true;
+            // send score
+            this.props.onScore && this.props.onScore(hudCorrectAnswers, this.state.type);
         } else {
             distractors = questions[0].distractors;
             hudQuestionCurrent++;

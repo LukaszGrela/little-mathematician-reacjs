@@ -24,6 +24,12 @@ import IconSave from './icons/IconSave';
 class App extends Component {
 
   config = {};
+  stats = {
+    division: 0,
+    addition: 0,
+    multiplication: 0,
+    subtraction: 0
+  }
 
   constructor(props) {
     super(props);
@@ -40,10 +46,14 @@ class App extends Component {
     };
     // 
     this.handleConfigSave = this.handleConfigSave.bind(this);
+    this.handleScoreUpdate = this.handleScoreUpdate.bind(this);
     this.handleNavigationAction = this.handleNavigationAction.bind(this);
   }
 
-
+  /**
+   * Returns configuration for the game.
+   * @param {string} game Id of the game for which config needs to be prepared
+   */
   getConfig(game) {
     let config = Object.assign({}, this.config.general);
     console.log('getConfig', game, config);
@@ -59,6 +69,10 @@ class App extends Component {
     return config;
   }
 
+  /**
+   * Returns title fragment (JSX element) used in header based on location
+   * @returns {JSX.Element|null} JSX fragment
+   */
   getTitleFragment() {
 
     const { pathname } = this.props.location;
@@ -104,7 +118,24 @@ class App extends Component {
 
 
   }
+  /**
+   * Returns content of left icon slot in header
+   * @returns {JSX.Element|null} JSX fragment
+   */
+  getLeftIconSlotFragment() {
+    const { location } = this.state;
+    if (location === '/') {
+      return <button onClick={() => { this.handleNavigationAction() }}>
+        <IconArrowBack /></button>
 
+    } else {
+      return <LogoIcon />
+    }
+  }
+  /**
+   * Returns content of right icon slot in header
+   * @returns {JSX.Element|null} JSX fragment
+   */
   getRightIconSlotFragment() {
     const { location } = this.state;
     if (location === '/') {
@@ -118,12 +149,49 @@ class App extends Component {
     }
     return null;
   }
+
+  /**
+   * Updates score stats
+   * @param {number} score Points collected
+   * @param {string} id Id of the game 
+   */
+  handleScoreUpdate(score, id) {
+
+    switch (id) {
+      case ':subtraction':
+        this.stats.subtraction += score;
+        break;
+
+      case ':multiplication':
+        this.stats.multiplication += score;
+        break;
+
+      case ':division':
+        this.stats.division += score;
+        break;
+
+      case ':addition':
+      default:
+        this.stats.addition += score;
+        break;
+
+    }
+  }
+
+  /**
+   * Click handler for button-settings-save, get's config object from config view and navigates to menu.
+   */
   handleConfigSave() {
     let config = this.configView.getSettings();
     console.log('handleConfigSave', config);
     this.config = config;
     this.handleNavigationAction();
   }
+
+  /**
+   * Handles navigation requests, updates state
+   * @param {string} action Navigation ID
+   */
   handleNavigationAction(action) {
     console.log("App", action);
     let to = '/';
@@ -164,8 +232,9 @@ class App extends Component {
           <h1 className="App-title">Little Mathematician</h1>
           {this.getTitleFragment()}
           <div className='leftIconSlot'>
-            {this.state.location !== '/' ? <button onClick={() => { this.handleNavigationAction() }}>
-              <IconArrowBack /></button> : <LogoIcon />}
+            {
+              this.getLeftIconSlotFragment()
+            }
           </div>
 
           <div className='rightIconSlot'>
@@ -176,10 +245,13 @@ class App extends Component {
         </header>
         <section className='content'>
           <Switch>
-            <Route exact path='/' component={() => <Menu onAction={this.handleNavigationAction} />} />
+            <Route exact path='/' component={() => <Menu
+              onAction={this.handleNavigationAction}
+              stats={this.stats} />} />
 
             <Route path='/game:type' component={(p) => <MathGame {...p.match.params}
               {...this.getConfig(p.match.params.type) }
+              onScore={this.handleScoreUpdate}
               onAction={(userAnswer) => {
                 this.handleNavigationAction()
               }

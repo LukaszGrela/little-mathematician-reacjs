@@ -28,7 +28,7 @@ class Menu extends Component {
                         onClick={() => {
                             this.handleClick("plus");
                         }}>
-                        <span className="badge score">{0}</span>
+                        <span className="badge score">{this.props.stats.addition}</span>
                         <ButtonIconPlus />
                     </button>
                     <button
@@ -36,7 +36,7 @@ class Menu extends Component {
                         onClick={() => {
                             this.handleClick("minus");
                         }}>
-                        <span className="badge score">{0}</span>
+                        <span className="badge score">{this.props.stats.subtraction}</span>
                         <ButtonIconMinus />
                     </button>
                 </div>
@@ -46,7 +46,7 @@ class Menu extends Component {
                         onClick={() => {
                             this.handleClick("multiply");
                         }}>
-                        <span className="badge score">{0}</span>
+                        <span className="badge score">{this.props.stats.multiplication}</span>
                         <ButtonIconMultiply />
                     </button>
                     <button
@@ -54,7 +54,7 @@ class Menu extends Component {
                         onClick={() => {
                             this.handleClick("divide");
                         }}>
-                        <span className="badge score">{0}</span>
+                        <span className="badge score">{this.props.stats.division}</span>
                         <ButtonIconDivide />
                     </button>
                 </div>
