@@ -2,29 +2,29 @@
     padding-top: 50px;
 }
 
-.title {
+.no-match-404 .title {
     line-height: 3em;
 }
-.title .sign {
+.no-match-404 .title .sign {
     font-size: 1.5em;
     vertical-align: top;
 }
-.title .digit {
+.no-match-404 .title .digit {
     font-size: 3em;
 }
 
-.digit.d1 {
+.no-match-404 .digit.d1 {
     color: #388E3C;
 }
 
-.digit.d2 {
+.no-match-404 .digit.d2 {
     color: #8BC34A;
 }
 
-.digit.d3 {
+.no-match-404 .digit.d3 {
     color: #CDDC39;
 }
 
-.title .sign {
+.no-match-404 .title .sign {
     color: #FFEB3B;
 }

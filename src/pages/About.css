@@ -1,3 +1,13 @@
 .about {
-    padding-top: 50px;
+    padding-top: 1em;
+    text-align: left;
+    width: 300px;
+    margin: 0 auto;
+}
+.about .title {
+    font-size: 2em;
+    line-height: 3em;
+}
+.about .acknowledgement {
+    color: #757575;
 }

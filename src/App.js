@@ -7,6 +7,7 @@ import NoMatch from './pages/NoMatch'
 import Menu from './pages/Menu'
 import About from './pages/About'
 import MathGame from './pages/MathGame'
+import Config from './pages/Config';
 
 // components
 import Footer from './components/Footer'
@@ -18,7 +19,7 @@ import LogoIcon from './icons/LogoIcon';
 import IconArrowBack from './icons/IconArrowBack';
 import IconInfo from './icons/IconInfo';
 import IconSettings from './icons/IconSettings';
-import Config from './pages/Config';
+import IconSave from './icons/IconSave';
 
 class App extends Component {
 
@@ -27,47 +28,47 @@ class App extends Component {
     this.state = {
       location: props.location.pathname || '/'
     }
-
-    this.handleMenuAction = this.handleNavigationAction.bind(this);
+    console.log('App#constructor', this.props);
+    this.handleNavigationAction = this.handleNavigationAction.bind(this);
   }
 
 
-  getTitle() {
-    
+  getTitleFragment() {
+
     const { pathname } = this.props.location;
     let title = '';
-    
+
     switch (pathname) {
       case '/game:addition':
-      title = 'Addition';
-      break;
-      
+        title = 'Addition';
+        break;
+
       case '/game:subtraction':
-      title = 'Subtraction';
-      break;
-      
+        title = 'Subtraction';
+        break;
+
       case '/game:multiplication':
-      title = 'Multiplication';
-      break;
-      
+        title = 'Multiplication';
+        break;
+
       case '/game:division':
-      title = 'Division';
-      break;
-      
+        title = 'Division';
+        break;
+
       case '/config':
-      title = 'Config';
-      break;
-      
+        title = 'Config';
+        break;
+
       case '/about':
-      title = 'About';
-      break;
-      
+        title = 'About';
+        break;
+
       case '/':
       default:
-      title = '';
-      break;
+        title = '';
+        break;
     }
-    
+
     console.log('getTitle', pathname, title);
 
     if (title !== '')
@@ -76,6 +77,20 @@ class App extends Component {
 
 
 
+  }
+
+  getRightIconSlotFragment() {
+    const { location } = this.state;
+    if (location === '/') {
+      return [
+        <button key={'about-btn'} className='button-about' onClick={() => { this.handleNavigationAction('about') }}><IconInfo /></button>,
+        <button key={'settings-btn'} className='button-settings' onClick={() => { this.handleNavigationAction('config') }}><IconSettings /></button>
+      ];
+    } else if (location === '/config') {
+      return <button key={'save-btn'} className='button-settings-save' onClick={() => { this.handleNavigationAction('config') }}><IconSave /></button>
+       
+    }
+    return null;
   }
 
   handleNavigationAction(action) {
@@ -116,18 +131,17 @@ class App extends Component {
       <div className="App">
         <header className={"App-header" + (this.state.location !== '/' ? " in-page" : "")}>
           <h1 className="App-title">Little Mathematician</h1>
-          {this.getTitle()}
+          {this.getTitleFragment()}
           <div className='leftIconSlot'>
             {this.state.location !== '/' ? <button onClick={() => { this.handleNavigationAction() }}>
               <IconArrowBack /></button> : <LogoIcon />}
           </div>
-          {this.state.location === '/' ?
-            <div className='rightIconSlot'>
-              <button className='button-about' onClick={() => { this.handleNavigationAction('about') }}><IconInfo /></button>
-              <button className='button-settings' onClick={() => { this.handleNavigationAction('config') }}><IconSettings /></button>
-            </div>
-            : null
-          }
+
+          <div className='rightIconSlot'>
+            {
+              this.getRightIconSlotFragment()
+            }
+          </div>
         </header>
         <section className='content'>
           <Switch>

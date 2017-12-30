@@ -3,10 +3,12 @@ import React, { Component } from 'react';
 import './Footer.css'
 
 class Footer extends Component {
-    state = {}
+    state = {
+        currentYear: (new Date()).getFullYear()
+    }
     render() {
         return (
-            <footer>GrelaDesign (c) 2017</footer>
+            <footer>GrelaDesign (c) {this.state.currentYear}</footer>
         );
     }
 }
