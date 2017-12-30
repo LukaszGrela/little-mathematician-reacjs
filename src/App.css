@@ -23,7 +23,7 @@
 
   fill: #fff;
 }
-.leftIconSlot button {
+.rightIconSlot button, .leftIconSlot button {
   border: none;
   background: none;
 
@@ -43,6 +43,35 @@
   -moz-transform: rotate(1turn);
   transform: rotate(1turn);
 }
+
+.rightIconSlot {
+  position: absolute;
+  right: 8px;
+  top: 25px;
+
+  height: 40px;
+}
+
+.rightIconSlot button {
+  width: 40px;
+  height: 40px;
+}
+.rightIconSlot button svg {
+  fill: #fff;
+
+
+  -webkit-transition: all .5s ease;
+  -o-transition: all .5s ease;
+  transition: all .5s ease;
+  
+}
+.rightIconSlot button:hover svg {
+  -webkit-transform: rotate(1turn);
+  -ms-transform: rotate(1turn);
+  transform: rotate(1turn);
+}
+
+
 
 .App-title {
   font-size: 1.5em;

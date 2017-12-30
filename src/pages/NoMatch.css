@@ -1,0 +1,30 @@
+.no-match-404 {
+    padding-top: 50px;
+}
+
+.title {
+    line-height: 3em;
+}
+.title .sign {
+    font-size: 1.5em;
+    vertical-align: top;
+}
+.title .digit {
+    font-size: 3em;
+}
+
+.digit.d1 {
+    color: #388E3C;
+}
+
+.digit.d2 {
+    color: #8BC34A;
+}
+
+.digit.d3 {
+    color: #CDDC39;
+}
+
+.title .sign {
+    color: #FFEB3B;
+}
