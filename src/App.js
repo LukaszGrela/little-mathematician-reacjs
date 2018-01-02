@@ -40,12 +40,6 @@ import { GAME_ADDITION, GAME_SUBTRACTION, GAME_MULTIPLICATION, GAME_DIVISION } f
 class App extends Component {
 
   config = {};
-  stats = {
-    division: 0,
-    addition: 0,
-    multiplication: 0,
-    subtraction: 0
-  }
 
   constructor(props) {
     super(props);
@@ -166,33 +160,6 @@ class App extends Component {
     return null;
   }
 
-  /**
-   * Updates score stats
-   * @param {number} score Points collected
-   * @param {string} id Id of the game 
-   */
-  handleScoreUpdate(score, id) {
-
-    switch (id) {
-      case GAME_SUBTRACTION:
-        this.stats.subtraction += score;
-        break;
-
-      case GAME_MULTIPLICATION:
-        this.stats.multiplication += score;
-        break;
-
-      case GAME_DIVISION:
-        this.stats.division += score;
-        break;
-
-      case GAME_ADDITION:
-      default:
-        this.stats.addition += score;
-        break;
-
-    }
-  }
 
   /**
    * Click handler for button-settings-save, get's config object from config view and navigates to menu.
@@ -263,11 +230,11 @@ class App extends Component {
           <Switch>
             <Route exact path='/' component={() => <Menu
               onAction={this.handleNavigationAction}
-              stats={this.stats} />} />
+            />} />
 
             <Route path='/game:type' component={(p) => <MathGame {...p.match.params}
               {...this.getConfig(p.match.params.type) }
-              onScore={this.handleScoreUpdate}
+
               onAction={(userAnswer) => {
                 this.handleNavigationAction()
               }
