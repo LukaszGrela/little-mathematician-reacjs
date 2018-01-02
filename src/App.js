@@ -35,6 +35,7 @@ import IconArrowBack from './icons/IconArrowBack';
 import IconInfo from './icons/IconInfo';
 import IconSettings from './icons/IconSettings';
 import IconSave from './icons/IconSave';
+import { GAME_ADDITION, GAME_SUBTRACTION, GAME_MULTIPLICATION, GAME_DIVISION } from './gameTypes';
 
 class App extends Component {
 
@@ -73,11 +74,11 @@ class App extends Component {
     let config = Object.assign({}, this.config.general);
     console.log('getConfig', game, config);
     switch (game) {
-      case ':subtraction':
+      case GAME_SUBTRACTION:
 
         break;
 
-      case ':addition':
+      case GAME_ADDITION:
       default:
         break;
     }
@@ -94,19 +95,19 @@ class App extends Component {
     let title = '';
 
     switch (pathname) {
-      case '/game:addition':
+      case '/game' + GAME_ADDITION:
         title = 'Addition';
         break;
 
-      case '/game:subtraction':
+      case '/game' + GAME_SUBTRACTION:
         title = 'Subtraction';
         break;
 
-      case '/game:multiplication':
+      case '/game' + GAME_MULTIPLICATION:
         title = 'Multiplication';
         break;
 
-      case '/game:division':
+      case '/game' + GAME_DIVISION:
         title = 'Division';
         break;
 
@@ -173,19 +174,19 @@ class App extends Component {
   handleScoreUpdate(score, id) {
 
     switch (id) {
-      case ':subtraction':
+      case GAME_SUBTRACTION:
         this.stats.subtraction += score;
         break;
 
-      case ':multiplication':
+      case GAME_MULTIPLICATION:
         this.stats.multiplication += score;
         break;
 
-      case ':division':
+      case GAME_DIVISION:
         this.stats.division += score;
         break;
 
-      case ':addition':
+      case GAME_ADDITION:
       default:
         this.stats.addition += score;
         break;
@@ -212,16 +213,16 @@ class App extends Component {
     let to = '/';
     switch (action) {
       case 'plus':
-        to = '/game:addition';
+        to = '/game' + GAME_ADDITION;
         break;
       case 'minus':
-        to = '/game:subtraction';
+        to = '/game' + GAME_SUBTRACTION;
         break;
       case 'multiply':
-        to = '/game:multiplication';
+        to = '/game' + GAME_MULTIPLICATION;
         break;
       case 'divide':
-        to = '/game:division';
+        to = '/game' + GAME_DIVISION;
 
         break;
 

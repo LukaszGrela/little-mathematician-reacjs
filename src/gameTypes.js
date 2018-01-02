@@ -13,22 +13,8 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 */
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { BrowserRouter as Router } from 'react-router-dom'
 
-import { Provider } from 'react-redux'
-
-import './index.css';
-import App from './App';
-import store from './Store'
-import registerServiceWorker from './registerServiceWorker';
-
-ReactDOM.render(
-    <Provider store={store}>
-        <Router basename='/little-mathematician'>
-            <App />
-        </Router>
-    </Provider>,
-    document.getElementById('root'));
-registerServiceWorker();
+export const GAME_ADDITION       = ':addition';
+export const GAME_SUBTRACTION    = ':subtraction';
+export const GAME_MULTIPLICATION = ':multiplication';
+export const GAME_DIVISION       = ':division';

@@ -13,22 +13,17 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 */
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { BrowserRouter as Router } from 'react-router-dom'
 
-import { Provider } from 'react-redux'
+export const INCREASE_SCORE_OF_GAME = 'INCREASE_SCORE_OF_GAME';
 
-import './index.css';
-import App from './App';
-import store from './Store'
-import registerServiceWorker from './registerServiceWorker';
 
-ReactDOM.render(
-    <Provider store={store}>
-        <Router basename='/little-mathematician'>
-            <App />
-        </Router>
-    </Provider>,
-    document.getElementById('root'));
-registerServiceWorker();
+
+export function increaseScoreOfGame(score, game) {
+    return {
+        type: INCREASE_SCORE_OF_GAME,
+        payload: {
+            score,
+            game
+        }
+    }
+}
