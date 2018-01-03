@@ -15,8 +15,9 @@
 */
 import { combineReducers } from "redux";
 import scoreReducer from './scoreReducer'
-
+import configReducer from './configReducer'
 
 export default combineReducers({
-    score:scoreReducer
+    score: scoreReducer,
+    config: configReducer
 })

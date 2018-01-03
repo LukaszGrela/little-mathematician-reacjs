@@ -17,6 +17,8 @@
 import React, { Component } from 'react';
 
 import './Config.css'
+import connect from 'react-redux/lib/connect/connect';
+import { changeNumberOfQuestions,ConfigType, changeRangeTo, changeRangeFrom } from '../actions/actions';
 
 class Config extends Component {
 
@@ -24,41 +26,33 @@ class Config extends Component {
     constructor(props) {
         super(props);
         this.state = Object.assign({}, props);
-        /*{
-            general: {
-                questionCount: 10,
-                from: 0,
-                to: 10
-            }
-        };*/
-    }
-
-    getSettings() {
-        return Object.assign({}, this.state);
     }
 
 
 
     handleChange(field, value) {
         let _val = parseInt(value, 10);
-        let gCount = this.state.general.questionCount;
-        let gFrom = this.state.general.from;
-        let gTo = this.state.general.to;
+        let gCount = this.props.general.questionCount;
+        let gFrom = this.props.general.from;
+        let gTo = this.props.general.to;
+        const { dispatch } = this.props;
         switch (field) {
             case 'general-qn':
-                this.setState({ general: { questionCount: _val, from:gFrom, to:gTo } });
+                dispatch(changeNumberOfQuestions(_val, ConfigType.GENERAL));
                 break;
             case 'general-rf':
                 if (_val >= gTo) {
-                    gTo = _val + 10;
+                    dispatch(changeRangeTo(_val + 10, ConfigType.GENERAL));
                 }
-                this.setState({ general: { from: _val, to:gTo, questionCount:gCount } });
+                //this.setState({ general: { from: _val, to: gTo, questionCount: gCount } });
+                dispatch(changeRangeFrom(_val, ConfigType.GENERAL));
                 break;
             case 'general-rt':
                 if (_val <= gFrom) {
-                    gFrom = _val - 10;
+                    dispatch(changeRangeFrom(_val - 10, ConfigType.GENERAL));
                 }
-                this.setState({ general: { to: _val, from:gFrom, questionCount:gCount } });
+                //this.setState({ general: { to: _val, from: gFrom, questionCount: gCount } });
+                dispatch(changeRangeTo(_val, ConfigType.GENERAL));
                 break;
             default:
                 break;
@@ -73,7 +67,7 @@ class Config extends Component {
                     <div className='general'>
                         <label>
                             Number of questions:
-                            <select value={this.state.general.questionCount}
+                            <select value={this.props.general.questionCount}
                                 onChange={(e) => this.handleChange('general-qn', e.target.value)}>
                                 <option value="10">10</option>
                                 <option value="25">25</option>
@@ -83,7 +77,7 @@ class Config extends Component {
                         </label>
                         <label>
                             Number range from:
-                            <select value={this.state.general.from}
+                            <select value={this.props.general.from}
                                 onChange={(e) => this.handleChange('general-rf', e.target.value)}>
                                 <option value="0">0</option>
                                 <option value="10">10</option>
@@ -94,7 +88,7 @@ class Config extends Component {
                         </label>
                         <label>
                             Number range to:
-                            <select value={this.state.general.to}
+                            <select value={this.props.general.to}
                                 onChange={(e) => this.handleChange('general-rt', e.target.value)}>
                                 <option value="10">10</option>
                                 <option value="20">20</option>
@@ -114,4 +108,10 @@ class Config extends Component {
     }
 }
 
-export default Config;
+const mapStateToProps = (state) => {
+    console.log('Config#mapStateToProps', state);
+    const config = Object.assign({}, state.config);
+    return config;
+}
+
+export default connect(mapStateToProps)(Config);

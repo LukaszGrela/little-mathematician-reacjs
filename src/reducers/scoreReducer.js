@@ -22,13 +22,13 @@ import {
     GAME_MULTIPLICATION
 } from "../gameTypes";
 
-const defaultState = {
+
+export default function reducer(state = {
     addScore: 0,
     subScore: 0,
     mulScore: 0,
     divScore: 0
-};
-export default function reducer(state = defaultState, action) {
+}, action) {
     if (action.type === INCREASE_SCORE_OF_GAME) {
         const { payload } = action;
         let o = {};

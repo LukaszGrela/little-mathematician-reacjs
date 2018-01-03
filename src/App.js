@@ -39,24 +39,13 @@ import { GAME_ADDITION, GAME_SUBTRACTION, GAME_MULTIPLICATION, GAME_DIVISION } f
 
 class App extends Component {
 
-  config = {};
 
   constructor(props) {
     super(props);
     this.state = {
       location: props.location.pathname || '/'
     }
-    //  defaults
-    this.config = {
-      general: {
-        questionCount: 10,
-        from: 0,
-        to: 10
-      }
-    };
     // 
-    this.handleConfigSave = this.handleConfigSave.bind(this);
-    this.handleScoreUpdate = this.handleScoreUpdate.bind(this);
     this.handleNavigationAction = this.handleNavigationAction.bind(this);
   }
 
@@ -153,22 +142,9 @@ class App extends Component {
         <button key={'about-btn'} className='button-about' onClick={() => { this.handleNavigationAction('about') }}><IconInfo /></button>,
         <button key={'settings-btn'} className='button-settings' onClick={() => { this.handleNavigationAction('config') }}><IconSettings /></button>
       ];
-    } else if (location === '/config') {
-      return <button key={'save-btn'} className='button-settings-save' onClick={() => { this.handleConfigSave(); }}><IconSave /></button>
-
-    }
+    } 
+    // else if (location === '/config') {}
     return null;
-  }
-
-
-  /**
-   * Click handler for button-settings-save, get's config object from config view and navigates to menu.
-   */
-  handleConfigSave() {
-    let config = this.configView.getSettings();
-    console.log('handleConfigSave', config);
-    this.config = config;
-    this.handleNavigationAction();
   }
 
   /**
@@ -241,7 +217,7 @@ class App extends Component {
               } />}
             />
 
-            <Route path='/config' component={(p) => <Config ref={(ref) => this.configView = ref} {...this.config} />} />
+            <Route path='/config' component={(p) => <Config />} />
             <Route path='/about' component={About} />
             <Route component={NoMatch} />
           </Switch>
