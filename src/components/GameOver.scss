@@ -14,6 +14,8 @@
    limitations under the License.
 */
  
+@import 'sass/_variables.scss';
+
 .game-over {
     padding-top: 1rem;
     text-align: left;
@@ -36,15 +38,15 @@
 }
 
 .game-over .title .p1 {
-    color: #388E3C;
+    color: $accent-color-1;
 }
 
 .game-over .title .p2 {
-    color: #8BC34A;
+    color: $accent-color-2;
 }
 
 .game-over .title .p3 {
-    color: #CDDC39;
+    color: $accent-color-3;
 }
 
 .game-over .footer button {
@@ -56,7 +58,7 @@
 }
 
 .game-over .footer button svg {
-    fill: #fff;
+    fill: $primary-color-text;
     width: 50px;
     height: 50px;
     -webkit-transition: all .5s ease;
@@ -72,10 +74,10 @@
 }
 */
 .game-over .footer button.menu-button {
-    background-color: #E64A19;
+    background-color: $accent-color-6;
 }
 .game-over .footer button.replay-button {
-    background-color: #FF9800;
+    background-color: $accent-color-5;
 }
 
 

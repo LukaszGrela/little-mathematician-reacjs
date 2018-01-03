@@ -14,6 +14,8 @@
    limitations under the License.
 */
 
+@import 'sass/_variables.scss';
+
 .menu {
     position: absolute;
     top: 50%;
@@ -46,19 +48,19 @@
 }
 
 .menu button #button-icon-plus {
-    fill: #388E3C;
+    fill: $accent-color-1;
 }
 
 .menu button #button-icon-minus {
-    fill: #8BC34A;
+    fill: $accent-color-2;
 }
 
 .menu button #button-icon-multiply {
-    fill: #CDDC39;
+    fill: $accent-color-3;
 }
 
 .menu button #button-icon-divide {
-    fill: #FFEB3B;
+    fill: $accent-color-4;
 }
 
 .menu button .badge {
@@ -90,7 +92,7 @@
 }
 
 .menu button.division .badge {
-    background-color:#388E3C;
+    background-color:$accent-color-1;
     left: 140px;
     bottom: -5px;
 }

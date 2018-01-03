@@ -14,6 +14,8 @@
    limitations under the License.
 */
 
+@import 'sass/_variables.scss';
+
 .no-match-404 {
     padding-top: 50px;
 }
@@ -30,17 +32,17 @@
 }
 
 .no-match-404 .digit.d1 {
-    color: #388E3C;
+    color: $accent-color-1;
 }
 
 .no-match-404 .digit.d2 {
-    color: #8BC34A;
+    color: $accent-color-2;
 }
 
 .no-match-404 .digit.d3 {
-    color: #CDDC39;
+    color: $accent-color-3;
 }
 
 .no-match-404 .title .sign {
-    color: #FFEB3B;
+    color: $accent-color-4;
 }

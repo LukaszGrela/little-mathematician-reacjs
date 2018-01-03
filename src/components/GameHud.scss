@@ -18,29 +18,43 @@
     background-color: transparent;
     padding: 10px 0;
     margin-bottom: 10px;
-}
-.game-hud .container {
-    width: 300px;
-    margin: 0 auto;
-}
-.game-hud .container div {
-    display: inline-block;
-    padding: 0 10px;
-    width: 80px;
+    .container {
+        width: 300px;
+        margin: 0 auto;
+        div {
+            display: inline-block;
+            padding: 0 10px;
+            width: 80px;
+        }
+    }
+
+    /* bottom border of the hud */
+    &.addition {
+        border-bottom: 2px solid $accent-color-1;
+    }
+    
+    &.subtraction {
+        border-bottom: 2px solid $accent-color-2;
+    }
+    
+    &.multiplication {
+        border-bottom: 2px solid $accent-color-3;
+    }
+    
+    &.division {
+        border-bottom: 2px solid $accent-color-4;
+    }
 }
 
 .question-counter {
     text-align: left;
 }
 
-
-
-
-
 .correct-answers {
-    color: green;
+    color: $color-correct;
     text-align: right;
 }
+
 .icon-grade {
     width: 24px;
     height: 24px;
@@ -50,18 +64,17 @@
 }
 
 .gain-even .icon-grade,
-.gain-odd .icon-grade
- {
+.gain-odd .icon-grade {
     animation-duration: 0.5s;
     animation-iteration-count: 3;
     animation-timing-function: ease-out;
 }
-.gain-even .icon-grade {
 
+.gain-even .icon-grade {
     animation-name: zoom-star-1;
 }
-.gain-odd .icon-grade {
 
+.gain-odd .icon-grade {
     animation-name: zoom-star-2;
 }
 
@@ -77,6 +90,7 @@
         opacity: 0;
     }
 }
+
 @keyframes zoom-star-2 {
     0% {
         transform: scale(1);
@@ -90,24 +104,7 @@
     }
 }
 
-
 .correct-answers svg.icon-grade {
-    fill:#FFC107;
+    fill: $color-gold-star;
 }
 
-
-.game-hud.addition {
-    border-bottom: 2px solid #388E3C;
-}
-
-.game-hud.subtraction {
-    border-bottom: 2px solid #8BC34A;
-}
-
-.game-hud.multiplication {
-    border-bottom: 2px solid #CDDC39;
-}
-
-.game-hud.division {
-    border-bottom: 2px solid #FFEB3B;
-}

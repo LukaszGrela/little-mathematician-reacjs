@@ -34,7 +34,7 @@ import LogoIcon from './icons/LogoIcon';
 import IconArrowBack from './icons/IconArrowBack';
 import IconInfo from './icons/IconInfo';
 import IconSettings from './icons/IconSettings';
-import IconSave from './icons/IconSave';
+
 import { GAME_ADDITION, GAME_SUBTRACTION, GAME_MULTIPLICATION, GAME_DIVISION } from './gameTypes';
 
 class App extends Component {

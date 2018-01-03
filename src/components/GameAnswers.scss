@@ -13,31 +13,33 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 */
+
+@import '../sass/_variables.scss';
 .game-answers {
     width: 300px;
     margin: 0 auto;
-}
-
-.game-answers button {
-    /* reset */
-    background-color: white;
+    
+    button {
+        /* reset */
+        background-color: $primary-color-text;
+    }
+    hr {
+        border-color: $divider-color;
+        border-style: solid;
+    }
 }
 
 .answer {
     padding: 20px;
     margin: 2px;
-
     min-width: 70px;
-    border: 1px solid #ccc;
-
+    border: 1px solid $divider-color;
     font-size: 1em;
+    &:focus {
+        outline: none;
+    }
 }
 
-
-
-.answer:focus {
-    outline: none;
-}
 
 .hidden {
     visibility: hidden;

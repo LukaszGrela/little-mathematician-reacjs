@@ -13,55 +13,55 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 */
+
+@import '../sass/_variables.scss';
 .feedback {
     margin-top: -50px;
     height: 50px;
+    .mood-icon {
+        display: inline-block;
+        height: 32px;
+        width: 32px;
+        position: relative;
+        top: 9px;
+        margin-right: 8px;
+    }
+    /* message */
+    .message {
+        display: inline-block;
+        .correct-answer {
+            color: $color-correct;
+            font-weight: bold;
+            font-size: 1.25em;
+            margin-left: 8px;
+        }
+    }
+    /* navigate button */
+    button {
+        display: inline-block;
+        background-color: transparent;
+        border: none;
+        width: 40px;
+        height: 40px;
+        cursor: pointer;
+        position: relative;
+        top: 5px;
+        margin-left: 8px;
+        svg {
+            fill: $primary-text-color;
+            -webkit-transition: all .5s ease;
+            transition: all .5s ease;
+            &:hover {
+                transform: rotate(1turn);
+            }
+        }
+    }
 }
-.feedback .mood-icon {
-    display: inline-block;
-    height: 32px;
-    width: 32px;
 
-    position: relative;
-    top: 9px;
-
-    margin-right: 8px;
-}
 .feedback.incorrect .mood-icon {
-    fill: red;
+    fill: $color-incorrect;
 }
+
 .feedback.correct .mood-icon {
-    fill: green;
-}
-
-.feedback button {
-    display: inline-block;
-    background-color: transparent;
-    border: none;
-    width: 40px;
-    height: 40px;
-    cursor: pointer;
-    position: relative;
-    top: 5px;
-    margin-left: 8px;
-}
-
-.feedback button svg {
-    -webkit-transition: all .5s ease;
-    transition: all .5s ease;
-}
-.feedback button:hover svg {
-    transform: rotate(1turn);
-}
-.feedback .message {
-    display: inline-block;
-}
-
-
-
-.feedback .message .correct-answer {
-    color: green;
-    font-weight: bold;
-    font-size: 1.25em;
-    margin-left: 8px;
+    fill: $color-correct;
 }
