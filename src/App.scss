@@ -21,10 +21,11 @@
 }
 
 .App-header {
-  background-color: $primary-color-dark;
+  background-color: $primary-color;
   height: 50px;
   padding: 20px;
   color: $primary-color-text;
+  border-top: 8px $primary-color-dark solid;
 }
 
 
