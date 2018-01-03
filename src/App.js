@@ -35,54 +35,20 @@ import IconArrowBack from './icons/IconArrowBack';
 import IconInfo from './icons/IconInfo';
 import IconSettings from './icons/IconSettings';
 import IconSave from './icons/IconSave';
+import { GAME_ADDITION, GAME_SUBTRACTION, GAME_MULTIPLICATION, GAME_DIVISION } from './gameTypes';
 
 class App extends Component {
 
-  config = {};
-  stats = {
-    division: 0,
-    addition: 0,
-    multiplication: 0,
-    subtraction: 0
-  }
 
   constructor(props) {
     super(props);
     this.state = {
       location: props.location.pathname || '/'
     }
-    //  defaults
-    this.config = {
-      general: {
-        questionCount: 10,
-        from: 0,
-        to: 10
-      }
-    };
     // 
-    this.handleConfigSave = this.handleConfigSave.bind(this);
-    this.handleScoreUpdate = this.handleScoreUpdate.bind(this);
     this.handleNavigationAction = this.handleNavigationAction.bind(this);
   }
 
-  /**
-   * Returns configuration for the game.
-   * @param {string} game Id of the game for which config needs to be prepared
-   */
-  getConfig(game) {
-    let config = Object.assign({}, this.config.general);
-    console.log('getConfig', game, config);
-    switch (game) {
-      case ':subtraction':
-
-        break;
-
-      case ':addition':
-      default:
-        break;
-    }
-    return config;
-  }
 
   /**
    * Returns title fragment (JSX element) used in header based on location
@@ -94,19 +60,19 @@ class App extends Component {
     let title = '';
 
     switch (pathname) {
-      case '/game:addition':
+      case '/game' + GAME_ADDITION:
         title = 'Addition';
         break;
 
-      case '/game:subtraction':
+      case '/game' + GAME_SUBTRACTION:
         title = 'Subtraction';
         break;
 
-      case '/game:multiplication':
+      case '/game' + GAME_MULTIPLICATION:
         title = 'Multiplication';
         break;
 
-      case '/game:division':
+      case '/game' + GAME_DIVISION:
         title = 'Division';
         break;
 
@@ -158,49 +124,9 @@ class App extends Component {
         <button key={'about-btn'} className='button-about' onClick={() => { this.handleNavigationAction('about') }}><IconInfo /></button>,
         <button key={'settings-btn'} className='button-settings' onClick={() => { this.handleNavigationAction('config') }}><IconSettings /></button>
       ];
-    } else if (location === '/config') {
-      return <button key={'save-btn'} className='button-settings-save' onClick={() => { this.handleConfigSave(); }}><IconSave /></button>
-
     }
+    // else if (location === '/config') {}
     return null;
-  }
-
-  /**
-   * Updates score stats
-   * @param {number} score Points collected
-   * @param {string} id Id of the game 
-   */
-  handleScoreUpdate(score, id) {
-
-    switch (id) {
-      case ':subtraction':
-        this.stats.subtraction += score;
-        break;
-
-      case ':multiplication':
-        this.stats.multiplication += score;
-        break;
-
-      case ':division':
-        this.stats.division += score;
-        break;
-
-      case ':addition':
-      default:
-        this.stats.addition += score;
-        break;
-
-    }
-  }
-
-  /**
-   * Click handler for button-settings-save, get's config object from config view and navigates to menu.
-   */
-  handleConfigSave() {
-    let config = this.configView.getSettings();
-    console.log('handleConfigSave', config);
-    this.config = config;
-    this.handleNavigationAction();
   }
 
   /**
@@ -212,16 +138,16 @@ class App extends Component {
     let to = '/';
     switch (action) {
       case 'plus':
-        to = '/game:addition';
+        to = '/game' + GAME_ADDITION;
         break;
       case 'minus':
-        to = '/game:subtraction';
+        to = '/game' + GAME_SUBTRACTION;
         break;
       case 'multiply':
-        to = '/game:multiplication';
+        to = '/game' + GAME_MULTIPLICATION;
         break;
       case 'divide':
-        to = '/game:division';
+        to = '/game' + GAME_DIVISION;
 
         break;
 
@@ -262,18 +188,17 @@ class App extends Component {
           <Switch>
             <Route exact path='/' component={() => <Menu
               onAction={this.handleNavigationAction}
-              stats={this.stats} />} />
+            />} />
 
             <Route path='/game:type' component={(p) => <MathGame {...p.match.params}
-              {...this.getConfig(p.match.params.type) }
-              onScore={this.handleScoreUpdate}
+
               onAction={(userAnswer) => {
                 this.handleNavigationAction()
               }
               } />}
             />
 
-            <Route path='/config' component={(p) => <Config ref={(ref) => this.configView = ref} {...this.config} />} />
+            <Route path='/config' component={(p) => <Config />} />
             <Route path='/about' component={About} />
             <Route component={NoMatch} />
           </Switch>

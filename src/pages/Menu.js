@@ -21,9 +21,10 @@ import ButtonIconPlus from '../icons/ButtonIconPlus';
 import ButtonIconMinus from '../icons/ButtonIconMinus';
 import ButtonIconMultiply from '../icons/ButtonIconMultiply';
 import ButtonIconDivide from '../icons/ButtonIconDivide';
+import { connect } from 'react-redux';
 
 class Menu extends Component {
-    state = {}
+    state = {};
     constructor(props) {
         super(props);
 
@@ -34,6 +35,14 @@ class Menu extends Component {
         this.props.onAction && this.props.onAction(action);
     }
 
+
+    componentWillMount() {
+        console.log('Menu#componentWillMount', this.props);
+    }
+
+    componentWillUnmount() {
+        console.log('Menu#componentWillUnmount');
+    }
 
     render() {
         return (
@@ -79,4 +88,16 @@ class Menu extends Component {
     }
 }
 
-export default Menu;
+const mapStateToProps = (state) => {
+    console.log('mapStateToProps', state);
+    return {
+        stats: {
+            division: state.score.divScore,
+            multiplication: state.score.mulScore,
+            subtraction: state.score.subScore,
+            addition: state.score.addScore,
+        }
+    }
+}
+
+export default connect(mapStateToProps)(Menu);

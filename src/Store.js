@@ -13,19 +13,13 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 */
-import React, { Component } from 'react';
+import { applyMiddleware, createStore } from "redux"
 
-import './Footer.css'
+import { logger } from "redux-logger"
 
-class Footer extends Component {
-    state = {
-        currentYear: (new Date()).getFullYear()
-    }
-    render() {
-        return (
-            <footer>GrelaDesign (c) {this.state.currentYear}</footer>
-        );
-    }
-}
+import reducer from "./reducers"
 
-export default Footer;
+const middleware = applyMiddleware(logger);
+const store = createStore(reducer, middleware);
+
+export default store;

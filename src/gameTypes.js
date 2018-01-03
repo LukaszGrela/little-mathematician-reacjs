@@ -13,19 +13,8 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 */
-import React, { Component } from 'react';
 
-import './Footer.css'
-
-class Footer extends Component {
-    state = {
-        currentYear: (new Date()).getFullYear()
-    }
-    render() {
-        return (
-            <footer>GrelaDesign (c) {this.state.currentYear}</footer>
-        );
-    }
-}
-
-export default Footer;
+export const GAME_ADDITION       = ':addition';
+export const GAME_SUBTRACTION    = ':subtraction';
+export const GAME_MULTIPLICATION = ':multiplication';
+export const GAME_DIVISION       = ':division';

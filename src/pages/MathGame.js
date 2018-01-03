@@ -32,6 +32,8 @@ import { randomRange, randomOption, shuffle } from "../utils/math";
 
 
 import './MathGame.css'
+import connect from 'react-redux/lib/connect/connect';
+import { increaseScoreOfGame } from '../actions/actions';
 
 class MathGame extends Component {
 
@@ -360,14 +362,17 @@ class MathGame extends Component {
 
 
     componentDidMount() {
-        console.log('componentDidMount');
+        console.log('MathGame#componentDidMount');
     }
     componentWillMount() {
-        console.log('componentWillMount');
+        console.log('MathGame#componentWillMount', this.props);
     }
 
     componentWillUnmount() {
-        console.log('componentWillUnmount');
+        console.log('MathGame#componentWillUnmount');
+    }
+    componentWillReceiveProps(nextProps) {
+        console.log('MathGame#componentWillReceiveProps', nextProps);
     }
 
     /**
@@ -423,7 +428,8 @@ class MathGame extends Component {
     nextQuestion() {
         let { questions, hudQuestionCurrent, hudCorrectAnswers } = this.state,
             distractors = [],
-            gameOver = false;
+            gameOver = false,
+            { dispatch } = this.props;
 
         // remove used question
         let answeredQuestion = questions.shift();
@@ -436,7 +442,7 @@ class MathGame extends Component {
             //end of the game
             gameOver = true;
             // send score
-            this.props.onScore && this.props.onScore(hudCorrectAnswers, this.state.type);
+            dispatch(increaseScoreOfGame(hudCorrectAnswers, this.state.type));
         } else {
             distractors = questions[0].distractors;
             hudQuestionCurrent++;
@@ -523,4 +529,19 @@ class MathGame extends Component {
     }
 }
 
-export default MathGame;
+const mapStateToProps = (state) => {
+
+    let { questionCount, from, to } = state.config.general;
+
+    console.log('MathGame#mapStateToProps',state);
+
+    // TODO: how to modify settings here (how to find out which game type) with per game options
+
+    return {
+        questionCount,
+        from,
+        to,
+    }
+}
+
+export default connect(mapStateToProps)(MathGame);

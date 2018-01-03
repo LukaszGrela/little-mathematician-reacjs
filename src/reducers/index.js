@@ -13,19 +13,11 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 */
-import React, { Component } from 'react';
+import { combineReducers } from "redux";
+import scoreReducer from './scoreReducer'
+import configReducer from './configReducer'
 
-import './Footer.css'
-
-class Footer extends Component {
-    state = {
-        currentYear: (new Date()).getFullYear()
-    }
-    render() {
-        return (
-            <footer>GrelaDesign (c) {this.state.currentYear}</footer>
-        );
-    }
-}
-
-export default Footer;
+export default combineReducers({
+    score: scoreReducer,
+    config: configReducer
+});
