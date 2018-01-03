@@ -20,4 +20,4 @@ import configReducer from './configReducer'
 export default combineReducers({
     score: scoreReducer,
     config: configReducer
-})
+});
