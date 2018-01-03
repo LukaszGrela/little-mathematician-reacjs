@@ -49,24 +49,6 @@ class App extends Component {
     this.handleNavigationAction = this.handleNavigationAction.bind(this);
   }
 
-  /**
-   * Returns configuration for the game.
-   * @param {string} game Id of the game for which config needs to be prepared
-   */
-  getConfig(game) {
-    let config = Object.assign({}, this.config.general);
-    console.log('getConfig', game, config);
-    switch (game) {
-      case GAME_SUBTRACTION:
-
-        break;
-
-      case GAME_ADDITION:
-      default:
-        break;
-    }
-    return config;
-  }
 
   /**
    * Returns title fragment (JSX element) used in header based on location
@@ -142,7 +124,7 @@ class App extends Component {
         <button key={'about-btn'} className='button-about' onClick={() => { this.handleNavigationAction('about') }}><IconInfo /></button>,
         <button key={'settings-btn'} className='button-settings' onClick={() => { this.handleNavigationAction('config') }}><IconSettings /></button>
       ];
-    } 
+    }
     // else if (location === '/config') {}
     return null;
   }
@@ -209,7 +191,6 @@ class App extends Component {
             />} />
 
             <Route path='/game:type' component={(p) => <MathGame {...p.match.params}
-              {...this.getConfig(p.match.params.type) }
 
               onAction={(userAnswer) => {
                 this.handleNavigationAction()

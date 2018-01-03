@@ -371,6 +371,9 @@ class MathGame extends Component {
     componentWillUnmount() {
         console.log('MathGame#componentWillUnmount');
     }
+    componentWillReceiveProps(nextProps) {
+        console.log('MathGame#componentWillReceiveProps', nextProps);
+    }
 
     /**
      * Handles action from the GameOver component
@@ -526,4 +529,19 @@ class MathGame extends Component {
     }
 }
 
-export default connect()(MathGame);
+const mapStateToProps = (state) => {
+
+    let { questionCount, from, to } = state.config.general;
+
+    console.log('MathGame#mapStateToProps',state);
+
+    // TODO: how to modify settings here (how to find out which game type) with per game options
+
+    return {
+        questionCount,
+        from,
+        to,
+    }
+}
+
+export default connect(mapStateToProps)(MathGame);
