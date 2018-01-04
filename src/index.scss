@@ -1,3 +1,5 @@
+@import 'sass/_variables.scss';
+
 /*
    Copyright 2018 Łukasz 'Severiaan' Grela GrelaDesign
 
@@ -13,32 +15,9 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 */
-.game-answers {
-    width: 300px;
-    margin: 0 auto;
-}
-
-.game-answers button {
-    /* reset */
-    background-color: white;
-}
-
-.answer {
-    padding: 20px;
-    margin: 2px;
-
-    min-width: 70px;
-    border: 1px solid #ccc;
-
-    font-size: 1em;
-}
-
-
-
-.answer:focus {
-    outline: none;
-}
-
-.hidden {
-    visibility: hidden;
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  color: $primary-text-color;
 }

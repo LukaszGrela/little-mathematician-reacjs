@@ -16,12 +16,12 @@
 
 .config {
     padding-top: 50px;
-}
-.config label {
-    display: block;
-    padding-bottom: 8px;
-}
-.config input,
-.config select {
-    margin-left: 8px;
+    label {
+        display: block;
+        padding-bottom: 8px;
+    }
+    input,
+    select {
+        margin-left: 8px;
+    }
 }

@@ -32,7 +32,6 @@ class Config extends Component {
 
     handleChange(field, value) {
         let _val = parseInt(value, 10);
-        let gCount = this.props.general.questionCount;
         let gFrom = this.props.general.from;
         let gTo = this.props.general.to;
         const { dispatch } = this.props;

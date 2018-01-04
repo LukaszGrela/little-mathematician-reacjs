@@ -14,16 +14,33 @@
    limitations under the License.
 */
 
-.about {
-    padding-top: 1em;
-    text-align: left;
-    width: 300px;
+@import '../sass/_variables.scss';
+.game-answers {
+    width: $width-game-column;
     margin: 0 auto;
+    
+    button {
+        /* reset */
+        background-color: $primary-color-text;
+    }
+    hr {
+        border-color: $divider-color;
+        border-style: solid;
+    }
 }
-.about .title {
-    font-size: 2em;
-    line-height: 3em;
+
+.answer {
+    padding: 20px;
+    margin: 2px;
+    min-width: 70px;
+    border: 1px solid $divider-color;
+    font-size: 1em;
+    &:focus {
+        outline: none;
+    }
 }
-.about .acknowledgement {
-    color: #757575;
+
+
+.hidden {
+    visibility: hidden;
 }

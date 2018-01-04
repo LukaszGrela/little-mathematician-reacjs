@@ -1,0 +1,79 @@
+/*
+   Copyright 2018 Łukasz 'Severiaan' Grela GrelaDesign
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+*/
+
+@import '../sass/_variables.scss';
+.menu {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    button {
+        border: none;
+        background: none;
+        padding: 0;
+        margin: 5px;
+        width: 70px;
+        height: 70px;
+        svg {
+            width: 70px;
+            height: 70px;
+            -webkit-transition: all .5s ease;
+            transition: all .5s ease;
+        }
+        &:hover svg {
+            transform: rotate(1turn);
+        }
+        #button-icon-plus {
+            fill: $accent-color-1;
+        }
+        #button-icon-minus {
+            fill: $accent-color-2;
+        }
+        #button-icon-multiply {
+            fill: $accent-color-3;
+        }
+        #button-icon-divide {
+            fill: $accent-color-4;
+        }
+        .badge {
+            position: absolute;
+            padding: 4px;
+            border-radius: 4px;
+            min-width: 20px;
+            z-index: 1;
+        }
+        &.addition .badge {
+            background-color: $accent-color-4;
+            right: 140px;
+            top: -5px;
+        }
+        &.subtraction .badge {
+            background-color: $accent-color-3;
+            top: -5px;
+            left: 140px;
+        }
+        &.multiplication .badge {
+            background-color: $accent-color-2;
+            right: 140px;
+            bottom: -5px;
+        }
+        &.division .badge {
+            background-color: $accent-color-1;
+            left: 140px;
+            bottom: -5px;
+        }
+    }
+}

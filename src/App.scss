@@ -1,0 +1,101 @@
+/*
+   Copyright 2018 Łukasz 'Severiaan' Grela GrelaDesign
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+*/
+
+@import 'sass/_variables.scss';
+%resetButton {
+    border: none;
+    background: none;
+    padding: 0;
+    margin: 0;
+}
+
+.App {
+    text-align: center;
+    
+    .App-header {
+        background-color: $primary-color;
+        height: 50px;
+        padding: 20px;
+        color: $primary-color-text;
+        border-top: 8px $primary-color-dark solid;
+        h3 {
+            font-size: 1em;
+            margin-top: 0.25em;
+            color: $primary-color-light;
+        }
+        .App-title {
+            font-size: 1.5em;
+            -webkit-transition: all 500ms ease-out;
+            -moz-transition: all 500ms ease-out;
+            -o-transition: all 500ms ease-out;
+            transition: all 500ms ease-out;
+          }
+          &.in-page .App-title {
+              font-size: 1em;
+              margin-bottom: .25em
+          }
+        .leftIconSlot {
+            position: absolute;
+            left: 8px;
+            top: 34px;
+            height: 30px;
+            width: 30px;
+            svg#logo-icon {
+                height: 30px;
+                fill: $primary-color-text;
+            }
+            svg#arrow-back {
+                width: 30px;
+                height: 30px;
+                fill: $primary-color-text;
+                -webkit-transition: all .2s ease;
+                transition: all .2s ease;
+            }
+            button {
+                @extend %resetButton;
+                &:hover svg#arrow-back {
+                    -moz-transform: rotate(1turn);
+                    transform: rotate(1turn);
+                }
+            }
+        }
+        
+        .rightIconSlot {
+            position: absolute;
+            right: 8px;
+            top: 25px;
+            height: 40px;
+            button {
+                @extend %resetButton;
+                width: 40px;
+                height: 40px;
+                svg {
+                    fill: $primary-color-text;
+                    -webkit-transition: all .5s ease;
+                    -o-transition: all .5s ease;
+                    transition: all .5s ease;
+                }
+                &:hover svg {
+                    -webkit-transform: rotate(1turn);
+                    -ms-transform: rotate(1turn);
+                    transform: rotate(1turn);
+                }
+            }
+        }
+    }
+}
+
+

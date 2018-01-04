@@ -13,10 +13,12 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 */
+
+@import '../sass/_variables.scss';
 .equation {
     margin: 0 auto;
-    padding: 50px 0;
-    width: 300px;
+    padding: 75px 0;
+    width: $width-game-column;
 }
 
 .part {
@@ -25,17 +27,16 @@
     margin: 5px;
     display: table-cell;
 }
+
 .question {
-    border: 2px solid #ccc;
+    border: 2px solid $divider-color;
     border-radius: 5px;
-}
-
-.correct .question {
-    border-color: green;
-    border-radius: 15px;
-}
-
-.incorrect .question {
-    border-color: red;
-    border-radius: 0;
+    .correct & {
+        border-color: $color-correct;
+        border-radius: 15px;
+    }
+    .incorrect & {
+        border-color: $color-incorrect;
+        border-radius: 0;
+    }
 }

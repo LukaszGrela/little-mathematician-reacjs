@@ -14,33 +14,17 @@
    limitations under the License.
 */
 
-.no-match-404 {
-    padding-top: 50px;
-}
-
-.no-match-404 .title {
-    line-height: 3em;
-}
-.no-match-404 .title .sign {
-    font-size: 1.5em;
-    vertical-align: top;
-}
-.no-match-404 .title .digit {
-    font-size: 3em;
-}
-
-.no-match-404 .digit.d1 {
-    color: #388E3C;
-}
-
-.no-match-404 .digit.d2 {
-    color: #8BC34A;
-}
-
-.no-match-404 .digit.d3 {
-    color: #CDDC39;
-}
-
-.no-match-404 .title .sign {
-    color: #FFEB3B;
+@import '../sass/_variables.scss';
+.about {
+    padding-top: 1em;
+    text-align: left;
+    width: $width-game-column;
+    margin: 0 auto;
+    .title {
+        font-size: 2em;
+        line-height: 3em;
+    }
+    .acknowledgement {
+        color: $secondary-text-color;
+    }
 }

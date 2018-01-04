@@ -1,0 +1,72 @@
+/*
+   Copyright 2018 Łukasz 'Severiaan' Grela GrelaDesign
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+*/
+
+@import '../sass/_variables.scss';
+.game-over {
+    padding-top: 1rem;
+    text-align: left;
+    width: $width-game-column;
+    margin: 0 auto;
+    .title {
+        font-size: 2rem;
+        margin: 1.5rem 0;
+        text-align: center;
+        .p1 {
+            color: $accent-color-1;
+        }
+        .p2 {
+            color: $accent-color-2;
+        }
+        .p3 {
+            color: $accent-color-3;
+        }
+    }
+    .content {
+        display: block;
+        margin: 1.5rem 0;
+    }
+    .footer {
+        display: block;
+        text-align: center;
+        margin: 1.5rem 0;
+        button {
+            height: 75px;
+            width: 75px;
+            margin: 10px;
+            border: none;
+            background: none;
+            svg {
+                fill: $primary-color-text;
+                width: 50px;
+                height: 50px;
+                -webkit-transition: all .5s ease;
+                -o-transition: all .5s ease;
+                transition: all .5s ease;
+            }
+            &:hover svg {
+                -webkit-transform: rotate(1turn);
+                -ms-transform: rotate(1turn);
+                transform: rotate(1turn);
+            }
+            &.menu-button {
+                background-color: $accent-color-6;
+            }
+            &.replay-button {
+                background-color: $accent-color-5;
+            }
+        }
+    }
+}
