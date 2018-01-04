@@ -14,6 +14,8 @@
    limitations under the License.
 */
 
+@import '../sass/_variables.scss';
+
 .game-hud {
     background-color: transparent;
     padding: 10px 0;
@@ -27,20 +29,16 @@
             width: 80px;
         }
     }
-
     /* bottom border of the hud */
     &.addition {
         border-bottom: 2px solid $accent-color-1;
     }
-    
     &.subtraction {
         border-bottom: 2px solid $accent-color-2;
     }
-    
     &.multiplication {
         border-bottom: 2px solid $accent-color-3;
     }
-    
     &.division {
         border-bottom: 2px solid $accent-color-4;
     }
@@ -50,17 +48,20 @@
     text-align: left;
 }
 
-.correct-answers {
-    color: $color-correct;
-    text-align: right;
-}
-
 .icon-grade {
     width: 24px;
     height: 24px;
     position: relative;
     top: 5px;
     margin-right: 10px
+}
+
+.correct-answers {
+    color: $color-correct;
+    text-align: right;
+    svg.icon-grade {
+        fill: $color-gold-star;
+    }
 }
 
 .gain-even .icon-grade,
@@ -103,8 +104,3 @@
         opacity: 0;
     }
 }
-
-.correct-answers svg.icon-grade {
-    fill: $color-gold-star;
-}
-

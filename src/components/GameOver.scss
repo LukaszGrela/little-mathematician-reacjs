@@ -13,76 +13,60 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 */
- 
-@import 'sass/_variables.scss';
 
+@import '../sass/_variables.scss';
 .game-over {
     padding-top: 1rem;
     text-align: left;
     width: 300px;
     margin: 0 auto;
-}
-.game-over .title {
-    font-size: 2rem;
-    margin: 1.5rem 0;
-    text-align: center;
-}
-.game-over .content {
-    display: block;
-    margin: 1.5rem 0;
-}
-.game-over .footer {
-    display: block;
-    text-align: center;
-    margin: 1.5rem 0;
-}
-
-.game-over .title .p1 {
-    color: $accent-color-1;
-}
-
-.game-over .title .p2 {
-    color: $accent-color-2;
-}
-
-.game-over .title .p3 {
-    color: $accent-color-3;
-}
-
-.game-over .footer button {
-    height: 75px;
-    width: 75px;
-    margin: 10px;
-    border: none;
-    background: none;
-}
-
-.game-over .footer button svg {
-    fill: $primary-color-text;
-    width: 50px;
-    height: 50px;
-    -webkit-transition: all .5s ease;
-    -o-transition: all .5s ease;
-    transition: all .5s ease;
-}
-/*
-.game-over .footer button svg.icon-menu {
-    fill: #E64A19;
-}
-.game-over .footer button svg.icon-replay {
-    fill: #FF9800;
-}
-*/
-.game-over .footer button.menu-button {
-    background-color: $accent-color-6;
-}
-.game-over .footer button.replay-button {
-    background-color: $accent-color-5;
-}
-
-
-.game-over .footer button:hover svg {
-    -webkit-transform: rotate(1turn);
-    -ms-transform: rotate(1turn);
-    transform: rotate(1turn);
+    .title {
+        font-size: 2rem;
+        margin: 1.5rem 0;
+        text-align: center;
+        .p1 {
+            color: $accent-color-1;
+        }
+        .p2 {
+            color: $accent-color-2;
+        }
+        .p3 {
+            color: $accent-color-3;
+        }
+    }
+    .content {
+        display: block;
+        margin: 1.5rem 0;
+    }
+    .footer {
+        display: block;
+        text-align: center;
+        margin: 1.5rem 0;
+        button {
+            height: 75px;
+            width: 75px;
+            margin: 10px;
+            border: none;
+            background: none;
+            svg {
+                fill: $primary-color-text;
+                width: 50px;
+                height: 50px;
+                -webkit-transition: all .5s ease;
+                -o-transition: all .5s ease;
+                transition: all .5s ease;
+            }
+            &:hover svg {
+                -webkit-transform: rotate(1turn);
+                -ms-transform: rotate(1turn);
+                transform: rotate(1turn);
+            }
+            &.menu-button {
+                background-color: $accent-color-6;
+            }
+            &.replay-button {
+                background-color: $accent-color-5;
+            }
+        }
+    }
 }

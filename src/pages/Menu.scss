@@ -14,85 +14,66 @@
    limitations under the License.
 */
 
-@import 'sass/_variables.scss';
-
+@import '../sass/_variables.scss';
 .menu {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-}
-.menu button {
-    border: none;
-    background: none;
-
-    padding: 0;
-    margin: 5px;
-
-    width: 70px;
-    height: 70px;
-}
-
-.menu button svg {
-    width: 70px;
-    height: 70px;
-}
-
-.menu button svg {
-    -webkit-transition: all .5s ease;
-    transition: all .5s ease;
-}
-
-.menu button:hover svg {
-    transform:rotate(1turn);
-}
-
-.menu button #button-icon-plus {
-    fill: $accent-color-1;
-}
-
-.menu button #button-icon-minus {
-    fill: $accent-color-2;
-}
-
-.menu button #button-icon-multiply {
-    fill: $accent-color-3;
-}
-
-.menu button #button-icon-divide {
-    fill: $accent-color-4;
-}
-
-.menu button .badge {
-    position:absolute;
-    padding: 4px;
-    border-radius: 4px;
-    min-width: 20px;
-    z-index: 1;
-}
-
-.menu button.addition .badge {
-    background-color:#FFEB3B;
-
-    right: 140px;
-    top: -5px;
-}
-
-.menu button.subtraction .badge {
-    background-color:#CDDC39;
-    
-    top: -5px;
-    left: 140px;
-}
-
-.menu button.multiplication .badge {
-    background-color:#8BC34A;
-    right: 140px;
-    bottom: -5px;
-}
-
-.menu button.division .badge {
-    background-color:$accent-color-1;
-    left: 140px;
-    bottom: -5px;
+    button {
+        border: none;
+        background: none;
+        padding: 0;
+        margin: 5px;
+        width: 70px;
+        height: 70px;
+        svg {
+            width: 70px;
+            height: 70px;
+            -webkit-transition: all .5s ease;
+            transition: all .5s ease;
+        }
+        &:hover svg {
+            transform: rotate(1turn);
+        }
+        #button-icon-plus {
+            fill: $accent-color-1;
+        }
+        #button-icon-minus {
+            fill: $accent-color-2;
+        }
+        #button-icon-multiply {
+            fill: $accent-color-3;
+        }
+        #button-icon-divide {
+            fill: $accent-color-4;
+        }
+        .badge {
+            position: absolute;
+            padding: 4px;
+            border-radius: 4px;
+            min-width: 20px;
+            z-index: 1;
+        }
+        &.addition .badge {
+            background-color: $accent-color-4;
+            right: 140px;
+            top: -5px;
+        }
+        &.subtraction .badge {
+            background-color: $accent-color-3;
+            top: -5px;
+            left: 140px;
+        }
+        &.multiplication .badge {
+            background-color: $accent-color-2;
+            right: 140px;
+            bottom: -5px;
+        }
+        &.division .badge {
+            background-color: $accent-color-1;
+            left: 140px;
+            bottom: -5px;
+        }
+    }
 }
