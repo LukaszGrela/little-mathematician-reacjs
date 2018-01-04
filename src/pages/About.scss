@@ -15,17 +15,16 @@
 */
 
 @import 'sass/_variables.scss';
-
 .about {
     padding-top: 1em;
     text-align: left;
     width: 300px;
     margin: 0 auto;
-}
-.about .title {
-    font-size: 2em;
-    line-height: 3em;
-}
-.about .acknowledgement {
-    color: $secondary-text-color;
+    .title {
+        font-size: 2em;
+        line-height: 3em;
+    }
+    .acknowledgement {
+        color: $secondary-text-color;
+    }
 }
