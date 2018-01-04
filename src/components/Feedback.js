@@ -25,18 +25,21 @@ class Feedback extends Component {
         const { answer, correct } = this.props;
         return (
             <div className={'feedback' + (answer.correct ? ' correct' : ' incorrect')}>
-                <MoodIcon isGood={answer.correct} />
-                <div className='message'>
-                    {
-                        answer.correct ?
-                            'Well done!'
-                            :
-                            ['Not so, correct answer is ',<span key='correct-span' className='correct-answer'>{correct}</span>]
-                    }
+                <div className='row'>
+                    <MoodIcon className='cell' isGood={answer.correct} />
+                    <div className='message cell'>
+                        {
+                            answer.correct ?
+                                'Well done!'
+                                :
+                                ['Not so, correct answer is ', <span key='correct-span' className='correct-answer'>{correct}</span>]
+                        }
+                    </div>
+                    <button className='cell' onClick={() => {
+                        this.props.onAction && this.props.onAction();
+                    }}><ButtonIconNext /></button>
                 </div>
-                <button onClick={() => {
-                    this.props.onAction && this.props.onAction();
-                }}><ButtonIconNext /></button>
+                <div class='clear'></div>
             </div>
         );
     }

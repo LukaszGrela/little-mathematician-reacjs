@@ -16,7 +16,7 @@
 
 @import '../sass/_variables.scss';
 .game-answers {
-    width: 300px;
+    width: $width-game-column;
     margin: 0 auto;
     
     button {
