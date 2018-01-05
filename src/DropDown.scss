@@ -1,0 +1,64 @@
+/*
+   Copyright 2018 Łukasz 'Severiaan' Grela GrelaDesign
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+*/
+
+@import 'sass/_variables.scss';
+.dd-menu {
+    z-index: 100001;
+    position: fixed;
+    &.close {
+        opacity: 0;
+        visibility: hidden;
+    }
+    &.open {
+        opacity: 1;
+        visibility: visible;
+    }
+    .cloak {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        // background-color: rgba(0, 0, 0, 0.5);
+        left: 0;
+        top: 0;
+    }
+    .dd-menu-container {
+        position: fixed;
+        width: 110px;
+        top: 90px;
+        right: 8px;
+        background-color: #fff;
+        box-shadow: 1px 1px 5px #888888;
+        button {
+            display: block;
+            width: 100px !important;
+            margin: 0 auto !important;
+            text-align: left;
+            svg {
+                margin-right: 8px;
+                display: inline-block;
+                position: relative;
+                top: 5px;
+                fill: #212121 !important;
+            }
+            span.label {
+                margin-bottom: 5px;
+                display: inline-block;
+                position: relative;
+                top: -2px;
+            }
+        }
+    }
+}

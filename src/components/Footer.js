@@ -23,7 +23,7 @@ class Footer extends Component {
     }
     render() {
         return (
-            <footer>GrelaDesign (c) {this.state.currentYear}</footer>
+            <footer>GrelaDesign (c) 2017 - {this.state.currentYear}</footer>
         );
     }
 }

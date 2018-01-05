@@ -38,6 +38,7 @@
         }
         .App-title {
             font-size: 1.5em;
+            margin-top: 0.35em;
             -webkit-transition: all 500ms ease-out;
             -moz-transition: all 500ms ease-out;
             -o-transition: all 500ms ease-out;
@@ -76,7 +77,7 @@
         .rightIconSlot {
             position: absolute;
             right: 8px;
-            top: 25px;
+            top: 33px;
             height: 40px;
             button {
                 @extend %resetButton;
@@ -94,6 +95,7 @@
                     -ms-transform: rotate(1turn);
                     transform: rotate(1turn);
                 }
+
             }
         }
     }

@@ -31,6 +31,7 @@ import MediaQuery from 'react-responsive';
 
 // css
 import './App.css';
+import './DropDown.css';
 
 import LogoIcon from './icons/LogoIcon';
 import IconArrowBack from './icons/IconArrowBack';
@@ -46,7 +47,8 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      location: props.location.pathname || '/'
+      location: props.location.pathname || '/',
+      ddMenuOpen: false
     }
     // 
     this.handleNavigationAction = this.handleNavigationAction.bind(this);
@@ -124,14 +126,24 @@ class App extends Component {
     const { location } = this.state;
     if (location === '/') {
       return [
-        <MediaQuery minDeviceWidth={375} key={'media-query'}>
+        <MediaQuery minDeviceWidth={410} key={'media-query'}>
           {(matches) => {
             if (matches) {
               return [
                 <button key={'about-btn'} className='button-about' onClick={() => { this.handleNavigationAction('about') }}><IconInfo /></button>,
-                <button key={'settings-btn'} className='button-settings' onClick={() => { this.handleNavigationAction('config') }}><IconSettings /></button>]
+                <button key={'settings-btn'} className='button-settings' onClick={() => { this.handleNavigationAction('config') }}><IconSettings /></button>
+              ]
             } else {
-              return <button key={'dd-menu-btn'} className='dd-button-menu' onClick={() => { this.handleDropDown() }}><IconMore /></button>
+              return [
+                <button key={'dd-menu-btn'} className='dd-button-menu' onClick={() => { this.handleDropDown() }}><IconMore /></button>,
+                <div key={'dd-menu-box'} className={'dd-menu' + (this.state.ddMenuOpen ? ' open' : ' close')}>
+                  <div className='cloak' onClick={() => { this.setState({ ddMenuOpen: false }) }}></div>
+                  <div className='dd-menu-container'>
+                    <button key={'about-btn'} className='button-about' onClick={() => { this.handleNavigationAction('about') }}><IconInfo /><span className='label'>About</span></button>
+                    <button key={'settings-btn'} className='button-settings' onClick={() => { this.handleNavigationAction('config') }}><IconSettings /><span className='label'>Config</span></button>
+                  </div>
+                </div>
+              ]
             }
           }}
         </MediaQuery>
@@ -143,6 +155,7 @@ class App extends Component {
 
   handleDropDown() {
     console.log('Show menu');
+    this.setState({ ddMenuOpen: true });
   }
 
 
@@ -180,7 +193,7 @@ class App extends Component {
         break;
     }
     this.props.history.push(to);
-    this.setState({ location: to })
+    this.setState({ location: to, ddMenuOpen: false })
   }
 
   render() {
