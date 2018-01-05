@@ -20,7 +20,14 @@
     padding: 75px 0;
     width: $width-game-column;
     display: table;
+    @media only screen and (max-device-height: 668px) and (orientation: landscape) {
+        padding: 10px 0;
+    }
+    @media only screen and (max-device-height: 668px) and (orientation: portrait) {
+        padding: 40px 0;
+    }
 }
+
 .wrapper {
     display: table-cell;
     text-align: center;
@@ -33,6 +40,14 @@
     margin: 0px;
     display: inline-block;
     vertical-align: top;
+    @media only screen and (max-device-height: 668px) and (orientation: landscape) {
+        padding: 10px 5px;
+        padding-top: 5px;
+    }
+    @media only screen and (max-device-height: 668px) and (orientation: portrait) {
+        padding: 10px 5px;
+    }
+    
 }
 
 .question {

@@ -20,6 +20,9 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    @media only screen and (min-device-width: 414px) and (orientation: landscape) {
+        transform: translate(-50%, -30%);
+    }
     button {
         border: none;
         background: none;

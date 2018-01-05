@@ -198,8 +198,8 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
-        <header className={"App-header" + (this.state.location !== '/' ? " in-page" : "")}>
+      <div className={"App" + (this.state.location !== '/' ? " in-page" : " in-menu")}>
+        <header className={"App-header" + (this.state.location !== '/' ? " in-page" : " in-menu")}>
           <h1 className="App-title">Little Mathematician</h1>
           {this.getTitleFragment()}
           <div className='leftIconSlot'>

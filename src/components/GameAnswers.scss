@@ -38,6 +38,10 @@
     &:focus {
         outline: none;
     }
+    @media only screen and (max-device-height: 668px) and (orientation: landscape), 
+    screen and (max-device-height: 668px) and (orientation: portrait) {
+        padding: 15px 5px;
+    }
 }
 
 

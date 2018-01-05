@@ -18,5 +18,14 @@ footer {
     bottom: 0;
     width: 100%;
     padding: 10px 0;
+    font-size: 0.8em;
+}
+@media only screen 
+and (max-device-height : 668px)
+and (orientation: landscape)
+{
+    footer {
+        position: initial;
+    }
     
 }
