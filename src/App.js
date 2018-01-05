@@ -27,6 +27,8 @@ import Config from './pages/Config';
 // components
 import Footer from './components/Footer'
 
+import MediaQuery from 'react-responsive';
+
 // css
 import './App.css';
 
@@ -36,6 +38,7 @@ import IconInfo from './icons/IconInfo';
 import IconSettings from './icons/IconSettings';
 
 import { GAME_ADDITION, GAME_SUBTRACTION, GAME_MULTIPLICATION, GAME_DIVISION } from './gameTypes';
+import { IconMore } from './icons/IconMore';
 
 class App extends Component {
 
@@ -121,13 +124,27 @@ class App extends Component {
     const { location } = this.state;
     if (location === '/') {
       return [
-        <button key={'about-btn'} className='button-about' onClick={() => { this.handleNavigationAction('about') }}><IconInfo /></button>,
-        <button key={'settings-btn'} className='button-settings' onClick={() => { this.handleNavigationAction('config') }}><IconSettings /></button>
+        <MediaQuery minDeviceWidth={375} key={'media-query'}>
+          {(matches) => {
+            if (matches) {
+              return [
+                <button key={'about-btn'} className='button-about' onClick={() => { this.handleNavigationAction('about') }}><IconInfo /></button>,
+                <button key={'settings-btn'} className='button-settings' onClick={() => { this.handleNavigationAction('config') }}><IconSettings /></button>]
+            } else {
+              return <button key={'dd-menu-btn'} className='dd-button-menu' onClick={() => { this.handleDropDown() }}><IconMore /></button>
+            }
+          }}
+        </MediaQuery>
       ];
     }
     // else if (location === '/config') {}
     return null;
   }
+
+  handleDropDown() {
+    console.log('Show menu');
+  }
+
 
   /**
    * Handles navigation requests, updates state

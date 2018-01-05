@@ -19,6 +19,7 @@ import React, { Component } from 'react';
 class MoodIcon extends Component {
     state = {}
     render() {
+        
         const className = this.props.className || '';
         return (
             this.props.isGood ?

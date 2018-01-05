@@ -39,7 +39,6 @@ class Feedback extends Component {
                         this.props.onAction && this.props.onAction();
                     }}><ButtonIconNext /></button>
                 </div>
-                <div class='clear'></div>
             </div>
         );
     }
