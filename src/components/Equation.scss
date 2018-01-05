@@ -19,13 +19,20 @@
     margin: 0 auto;
     padding: 75px 0;
     width: $width-game-column;
+    display: table;
+}
+.wrapper {
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
 }
 
 .part {
     width: 50px;
     padding: 15px 5px;
-    margin: 5px;
-    display: table-cell;
+    margin: 0px;
+    display: inline-block;
+    vertical-align: top;
 }
 
 .question {
