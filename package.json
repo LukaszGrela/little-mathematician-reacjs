@@ -1,6 +1,6 @@
 {
   "name": "little-mathematician",
-  "version": "0.17.14",
+  "version": "0.17.15",
   "private": true,
   "homepage": "http://greladesign.com/little-mathematician",
   "dependencies": {

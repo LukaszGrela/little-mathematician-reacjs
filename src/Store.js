@@ -13,13 +13,15 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 */
-import { applyMiddleware, createStore } from "redux"
+import { applyMiddleware, createStore, compose } from "redux"
 
 import { logger } from "redux-logger"
 
 import reducer from "./reducers"
 
 const middleware = applyMiddleware(logger);
-const store = createStore(reducer, middleware);
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const store = createStore(reducer, /* preloadedState, */ composeEnhancers(middleware));
+// const store = createStore(reducer, middleware);
 
 export default store;
