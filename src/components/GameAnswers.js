@@ -32,7 +32,7 @@ class GameAnswers extends Component {
 
     generateAnswers() {
         let i = 0;
-        let options = this.props.options;
+        const options = this.props.options;
 
         return options.map((option) => {
             let id = ++i;
@@ -49,7 +49,7 @@ class GameAnswers extends Component {
 
     render() {
         return (
-            <div className="game-answers">
+            <div className={"game-answers" + (this.props.selectionId  ? ' locked':'')}>
                 <hr />
                 {
                     this.generateAnswers()
