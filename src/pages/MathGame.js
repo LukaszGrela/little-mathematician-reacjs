@@ -34,6 +34,7 @@ import { randomRange, randomOption, shuffle } from "../utils/math";
 import './MathGame.css'
 import connect from 'react-redux/lib/connect/connect';
 import { increaseScoreOfGame } from '../actions/actions';
+import { GAME_ADDITION, GAME_DIVISION, GAME_MULTIPLICATION, GAME_SUBTRACTION } from '../gameTypes';
 
 class MathGame extends Component {
 
@@ -86,16 +87,16 @@ class MathGame extends Component {
     prepareQuestions(from, to, questionCount, type) {
         console.log('MathGame#prepareQuestions', type);
         switch (type) {
-            case ':subtraction':
+            case GAME_SUBTRACTION:
                 return this.prepareQuestionsSubtraction(from, to, questionCount);
 
-            case ':multiplication':
+            case GAME_MULTIPLICATION:
                 return this.prepareQuestionsMultiplication(from, to, questionCount);
 
-            case ':division':
+            case GAME_DIVISION:
                 return this.prepareQuestionsDivision(from, to, questionCount);
 
-            case ':addition':
+            case GAME_ADDITION:
             default:
                 return this.prepareQuestionsAddition(from, to, questionCount);
 
@@ -529,19 +530,42 @@ class MathGame extends Component {
     }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, props) => {
 
-    let { questionCount, from, to } = state.config.general;
-
-    console.log('MathGame#mapStateToProps',state);
-
-    // TODO: how to modify settings here (how to find out which game type) with per game options
-
-    return {
+    let sectionSettings;
+    const { questionCount, from, to } = state.config.general;
+    let settings = {
         questionCount,
         from,
         to,
+    };
+    console.log('MathGame#mapStateToProps', state, props);
+
+    const { type } = props;
+    switch (type) {
+        case GAME_ADDITION:
+        case GAME_SUBTRACTION:
+        case GAME_MULTIPLICATION:
+        case GAME_DIVISION:
+            sectionSettings = state.config[type];
+            // sectionSettings = {
+            //     questionCount: 13
+            // };
+            break;
+
+        default:
+            break;
     }
+
+    if (sectionSettings) {
+        //combine if section settings exists
+        settings = {
+            ...settings,
+            ...sectionSettings
+        }
+    }
+
+    return settings;
 }
 
 export default connect(mapStateToProps)(MathGame);
