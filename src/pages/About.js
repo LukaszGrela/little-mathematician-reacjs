@@ -17,6 +17,7 @@
 import React, { Component } from 'react';
 
 import './About.css'
+import GitHubIcon from '../icons/GitHubIcon';
 
 class About extends Component {
     state = {}
@@ -28,7 +29,7 @@ class About extends Component {
                     Simple Math game for children made in ReactJS to learn this framework.
                 </div>
                 <div className='git-source'>
-                    Git Source: <a href="https://github.com/LukaszGrela/little-mathematician-reacjs" 
+                    <GitHubIcon/><a href="https://github.com/LukaszGrela/little-mathematician-reacjs" 
                     target='_blank' 
                     rel="noopener noreferrer">LukaszGrela/little-mathematician-reacjs</a>
                 </div>
