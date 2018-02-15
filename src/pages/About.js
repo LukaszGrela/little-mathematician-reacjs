@@ -27,6 +27,11 @@ class About extends Component {
                 <div className='content'>
                     Simple Math game for children made in ReactJS to learn this framework.
                 </div>
+                <div className='git-source'>
+                    Git Source: <a href="https://github.com/LukaszGrela/little-mathematician-reacjs" 
+                    target='_blank' 
+                    rel="noopener noreferrer">LukaszGrela/little-mathematician-reacjs</a>
+                </div>
                 <div className='acknowledgement'>
                     <ul>
                         <li>Icons in menu (and logo) by Leona Grande from the Noun Project, thenounproject.com/</li>
