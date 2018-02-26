@@ -1,11 +1,11 @@
 {
   "name": "little-mathematician",
-  "version": "0.18.3",
+  "version": "0.19.1",
   "private": true,
   "homepage": "http://greladesign.com/little-mathematician",
   "scripts": {
-    "build": "set NODE_ENV=production && webpack",
-    "build-dev": "set NODE_ENV=development && webpack",
+    "build:prod": "webpack -p --env production",
+    "build:dev": "webpack --env development",
     "dev-server": "webpack-dev-server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -30,7 +30,7 @@
     "redux-promise": "^0.5.3",
     "sass-loader": "^6.0.6",
     "style-loader": "^0.20.2",
-    "webpack": "^4.0.1",
-    "webpack-dev-server": "^3.0.0"
+    "webpack": "^3.11.0",
+    "webpack-dev-server": "^2.11.1"
   }
 }
