@@ -49,8 +49,8 @@ src/**/*.css
 # Compiled JS/CSS in public folder
 public/js/bundle.js
 public/js/bundle.js.map
-public/js/styles.css
-public/js/styles.css.map
+public/styles/styles.css
+public/styles/styles.css.map
 
 # Optional eslint cache
 .eslintcache
