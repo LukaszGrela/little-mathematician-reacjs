@@ -15,7 +15,7 @@
 */
 import React, { Component } from 'react';
 
-import './GameAnswers.css'
+import './GameAnswers.scss'
 
 class GameAnswers extends Component {
 

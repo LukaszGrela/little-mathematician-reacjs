@@ -15,7 +15,7 @@
 */
 import React, { Component } from 'react';
 
-import './Footer.css'
+import './Footer.scss'
 
 class Footer extends Component {
     state = {

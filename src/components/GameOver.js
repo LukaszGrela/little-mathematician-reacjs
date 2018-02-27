@@ -16,7 +16,7 @@
  
 import React, { Component } from 'react';
 
-import './GameOver.css'
+import './GameOver.scss'
 import IconReplay from '../icons/IconReplay';
 import IconMenu from '../icons/IconMenu';
 

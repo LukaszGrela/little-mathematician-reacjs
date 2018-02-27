@@ -16,7 +16,7 @@
 
 import React, { Component } from 'react';
 
-import './Menu.css'
+import './Menu.scss'
 import ButtonIconPlus from '../icons/ButtonIconPlus';
 import ButtonIconMinus from '../icons/ButtonIconMinus';
 import ButtonIconMultiply from '../icons/ButtonIconMultiply';

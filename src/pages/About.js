@@ -16,7 +16,7 @@
 
 import React, { Component } from 'react';
 
-import './About.css'
+import './About.scss'
 import GitHubIcon from '../icons/GitHubIcon';
 
 class About extends Component {

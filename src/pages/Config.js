@@ -16,7 +16,7 @@
 
 import React, { Component } from 'react';
 
-import './Config.css'
+import './Config.scss'
 import connect from 'react-redux/lib/connect/connect';
 import { changeNumberOfQuestions,ConfigType, changeRangeTo, changeRangeFrom } from '../actions/actions';
 
