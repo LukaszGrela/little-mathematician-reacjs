@@ -16,7 +16,7 @@
 
 import React, { Component } from 'react';
 
-import './NoMatch.css'
+import './NoMatch.scss'
 
 class NoMatch extends Component {
     state = {}

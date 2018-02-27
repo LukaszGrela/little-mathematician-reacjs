@@ -31,7 +31,7 @@ import Feedback from '../components/Feedback'
 import { randomRange, randomOption, shuffle } from "../utils/math";
 
 
-import './MathGame.css'
+import './MathGame.scss'
 import connect from 'react-redux/lib/connect/connect';
 import { increaseScoreOfGame } from '../actions/actions';
 import { GAME_ADDITION, GAME_DIVISION, GAME_MULTIPLICATION, GAME_SUBTRACTION } from '../gameTypes';

@@ -18,7 +18,7 @@ import React, { Component } from 'react';
 
 import IconGrade from '../icons/IconGrade';
 
-import './GameHud.css'
+import './GameHud.scss'
 
 class GameHud extends Component {
     state = {

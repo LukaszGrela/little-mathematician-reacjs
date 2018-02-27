@@ -19,7 +19,7 @@ import { BrowserRouter as Router } from 'react-router-dom'
 
 import { Provider } from 'react-redux'
 
-import './index.css';
+import './index.scss';
 import App from './App';
 import store from './Store'
 import registerServiceWorker from './registerServiceWorker';

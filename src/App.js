@@ -30,8 +30,8 @@ import Footer from './components/Footer'
 import MediaQuery from 'react-responsive';
 
 // css
-import './App.css';
-import './DropDown.css';
+import './App.scss';
+import './DropDown.scss';
 
 import LogoIcon from './icons/LogoIcon';
 import IconArrowBack from './icons/IconArrowBack';

@@ -16,7 +16,7 @@
 import React, { Component } from 'react';
 import MoodIcon from '../icons/MoodIcon';
 
-import './Feedback.css'
+import './Feedback.scss'
 import ButtonIconNext from '../icons/ButtonIconNext';
 
 class Feedback extends Component {

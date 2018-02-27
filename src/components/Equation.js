@@ -15,7 +15,7 @@
 */
 import React, { Component } from 'react';
 
-import './Equation.css'
+import './Equation.scss'
 
 class Equation extends Component {
     constructor(props) {
