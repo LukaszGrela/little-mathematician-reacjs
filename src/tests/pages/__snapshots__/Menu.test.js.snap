@@ -1,0 +1,60 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should render Menu correctly 1`] = `
+<div
+  className="menu"
+>
+  <div
+    className="row"
+  >
+    <button
+      className="addition"
+      onClick={[Function]}
+    >
+      <span
+        className="badge score"
+      >
+        3
+      </span>
+      <ButtonIconDivide />
+    </button>
+    <button
+      className="subtraction"
+      onClick={[Function]}
+    >
+      <span
+        className="badge score"
+      >
+        2
+      </span>
+      <ButtonIconMinus />
+    </button>
+  </div>
+  <div
+    className="row"
+  >
+    <button
+      className="multiplication"
+      onClick={[Function]}
+    >
+      <span
+        className="badge score"
+      >
+        1
+      </span>
+      <ButtonIconMultiply />
+    </button>
+    <button
+      className="division"
+      onClick={[Function]}
+    >
+      <span
+        className="badge score"
+      >
+        0
+      </span>
+      <ButtonIconDivide />
+    </button>
+  </div>
+</div>
+`;

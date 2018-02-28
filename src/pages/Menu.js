@@ -23,7 +23,7 @@ import ButtonIconMultiply from '../icons/ButtonIconMultiply';
 import ButtonIconDivide from '../icons/ButtonIconDivide';
 import { connect } from 'react-redux';
 
-class Menu extends Component {
+export class Menu extends Component {
     state = {};
     constructor(props) {
         super(props);
@@ -33,15 +33,6 @@ class Menu extends Component {
 
     handleClick(action) {
         this.props.onAction && this.props.onAction(action);
-    }
-
-
-    componentWillMount() {
-        console.log('Menu#componentWillMount', this.props);
-    }
-
-    componentWillUnmount() {
-        console.log('Menu#componentWillUnmount');
     }
 
     render() {
