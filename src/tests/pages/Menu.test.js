@@ -1,6 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { Menu } from '../../pages/Menu';
+import { GAME_MULTIPLICATION, GAME_ADDITION, GAME_SUBTRACTION, GAME_DIVISION } from '../../gameTypes';
 
 let wrapper,
     onAction,
@@ -24,32 +25,32 @@ test('Should render Menu correctly', () => {
     expect(wrapper).toMatchSnapshot();
 });
 
-test('Should onAction be called with "multiply" argument on multiplication button click', () => {
+test('Should onAction be called with GAME_MULTIPLICATION argument on multiplication button click', () => {
     element = wrapper.find('button.multiplication');
     expect(element.length).toBe(1);
     element.simulate('click');
-    expect(onAction).toHaveBeenLastCalledWith('multiply');
+    expect(onAction).toHaveBeenLastCalledWith(GAME_MULTIPLICATION);
 });
-test('Should onAction be called with "divide" argument on division button click', () => {
+test('Should onAction be called with GAME_DIVISION argument on division button click', () => {
 
     element = wrapper.find('button.division');
     expect(element.length).toBe(1);
     element.simulate('click');
-    expect(onAction).toHaveBeenLastCalledWith('divide');
+    expect(onAction).toHaveBeenLastCalledWith(GAME_DIVISION);
 });
-test('Should onAction be called with "plus" argument on addition button click', () => {
+test('Should onAction be called with GAME_ADDITION argument on addition button click', () => {
 
     element = wrapper.find('button.addition');
     expect(element.length).toBe(1);
     element.simulate('click');
-    expect(onAction).toHaveBeenLastCalledWith('plus');
+    expect(onAction).toHaveBeenLastCalledWith(GAME_ADDITION);
 });
-test('Should onAction be called with "minus" argument on subtraction button click', () => {
+test('Should onAction be called with GAME_SUBTRACTION argument on subtraction button click', () => {
 
     element = wrapper.find('button.subtraction');
     expect(element.length).toBe(1);
     element.simulate('click');
-    expect(onAction).toHaveBeenLastCalledWith('minus');
+    expect(onAction).toHaveBeenLastCalledWith(GAME_SUBTRACTION);
 });
 
 test('Should addition badge display correct value', () => {

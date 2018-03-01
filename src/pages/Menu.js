@@ -22,6 +22,7 @@ import ButtonIconMinus from '../icons/ButtonIconMinus';
 import ButtonIconMultiply from '../icons/ButtonIconMultiply';
 import ButtonIconDivide from '../icons/ButtonIconDivide';
 import { connect } from 'react-redux';
+import { GAME_MULTIPLICATION, GAME_ADDITION, GAME_SUBTRACTION, GAME_DIVISION } from '../gameTypes';
 
 export class Menu extends Component {
     state = {};
@@ -42,7 +43,7 @@ export class Menu extends Component {
                     <button
                         className='addition'
                         onClick={() => {
-                            this.handleClick("plus");
+                            this.handleClick(GAME_ADDITION);
                         }}>
                         <span className="badge score">{this.props.stats.addition}</span>
                         <ButtonIconPlus />
@@ -50,7 +51,7 @@ export class Menu extends Component {
                     <button
                         className='subtraction'
                         onClick={() => {
-                            this.handleClick("minus");
+                            this.handleClick(GAME_SUBTRACTION);
                         }}>
                         <span className="badge score">{this.props.stats.subtraction}</span>
                         <ButtonIconMinus />
@@ -60,7 +61,7 @@ export class Menu extends Component {
                     <button
                         className='multiplication'
                         onClick={() => {
-                            this.handleClick("multiply");
+                            this.handleClick(GAME_MULTIPLICATION);
                         }}>
                         <span className="badge score">{this.props.stats.multiplication}</span>
                         <ButtonIconMultiply />
@@ -68,7 +69,7 @@ export class Menu extends Component {
                     <button
                         className='division'
                         onClick={() => {
-                            this.handleClick("divide");
+                            this.handleClick(GAME_DIVISION);
                         }}>
                         <span className="badge score">{this.props.stats.division}</span>
                         <ButtonIconDivide />

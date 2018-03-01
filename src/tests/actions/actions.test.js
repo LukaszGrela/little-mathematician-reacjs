@@ -15,7 +15,7 @@ import {
 test('should generate increaseScoreOfGame action object', () => {
     const payload = {
         score: 100,
-        game: 'multiply'
+        game: GAME_MULTIPLICATION
     };
     const action = increaseScoreOfGame(payload.score, payload.game);
     expect(action).toEqual({
