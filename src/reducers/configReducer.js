@@ -31,14 +31,15 @@ export default function reducer(state = {
             configType = payload.configType;
             switch (configType) {
                 case ConfigType.GENERAL:
+                return {
+                    ...state,
+                    general: {
+                        ...state.general,
+                        questionCount
+                    }
+                };
                 default:
-                    return {
-                        ...state,
-                        general: {
-                            ...state.general,
-                            questionCount
-                        }
-                    };
+                break;
             }
         // break;
         case CHANGE_RANGE_FROM:
@@ -46,14 +47,15 @@ export default function reducer(state = {
             configType = payload.configType;
             switch (configType) {
                 case ConfigType.GENERAL:
+                return {
+                    ...state,
+                    general: {
+                        ...state.general,
+                        from: value
+                    }
+                };
                 default:
-                    return {
-                        ...state,
-                        general: {
-                            ...state.general,
-                            from: value
-                        }
-                    };
+                break;
             }
         // break;
         case CHANGE_RANGE_TO:
@@ -61,14 +63,15 @@ export default function reducer(state = {
             configType = payload.configType;
             switch (configType) {
                 case ConfigType.GENERAL:
+                return {
+                    ...state,
+                    general: {
+                        ...state.general,
+                        to: value
+                    }
+                };
                 default:
-                    return {
-                        ...state,
-                        general: {
-                            ...state.general,
-                            to: value
-                        }
-                    };
+                    break;
             }
         // break;
 
