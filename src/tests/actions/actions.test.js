@@ -1,5 +1,6 @@
 import {
-    GAME_ADDITION, GAME_SUBTRACTION,
+    GAME_ADDITION, 
+    GAME_SUBTRACTION,
     GAME_MULTIPLICATION,
     GAME_DIVISION
 } from "../../gameTypes";
