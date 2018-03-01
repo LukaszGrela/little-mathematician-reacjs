@@ -360,22 +360,6 @@ export class MathGame extends Component {
     }
 
 
-
-
-    componentDidMount() {
-        console.log('MathGame#componentDidMount');
-    }
-    componentWillMount() {
-        console.log('MathGame#componentWillMount', this.props);
-    }
-
-    componentWillUnmount() {
-        console.log('MathGame#componentWillUnmount');
-    }
-    componentWillReceiveProps(nextProps) {
-        console.log('MathGame#componentWillReceiveProps', nextProps);
-    }
-
     /**
      * Handles action from the GameOver component
      * @param {string} action Action ID
