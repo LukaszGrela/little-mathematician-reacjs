@@ -78,15 +78,12 @@ test('Should changeRangeFrom for general conf be called, "changeRangeTo" be upda
 
 
 test('Should changeRangeFrom for general conf be called, "changeRangeTo" not called', () => {
-    const value = parseInt(configModified.general.from);
+    wrapper.setProps({
+        config: configModified
+    });
+    const value = parseInt(config.general.from);
     const select = wrapper.find('.general select#general-range-from');
     //
-    // wrapper.setProps({
-    //     config:{general: {
-    //         ...config.general,
-    //         to: '40'
-    //     }}
-    // });
     //
     // need to find it
     expect(select.length).toBe(1);
@@ -98,8 +95,8 @@ test('Should changeRangeFrom for general conf be called, "changeRangeTo" not cal
     expect(changeRangeFrom).toHaveBeenLastCalledWith(value, ConfigType.GENERAL);
     // because new value is NOT bigger than the to value, 
     // the 'to' value needs NOT change
-    // expect(changeRangeTo).not.toHaveBeenLastCalledWith(value + 10, ConfigType.GENERAL);
-    console.warn('Review test: Need to check ho to test that the function was not called at all.');
+    expect(changeRangeTo).not.toHaveBeenCalled();
+    // console.warn('Review test: Need to check ho to test that the function was not called at all.');
 });
 
 test('Should changeRangeTo for general conf be called, "changeRangeFrom" not called', () => {
@@ -116,8 +113,7 @@ test('Should changeRangeTo for general conf be called, "changeRangeFrom" not cal
     expect(changeRangeTo).toHaveBeenLastCalledWith(value, ConfigType.GENERAL);
     // because new value is NOT bigger than the to value, 
     // the 'to' value needs NOT change
-    // expect(changeRangeFrom).not.toHaveBeenLastCalledWith(value - 10, ConfigType.GENERAL);
-    console.warn('Review test: Need to check ho to test that the function was not called at all.');
+    expect(changeRangeFrom).not.toHaveBeenCalled();
 });
 
 
