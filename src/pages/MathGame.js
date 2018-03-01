@@ -36,7 +36,7 @@ import connect from 'react-redux/lib/connect/connect';
 import { increaseScoreOfGame } from '../actions/actions';
 import { GAME_ADDITION, GAME_DIVISION, GAME_MULTIPLICATION, GAME_SUBTRACTION } from '../gameTypes';
 
-class MathGame extends Component {
+export class MathGame extends Component {
 
     constructor(props) {
         super(props);
