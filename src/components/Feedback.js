@@ -25,20 +25,6 @@ class Feedback extends Component {
     };
     promptAnimation = false;
 
-
-    componentDidMount() {
-        console.log('Feedback#componentDidMount');
-    }
-    componentWillMount() {
-        console.log('Feedback#componentWillMount');
-        this.promptAnimation = true;
-    }
-
-    componentWillUnmount() {
-        console.log('Feedback#componentWillUnmount');
-        this.promptAnimation = true;
-    }
-
     render() {
         const { answer, correct } = this.props;
         return (

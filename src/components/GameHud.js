@@ -25,24 +25,6 @@ class GameHud extends Component {
         scored: false
     }
 
-    componentWillReceiveProps(nextProps) {
-
-        //if (nextProps.hudCorrectAnswers !== this.props.hudCorrectAnswers) {
-        //}
-    }
-
-
-    componentDidMount() {
-        console.log('componentDidMount');
-    }
-    componentWillMount() {
-        console.log('componentWillMount');
-    }
-
-    componentWillUnmount() {
-        console.log('componentWillUnmount');
-    }
-
     render() {
         return (
             <div className={'game-hud '
