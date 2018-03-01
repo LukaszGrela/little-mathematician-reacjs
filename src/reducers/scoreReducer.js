@@ -46,9 +46,9 @@ export default function reducer(state = {
                 break;
 
             case GAME_ADDITION:
-            default:
                 o = { addScore: state.addScore + payload.score };
                 break;
+            default:break;
 
         }
         return Object.assign({}, state, o);
