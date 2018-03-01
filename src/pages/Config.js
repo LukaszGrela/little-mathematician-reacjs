@@ -18,40 +18,41 @@ import React, { Component } from 'react';
 
 import './Config.scss'
 import connect from 'react-redux/lib/connect/connect';
-import { changeNumberOfQuestions,ConfigType, changeRangeTo, changeRangeFrom } from '../actions/actions';
+import { changeNumberOfQuestions, ConfigType, changeRangeTo, changeRangeFrom } from '../actions/actions';
 
-class Config extends Component {
+export class Config extends Component {
 
 
     constructor(props) {
         super(props);
-        this.state = Object.assign({}, props);
     }
 
 
 
-    handleChange(field, value) {
+    handleChange = (field, value) => {
         let _val = parseInt(value, 10);
-        let gFrom = this.props.general.from;
-        let gTo = this.props.general.to;
-        const { dispatch } = this.props;
+        let gFrom = this.props.config.general.from;
+        let gTo = this.props.config.general.to;
+
+        const { changeNumberOfQuestions, changeRangeFrom, changeRangeTo } = this.props;
+
         switch (field) {
             case 'general-qn':
-                dispatch(changeNumberOfQuestions(_val, ConfigType.GENERAL));
+                changeNumberOfQuestions(_val, ConfigType.GENERAL);
                 break;
             case 'general-rf':
                 if (_val >= gTo) {
-                    dispatch(changeRangeTo(_val + 10, ConfigType.GENERAL));
+                    changeRangeTo(_val + 10, ConfigType.GENERAL);
                 }
                 //this.setState({ general: { from: _val, to: gTo, questionCount: gCount } });
-                dispatch(changeRangeFrom(_val, ConfigType.GENERAL));
+                changeRangeFrom(_val, ConfigType.GENERAL);
                 break;
             case 'general-rt':
                 if (_val <= gFrom) {
-                    dispatch(changeRangeFrom(_val - 10, ConfigType.GENERAL));
+                    changeRangeFrom(_val - 10, ConfigType.GENERAL);
                 }
                 //this.setState({ general: { to: _val, from: gFrom, questionCount: gCount } });
-                dispatch(changeRangeTo(_val, ConfigType.GENERAL));
+                changeRangeTo(_val, ConfigType.GENERAL);
                 break;
             default:
                 break;
@@ -60,13 +61,16 @@ class Config extends Component {
 
 
     render() {
+        const { config } = this.props;
         return (
             <div className='config'>
                 <form>
                     <div className='general'>
                         <label>
                             Number of questions:
-                            <select value={this.props.general.questionCount}
+                            <select
+                                id='general-questions'
+                                value={config.general.questionCount}
                                 onChange={(e) => this.handleChange('general-qn', e.target.value)}>
                                 <option value="10">10</option>
                                 <option value="25">25</option>
@@ -76,7 +80,9 @@ class Config extends Component {
                         </label>
                         <label>
                             Number range from:
-                            <select value={this.props.general.from}
+                            <select
+                                id='general-range-from'
+                                value={config.general.from}
                                 onChange={(e) => this.handleChange('general-rf', e.target.value)}>
                                 <option value="0">0</option>
                                 <option value="10">10</option>
@@ -87,7 +93,9 @@ class Config extends Component {
                         </label>
                         <label>
                             Number range to:
-                            <select value={this.props.general.to}
+                            <select
+                                id='general-range-to'
+                                value={config.general.to}
                                 onChange={(e) => this.handleChange('general-rt', e.target.value)}>
                                 <option value="10">10</option>
                                 <option value="20">20</option>
@@ -107,10 +115,14 @@ class Config extends Component {
     }
 }
 
-const mapStateToProps = (state) => {
-    console.log('Config#mapStateToProps', state);
-    const config = Object.assign({}, state.config);
-    return config;
-}
+const mapStateToProps = (state) => ({
+    config: { ...state.config }
+});
 
-export default connect(mapStateToProps)(Config);
+const mapDispatchToProps = (dispatch) => ({
+    changeNumberOfQuestions: (count, type) => dispatch(changeNumberOfQuestions(count, type)),
+    changeRangeFrom: (value, type) => dispatch(changeRangeFrom(value, type)),
+    changeRangeTo: (value, type) => dispatch(changeRangeTo(value, type)),
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Config);
