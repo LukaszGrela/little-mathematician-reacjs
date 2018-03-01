@@ -32,9 +32,13 @@ export default function reducer(state = {
             switch (configType) {
                 case ConfigType.GENERAL:
                 default:
-                    return Object.assign({}, state, {
-                        general: { ...state.general, questionCount }
-                    });
+                    return {
+                        ...state,
+                        general: {
+                            ...state.general,
+                            questionCount
+                        }
+                    };
             }
         // break;
         case CHANGE_RANGE_FROM:
@@ -43,9 +47,13 @@ export default function reducer(state = {
             switch (configType) {
                 case ConfigType.GENERAL:
                 default:
-                    return Object.assign({}, state, {
-                        general: { ...state.general, from: value }
-                    });
+                    return {
+                        ...state,
+                        general: {
+                            ...state.general,
+                            from: value
+                        }
+                    };
             }
         // break;
         case CHANGE_RANGE_TO:
@@ -54,9 +62,13 @@ export default function reducer(state = {
             switch (configType) {
                 case ConfigType.GENERAL:
                 default:
-                    return Object.assign({}, state, {
-                        general: { ...state.general, to: value }
-                    });
+                    return {
+                        ...state,
+                        general: {
+                            ...state.general,
+                            to: value
+                        }
+                    };
             }
         // break;
 
