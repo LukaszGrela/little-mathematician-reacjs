@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render Footer correctly 1`] = `
+<footer>
+  GrelaDesign (c) 2017 - 
+  2018
+</footer>
+`;
+
+exports[`should render Footer correctly with different year 1`] = `
+<footer>
+  GrelaDesign (c) 2017 - 
+  2019
+</footer>
+`;
