@@ -1,14 +1,17 @@
-import { 
-    newGame, NEW_GAME, 
-    nextQuestion, NEXT_QUESTION, 
-    answerQuestion, ANSWER_QUESTION, 
-    answerResult, ANSWER_RESULT, replayGame, REPLAY_GAME } from "../../actions/mathGameActions";
+import {
+    newGame, NEW_GAME,
+    nextQuestion, NEXT_QUESTION,
+    answerQuestion, ANSWER_QUESTION,
+    answerResult, ANSWER_RESULT,
+    replayGame, REPLAY_GAME,
+    quitGame, QUIT_GAME
+} from "../../actions/mathGameActions";
 
 test('should generate initGame action object', () => {
     const config = { config: 'config' };
     const action = newGame(config);
     expect(action).toEqual({
-        type:NEW_GAME,
+        type: NEW_GAME,
         config
     });
 });
@@ -16,7 +19,7 @@ test('should generate initGame action object', () => {
 test('should generate nextQuestion action object', () => {
     const action = nextQuestion();
     expect(action).toEqual({
-        type:NEXT_QUESTION
+        type: NEXT_QUESTION
     });
 });
 
@@ -25,7 +28,7 @@ test('should generate answerQuestion action object', () => {
     const optionId = 2;
     const action = answerQuestion(answer, optionId);
     expect(action).toEqual({
-        type:ANSWER_QUESTION,
+        type: ANSWER_QUESTION,
         answer,
         optionId
     });
@@ -35,7 +38,7 @@ test('should generate answerResult action object', () => {
     const finished = true;
     const action = answerResult(result, finished);
     expect(action).toEqual({
-        type:ANSWER_RESULT,
+        type: ANSWER_RESULT,
         result,
         finished
     });
@@ -43,6 +46,12 @@ test('should generate answerResult action object', () => {
 test('should generate replayGame action object', () => {
     const action = replayGame();
     expect(action).toEqual({
-        type:REPLAY_GAME
+        type: REPLAY_GAME
+    });
+});
+test('should generate quitGame action object', () => {
+    const action = quitGame();
+    expect(action).toEqual({
+        type: QUIT_GAME
     });
 });

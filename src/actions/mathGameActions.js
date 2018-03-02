@@ -67,3 +67,8 @@ export const REPLAY_GAME = 'gd:REPLAY_GAME';
 export const replayGame = () => ({
     type:REPLAY_GAME
 });
+export const QUIT_GAME = 'gd:QUIT_GAME';
+/** Creates QUIT_GAME action object */
+export const quitGame = () => ({
+    type:QUIT_GAME
+});
