@@ -4,7 +4,8 @@ import {
     answerQuestion, ANSWER_QUESTION,
     answerResult, ANSWER_RESULT,
     replayGame, REPLAY_GAME,
-    quitGame, QUIT_GAME
+    quitGame, QUIT_GAME,
+    gameOver, GAME_OVER
 } from "../../actions/mathGameActions";
 
 test('should generate initGame action object', () => {
@@ -53,5 +54,11 @@ test('should generate quitGame action object', () => {
     const action = quitGame();
     expect(action).toEqual({
         type: QUIT_GAME
+    });
+});
+test('should generate gameOver action object', () => {
+    const action = gameOver();
+    expect(action).toEqual({
+        type: GAME_OVER
     });
 });

@@ -67,8 +67,15 @@ export const REPLAY_GAME = 'gd:REPLAY_GAME';
 export const replayGame = () => ({
     type:REPLAY_GAME
 });
+
 export const QUIT_GAME = 'gd:QUIT_GAME';
 /** Creates QUIT_GAME action object */
 export const quitGame = () => ({
     type:QUIT_GAME
+});
+
+export const GAME_OVER = 'gd:GAME_OVER';
+/** Creates GAME_OVER action object */
+export const gameOver = () => ({
+    type:GAME_OVER
 });
