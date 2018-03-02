@@ -20,9 +20,7 @@ import './Feedback.scss'
 import ButtonIconNext from '../icons/ButtonIconNext';
 
 class Feedback extends Component {
-    state = {
 
-    };
     promptAnimation = false;
 
     render() {
