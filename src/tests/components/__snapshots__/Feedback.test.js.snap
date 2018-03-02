@@ -1,0 +1,59 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should render Feedback correctly 1`] = `
+<div
+  className="feedback correct"
+>
+  <div
+    className="row"
+  >
+    <MoodIcon
+      className="cell"
+      isGood={true}
+    />
+    <div
+      className="message cell"
+    >
+      Well done!
+    </div>
+    <button
+      className="cell"
+      onClick={[Function]}
+    >
+      <ButtonIconNext />
+    </button>
+  </div>
+</div>
+`;
+
+exports[`Should render Feedback correctly on wrong answer 1`] = `
+<div
+  className="feedback incorrect"
+>
+  <div
+    className="row"
+  >
+    <MoodIcon
+      className="cell"
+      isGood={false}
+    />
+    <div
+      className="message cell"
+    >
+      Not so, correct answer is 
+      <span
+        className="correct-answer"
+        key="correct-span"
+      >
+        B
+      </span>
+    </div>
+    <button
+      className="cell"
+      onClick={[Function]}
+    >
+      <ButtonIconNext />
+    </button>
+  </div>
+</div>
+`;
