@@ -20,8 +20,6 @@ import './Equation.scss'
 class Equation extends Component {
     constructor(props) {
         super(props);
-        this.state = {};
-        console.log('Equation#constructor', props);
     }
     render() {
         const { operandA, operandB, result, ask, operation, answer } = this.props;
