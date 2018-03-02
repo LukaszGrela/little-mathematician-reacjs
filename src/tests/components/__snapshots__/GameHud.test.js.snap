@@ -1,0 +1,61 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should render GameHud correctly 1`] = `
+<div
+  className="game-hud addition"
+>
+  <div
+    className="container"
+  >
+    <div
+      className="question-counter"
+    >
+      1
+       / 
+      1
+    </div>
+    <div
+      className="correct-answers"
+    >
+      <IconGrade
+        className="icon-grade"
+      />
+      <span
+        className="label"
+      >
+        0
+      </span>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Should render GameHud correctly with different props 1`] = `
+<div
+  className="game-hud addition gain-odd"
+>
+  <div
+    className="container"
+  >
+    <div
+      className="question-counter"
+    >
+      2
+       / 
+      10
+    </div>
+    <div
+      className="correct-answers"
+    >
+      <IconGrade
+        className="icon-grade"
+      />
+      <span
+        className="label"
+      >
+        3
+      </span>
+    </div>
+  </div>
+</div>
+`;
