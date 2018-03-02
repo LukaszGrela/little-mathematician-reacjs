@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should render Equation correctly 1`] = `
+<div
+  className="equation "
+>
+  <div
+    className="wrapper"
+  >
+    <div
+      className="part operand-a"
+    >
+      1
+    </div>
+    <div
+      className="part operation"
+    >
+      +
+    </div>
+    <div
+      className="part operand-b"
+    >
+      2
+    </div>
+    <div
+      className="part equation"
+    >
+      =
+    </div>
+    <div
+      className="part result question"
+    >
+      ?
+    </div>
+  </div>
+</div>
+`;
