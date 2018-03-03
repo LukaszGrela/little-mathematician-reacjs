@@ -1,16 +1,24 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { MathGame } from '../../pages/MathGame';
+import { GAME_ADDITION } from '../../gameTypes';
 
-let wrapper;
+let wrapper, newGame;
 
 beforeEach(() => {
-
-    wrapper = shallow(<MathGame />);
+    newGame = jest.fn();
+    wrapper = shallow(<MathGame
+        type={GAME_ADDITION}
+        newGame={newGame}
+    />);
 
 })
 
 test('Should render MathGame correctly', () => {
-    // to be tested after game refactor
+    expect(wrapper).toMatchSnapshot();
 });
+
+test('Should call the newGame method', () => {
+    expect(newGame).toHaveBeenCalled();
+})
 // test('', () => { });
