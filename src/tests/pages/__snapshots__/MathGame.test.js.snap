@@ -3,5 +3,45 @@
 exports[`Should render MathGame correctly 1`] = `
 <div
   className="game game-addition"
-/>
+>
+  <div
+    className="game-view"
+  >
+    <GameHud
+      hudCorrectAnswers={0}
+      hudQuestionCurrent={1}
+      questionCount={10}
+      type=":addition"
+    />
+    <Equation
+      ask="b"
+      correct={1}
+      distractors={
+        Array [
+          6,
+          3,
+          1,
+          0,
+        ]
+      }
+      id={0}
+      operandA={6}
+      operandB={1}
+      operation="+"
+      result={7}
+    />
+    <GameAnswers
+      onSelection={[Function]}
+      options={
+        Array [
+          6,
+          3,
+          1,
+          0,
+        ]
+      }
+      selectionId={null}
+    />
+  </div>
+</div>
 `;

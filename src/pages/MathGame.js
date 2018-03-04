@@ -25,7 +25,7 @@ import GameOver from '../components/GameOver'
 import Feedback from '../components/Feedback'
 
 import './MathGame.scss';
-import { newGame, quitGame } from '../actions/mathGameActions';
+import { newGame, quitGame, answerQuestion } from '../actions/mathGameActions';
 
 export class MathGame extends Component {
 
@@ -33,11 +33,75 @@ export class MathGame extends Component {
         this.props.newGame(this.props.config);
     }
 
+    gameOverActionHandler = (action) => {
+
+    }
+    feedbackActionHandler = () => { }
+    gameAnswerSelectionHandler = (option, id) => {
+        this.props.answerQuestion(option, id);
+    }
+
+
+
+
+
+    gameOverView = () => {
+        const { hudCorrectAnswers } = this.props.game;
+        return (
+            <GameOver onAction={this.gameOverActionHandler}
+                hudCorrectAnswers={hudCorrectAnswers} />
+        )
+    }
+    getNextEquationView = () => {
+        const { type, game } = this.props;
+        const { operation, questions, hudQuestionCurrent } = game;
+        const current = questions[hudQuestionCurrent - 1];
+        return <Equation
+            {...current}
+            operation={operation} />;
+    }
+    gameView = () => {
+        const { type, game } = this.props;
+        const { hudCorrectAnswers, hudQuestionCurrent, questionCount, questions } = game;
+        const current = questions[hudQuestionCurrent - 1];
+        console.log('current', current);
+        return (
+            <div className='game-view'>
+                <GameHud
+                    hudCorrectAnswers={hudCorrectAnswers}
+                    hudQuestionCurrent={hudQuestionCurrent}
+                    questionCount={questionCount}
+                    type={type} />
+                {
+                    this.getNextEquationView()
+                }
+                {
+                    /* show feedback panel if question has user answer */
+                    current && current.answer ?
+                        <Feedback {...current}
+                            onAction={this.feedbackActionHandler} /> : null
+                }
+
+                <GameAnswers
+                    selectionId={null}
+                    options={current.distractors}
+                    onSelection={this.gameAnswerSelectionHandler} />
+
+
+            </div>
+        );
+    }
+
     render() {
-        const { type } = this.props;
+        const { type, game } = this.props;
+        const { isGameOver } = game;
+        console.log(game);
+        if (game.hasOwnProperty('questionCount') === false) return null;
         return (
             <div className={'game game-' + type.split(':').join('')}>
-
+                {
+                    isGameOver ? this.gameOverView() : this.gameView()
+                }
             </div>
         );
     }
@@ -47,16 +111,18 @@ MathGame.propTypes = {
     type: PropTypes.string.isRequired,
     newGame: PropTypes.func.isRequired,
     quitGame: PropTypes.func.isRequired,
+    answerQuestion: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = (state, props) => ({
     config: { ...state.config, type: props.type },
-    game: { ...state.currentGame }
+    game: { ...state.game.currentGame }
 });
 
 const mapDispatchToProps = (dispatch) => ({
     newGame: (config) => dispatch(newGame(config)),
     quitGame: () => dispatch(quitGame()),
+    answerQuestion: (answer, optionId) => dispatch(answerQuestion(answer, optionId)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MathGame);
