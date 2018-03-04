@@ -25,7 +25,8 @@ import GameOver from '../components/GameOver'
 import Feedback from '../components/Feedback'
 
 import './MathGame.scss';
-import { newGame, quitGame, answerQuestion, nextQuestion, gameOver } from '../actions/mathGameActions';
+import { newGame, quitGame, answerQuestion, nextQuestion, gameOver, replayGame } from '../actions/mathGameActions';
+import { increaseScoreOfGame } from '../actions/actions';
 
 export class MathGame extends Component {
 
@@ -35,8 +36,16 @@ export class MathGame extends Component {
 
     gameOverActionHandler = (action) => {
 
-        const { hudQuestionCurrent, questionCount } = this.props.game;
-        this.props.gameOver();
+        const { type, game } = this.props;
+        const { hudCorrectAnswers } = game;
+        this.props.updateScore(hudCorrectAnswers, type);
+        if(action === 'replay') {
+            this.props.replayGame();
+        }
+        else if(action === 'menu') {
+            this.props.gameOver();
+            this.props.onAction('/');
+        }
     }
     feedbackActionHandler = () => {
         this.props.nextQuestion();
@@ -116,6 +125,9 @@ MathGame.propTypes = {
     answerQuestion: PropTypes.func.isRequired,
     nextQuestion: PropTypes.func.isRequired,
     gameOver: PropTypes.func.isRequired,
+    updateScore: PropTypes.func.isRequired,
+    replayGame: PropTypes.func.isRequired,
+    onAction: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = (state, props) => ({
@@ -129,6 +141,8 @@ const mapDispatchToProps = (dispatch) => ({
     answerQuestion: (answer, optionId) => dispatch(answerQuestion(answer, optionId)),
     nextQuestion: () => dispatch(nextQuestion()),
     gameOver: () => dispatch(gameOver()),
+    replayGame: () => dispatch(replayGame()),
+    updateScore: (score, type) => dispatch(increaseScoreOfGame(score, type)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MathGame);
