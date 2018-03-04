@@ -39,11 +39,11 @@ export class MathGame extends Component {
         const { type, game } = this.props;
         const { hudCorrectAnswers } = game;
         this.props.updateScore(hudCorrectAnswers, type);
+        this.props.gameOver();
         if(action === 'replay') {
-            this.props.replayGame();
+            this.props.newGame(this.props.config);
         }
         else if(action === 'menu') {
-            this.props.gameOver();
             this.props.onAction('/');
         }
     }
