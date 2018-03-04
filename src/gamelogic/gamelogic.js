@@ -27,8 +27,7 @@ export const generateGameObject = (config) => {
         hudQuestionCurrent: 1,
         hudCorrectAnswers: 0,
         questions,
-        operation: questions[0].operation,
-        isGameOver: false
+        operation: questions[0].operation
     };
 };
 
