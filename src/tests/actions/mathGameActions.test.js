@@ -2,8 +2,6 @@ import {
     newGame, NEW_GAME,
     nextQuestion, NEXT_QUESTION,
     answerQuestion, ANSWER_QUESTION,
-    answerResult, ANSWER_RESULT,
-    replayGame, REPLAY_GAME,
     quitGame, QUIT_GAME,
     gameOver, GAME_OVER
 } from "../../actions/mathGameActions";
@@ -32,22 +30,6 @@ test('should generate answerQuestion action object', () => {
         type: ANSWER_QUESTION,
         answer,
         optionId
-    });
-});
-test('should generate answerResult action object', () => {
-    const result = true;
-    const finished = true;
-    const action = answerResult(result, finished);
-    expect(action).toEqual({
-        type: ANSWER_RESULT,
-        result,
-        finished
-    });
-});
-test('should generate replayGame action object', () => {
-    const action = replayGame();
-    expect(action).toEqual({
-        type: REPLAY_GAME
     });
 });
 test('should generate quitGame action object', () => {

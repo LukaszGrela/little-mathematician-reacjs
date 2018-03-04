@@ -29,14 +29,11 @@ export const newGame = (config) => ({
     config
 });
 
-
-
 export const NEXT_QUESTION = 'gd:NEXT_QUESTION';
 /** Creates NEXT_QUESTION action object */
 export const nextQuestion = () => ({
     type:NEXT_QUESTION
 });
-
 
 export const ANSWER_QUESTION = 'gd:ANSWER_QUESTION';
 /**
@@ -49,24 +46,6 @@ export const answerQuestion = (answer, optionId) => ({
     answer,
     optionId
 })
-
-
-export const ANSWER_RESULT = 'gd:ANSWER_RESULT';
-/**
- * Creates ANSWER_RESULT action object
- * @param {boolean} result User answered correctly or not
- * @param {boolean} finished Default false. Was it the last question that was answered
- */
-export const answerResult = (result, finished=false) => ({
-    type:ANSWER_RESULT,
-    result,
-    finished
-});
-export const REPLAY_GAME = 'gd:REPLAY_GAME';
-/** Creates REPLAY_GAME action object */
-export const replayGame = () => ({
-    type:REPLAY_GAME
-});
 
 export const QUIT_GAME = 'gd:QUIT_GAME';
 /** Creates QUIT_GAME action object */
