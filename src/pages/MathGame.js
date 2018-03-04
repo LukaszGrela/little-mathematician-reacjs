@@ -25,7 +25,7 @@ import GameOver from '../components/GameOver'
 import Feedback from '../components/Feedback'
 
 import './MathGame.scss';
-import { newGame } from '../actions/mathGameActions';
+import { newGame, quitGame } from '../actions/mathGameActions';
 
 export class MathGame extends Component {
 
@@ -34,15 +34,19 @@ export class MathGame extends Component {
     }
 
     render() {
+        const { type } = this.props;
         return (
-            <div>MathGame</div>
+            <div className={'game game-' + type.split(':').join('')}>
+
+            </div>
         );
     }
 }
 
 MathGame.propTypes = {
     type: PropTypes.string.isRequired,
-    newGame: PropTypes.func.isRequired
+    newGame: PropTypes.func.isRequired,
+    quitGame: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = (state, props) => ({
@@ -51,7 +55,8 @@ const mapStateToProps = (state, props) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    newGame: () => dispatch(newGame())
+    newGame: (config) => dispatch(newGame(config)),
+    quitGame: () => dispatch(quitGame()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MathGame);

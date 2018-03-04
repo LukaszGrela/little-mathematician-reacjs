@@ -3,13 +3,15 @@ import { shallow } from 'enzyme';
 import { MathGame } from '../../pages/MathGame';
 import { GAME_ADDITION } from '../../gameTypes';
 
-let wrapper, newGame;
+let wrapper, newGame,quitGame;
 
 beforeEach(() => {
     newGame = jest.fn();
+    quitGame = jest.fn();
     wrapper = shallow(<MathGame
         type={GAME_ADDITION}
         newGame={newGame}
+        quitGame={quitGame}
     />);
 
 })
