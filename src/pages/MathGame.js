@@ -83,7 +83,7 @@ export class MathGame extends Component {
                 }
 
                 <GameAnswers
-                    selectionId={null}
+                    selectionId={current.answer ? current.answer.selectionId:null}
                     options={current.distractors}
                     onSelection={this.gameAnswerSelectionHandler} />
 

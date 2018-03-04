@@ -1,5 +1,5 @@
 import gameReducer from "../../reducers/gameReducer";
-import { quitGame, gameOver, newGame } from "../../actions/mathGameActions";
+import { quitGame, gameOver, newGame, answerQuestion } from "../../actions/mathGameActions";
 import { GAME_ADDITION } from "../../gameTypes";
 import { generateGameObject } from "../../gamelogic/gamelogic";
 jest.mock('../../gamelogic/gamelogic');
@@ -66,4 +66,27 @@ test('should set currentGame to be a new game object', () => {
     //
     expect(state.currentGame).toEqual(generateGameObject(config));
 
+});
+
+test('should validate user answer on ANSWER_QUESTION action', () => {
+    const prevState = {
+            currentGame: {
+                hudQuestionCurrent: 1, hudCorrectAnswers: 0,
+                questions: [
+                    {
+                        id: 0,
+                        correct: 1
+                    }
+                ]
+            }
+    };
+    const state = gameReducer(prevState, answerQuestion(1, 1));
+    
+    expect(state.currentGame.hudCorrectAnswers).toBe(1);
+    expect(state.currentGame.questions[0].answer).not.toBeNull();
+    expect(state.currentGame.questions[0].answer).toEqual({
+        user:1,
+        correct:true,
+        selectionId:1
+    });
 });

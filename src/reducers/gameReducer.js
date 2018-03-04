@@ -14,7 +14,7 @@ Licensed under the Apache License, Version 2.0 (the "License");
    limitations under the License.
 */
 
-import { NEW_GAME, GAME_OVER, QUIT_GAME } from "../actions/mathGameActions";
+import { NEW_GAME, GAME_OVER, QUIT_GAME, ANSWER_QUESTION } from "../actions/mathGameActions";
 import { generateGameObject } from "../gamelogic/gamelogic";
 
 const DEFAULT_STATE = {
@@ -23,6 +23,7 @@ const DEFAULT_STATE = {
     historyLengthCap: 10
 };
 export default (state = DEFAULT_STATE, action) => {
+    let newState;
     switch (action.type) {
         case NEW_GAME:
             // create current game object
@@ -31,7 +32,7 @@ export default (state = DEFAULT_STATE, action) => {
             break;
         case GAME_OVER:
             // add current game object to the history and nullify the currentGame
-            const newState = {
+            newState = {
                 ...state,
                 history: [state.currentGame, ...state.history],
                 currentGame: null
@@ -41,6 +42,21 @@ export default (state = DEFAULT_STATE, action) => {
             if (newState.history.length > cap) {
                 newState.history.splice(cap, newState.history.length - cap);
             }
+            //
+            return newState;
+            break;
+        case ANSWER_QUESTION:
+            newState = Object.assign({}, state);
+            const current = newState.currentGame.questions[newState.currentGame.hudQuestionCurrent - 1];
+            // validate answer
+            current.answer = {
+                user: action.answer,
+                correct: action.answer === current.correct,
+                selectionId: action.optionId
+            }
+            newState.currentGame.questions[newState.currentGame.hudQuestionCurrent - 1] = current;
+            // score
+            if (current.answer.correct) newState.currentGame.hudCorrectAnswers += 1;
             //
             return newState;
             break;
