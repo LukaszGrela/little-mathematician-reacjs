@@ -21,7 +21,8 @@ test('Should set currentGame to null for QUIT_GAME action', () => {
 
 test('should add currentGame to history and set currentGame to null for GAME_OVER action', () => {
     const currentGame = {
-        game: 'my game'
+        game: 'my game',
+        questions:[0,1,2]
     };
     const state = gameReducer({
         ...defaultState,
@@ -33,11 +34,14 @@ test('should add currentGame to history and set currentGame to null for GAME_OVE
     expect(state.history.length).toBeGreaterThan(0);
 
     expect(state.history[0]).toEqual(currentGame);
+    // questions reset to be empty array
+    expect(state.history[0].questions).toHaveLength(0);
 });
 
 test('should add currentGame to history keep history within historyLengthCap limit for GAME_OVER action', () => {
     const currentGame = {
-        game: 'my game'
+        game: 'my game',
+        questions:[0,1,2]
     };
     const state = gameReducer({
         ...defaultState,

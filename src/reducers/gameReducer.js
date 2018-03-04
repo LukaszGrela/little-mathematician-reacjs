@@ -39,7 +39,7 @@ export default (state = DEFAULT_STATE, action) => {
                 currentGame: null
             };
             // clear questions list
-            newState.history[0].questions = [];
+            newState.history[0].questions.length = 0;
             //
             const { historyLengthCap: cap } = newState;
             // cap
