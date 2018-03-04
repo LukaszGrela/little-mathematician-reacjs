@@ -32,11 +32,15 @@ export default (state = DEFAULT_STATE, action) => {
             break;
         case GAME_OVER:
             // add current game object to the history and nullify the currentGame
+
             newState = {
                 ...state,
                 history: [state.currentGame, ...state.history],
                 currentGame: null
             };
+            // clear questions list
+            newState.history[0].questions = [];
+            //
             const { historyLengthCap: cap } = newState;
             // cap
             if (newState.history.length > cap) {
