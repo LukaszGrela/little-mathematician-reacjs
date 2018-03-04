@@ -25,7 +25,7 @@ import GameOver from '../components/GameOver'
 import Feedback from '../components/Feedback'
 
 import './MathGame.scss';
-import { newGame, quitGame, answerQuestion } from '../actions/mathGameActions';
+import { newGame, quitGame, answerQuestion, nextQuestion } from '../actions/mathGameActions';
 
 export class MathGame extends Component {
 
@@ -36,7 +36,9 @@ export class MathGame extends Component {
     gameOverActionHandler = (action) => {
 
     }
-    feedbackActionHandler = () => { }
+    feedbackActionHandler = () => {
+        this.props.nextQuestion();
+    }
     gameAnswerSelectionHandler = (option, id) => {
         this.props.answerQuestion(option, id);
     }
@@ -81,13 +83,10 @@ export class MathGame extends Component {
                         <Feedback {...current}
                             onAction={this.feedbackActionHandler} /> : null
                 }
-
                 <GameAnswers
-                    selectionId={current.answer ? current.answer.selectionId:null}
+                    selectionId={current.answer ? current.answer.selectionId : null}
                     options={current.distractors}
                     onSelection={this.gameAnswerSelectionHandler} />
-
-
             </div>
         );
     }
@@ -112,6 +111,7 @@ MathGame.propTypes = {
     newGame: PropTypes.func.isRequired,
     quitGame: PropTypes.func.isRequired,
     answerQuestion: PropTypes.func.isRequired,
+    nextQuestion: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = (state, props) => ({
@@ -123,6 +123,7 @@ const mapDispatchToProps = (dispatch) => ({
     newGame: (config) => dispatch(newGame(config)),
     quitGame: () => dispatch(quitGame()),
     answerQuestion: (answer, optionId) => dispatch(answerQuestion(answer, optionId)),
+    nextQuestion: () => dispatch(nextQuestion()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MathGame);

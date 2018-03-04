@@ -8,12 +8,14 @@ let wrapper,
     newGame,
     quitGame,
     answerQuestion,
+    nextQuestion,
     onAction;
 
 beforeEach(() => {
     newGame = jest.fn();
     quitGame = jest.fn();
     answerQuestion = jest.fn();
+    nextQuestion = jest.fn();
     game = {
         "questionCount": 10,
         "from": 0,
@@ -33,6 +35,7 @@ beforeEach(() => {
         newGame={newGame}
         quitGame={quitGame}
         answerQuestion={answerQuestion}
+        nextQuestion={nextQuestion}
     />);
 
 })
