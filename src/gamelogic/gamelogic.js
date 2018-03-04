@@ -214,7 +214,8 @@ export const prepareQuestionsSubtraction = (from, to, questionCount) => {
 
         if (a < b) {
             //swap
-            a = b + (b = a, 0);
+            // a = b + (b = a, 0);
+            [a,b] = [b,a];
         }
 
         let result = a - b
