@@ -1,5 +1,5 @@
 import gameReducer from "../../reducers/gameReducer";
-import { quitGame, gameOver, newGame, answerQuestion } from "../../actions/mathGameActions";
+import { quitGame, gameOver, newGame, answerQuestion, nextQuestion } from "../../actions/mathGameActions";
 import { GAME_ADDITION } from "../../gameTypes";
 import { generateGameObject } from "../../gamelogic/gamelogic";
 jest.mock('../../gamelogic/gamelogic');
@@ -70,23 +70,49 @@ test('should set currentGame to be a new game object', () => {
 
 test('should validate user answer on ANSWER_QUESTION action', () => {
     const prevState = {
-            currentGame: {
-                hudQuestionCurrent: 1, hudCorrectAnswers: 0,
-                questions: [
-                    {
-                        id: 0,
-                        correct: 1
-                    }
-                ]
-            }
+        currentGame: {
+            hudQuestionCurrent: 1, hudCorrectAnswers: 0,
+            questions: [
+                {
+                    id: 0,
+                    correct: 1
+                }
+            ]
+        }
     };
     const state = gameReducer(prevState, answerQuestion(1, 1));
-    
+
     expect(state.currentGame.hudCorrectAnswers).toBe(1);
     expect(state.currentGame.questions[0].answer).not.toBeNull();
     expect(state.currentGame.questions[0].answer).toEqual({
-        user:1,
-        correct:true,
-        selectionId:1
+        user: 1,
+        correct: true,
+        selectionId: 1
     });
+});
+
+test('should progress to next question on NEXT_QUESTION action', () => {
+    const prevState = {
+        currentGame: {
+            history: [],
+            hudQuestionCurrent: 1,
+            questions: [
+                {
+                    id: 0,
+                    correct: 1,
+                    answer: {
+                        user: 1,
+                        correct: true,
+                        selectionId: 1
+                    }
+                }
+            ]
+        }
+    };
+    const state = gameReducer(prevState, nextQuestion());
+
+    expect(state.currentGame.history).toHaveLength(1);
+    expect(state.currentGame.hudQuestionCurrent).toBe(2);
+    expect(state.currentGame.questions[0]).toBeNull();
+
 });

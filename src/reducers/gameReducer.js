@@ -14,7 +14,7 @@ Licensed under the Apache License, Version 2.0 (the "License");
    limitations under the License.
 */
 
-import { NEW_GAME, GAME_OVER, QUIT_GAME, ANSWER_QUESTION } from "../actions/mathGameActions";
+import { NEW_GAME, GAME_OVER, QUIT_GAME, ANSWER_QUESTION, NEXT_QUESTION } from "../actions/mathGameActions";
 import { generateGameObject } from "../gamelogic/gamelogic";
 
 const DEFAULT_STATE = {
@@ -23,7 +23,7 @@ const DEFAULT_STATE = {
     historyLengthCap: 10
 };
 export default (state = DEFAULT_STATE, action) => {
-    let newState;
+    let newState, current;
     switch (action.type) {
         case NEW_GAME:
             // create current game object
@@ -46,8 +46,8 @@ export default (state = DEFAULT_STATE, action) => {
             return newState;
             break;
         case ANSWER_QUESTION:
-            newState = Object.assign({}, state);
-            const current = newState.currentGame.questions[newState.currentGame.hudQuestionCurrent - 1];
+            newState = { ...state };
+            current = newState.currentGame.questions[newState.currentGame.hudQuestionCurrent - 1];
             // validate answer
             current.answer = {
                 user: action.answer,
@@ -58,6 +58,18 @@ export default (state = DEFAULT_STATE, action) => {
             // score
             if (current.answer.correct) newState.currentGame.hudCorrectAnswers += 1;
             //
+            return newState;
+            break;
+        case NEXT_QUESTION:
+            newState = { ...state };
+            // move current question to the history stack
+            current = newState.currentGame.questions[newState.currentGame.hudQuestionCurrent - 1];
+            newState.currentGame.history.push(current);
+
+            // nullify current question array slot
+            newState.currentGame.questions[newState.currentGame.hudQuestionCurrent - 1] = null;
+            // increase question number
+            newState.currentGame.hudQuestionCurrent += 1;
             return newState;
             break;
         case QUIT_GAME:
