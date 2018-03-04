@@ -8,7 +8,10 @@ let wrapper,
     newGame,
     quitGame,
     answerQuestion,
+    gameOver,
+    updateScore,
     nextQuestion,
+    config,
     onAction;
 
 beforeEach(() => {
@@ -16,6 +19,16 @@ beforeEach(() => {
     quitGame = jest.fn();
     answerQuestion = jest.fn();
     nextQuestion = jest.fn();
+    gameOver = jest.fn();
+    updateScore = jest.fn();
+    onAction = jest.fn();
+    config = {
+        general: {
+            "questionCount": 10,
+            "from": 0,
+            "to": 10,
+        }
+    };
     game = {
         "questionCount": 10,
         "from": 0,
@@ -29,12 +42,16 @@ beforeEach(() => {
     };
 
     wrapper = shallow(<MathGame
+        config={config}
         game={game}
         type={GAME_ADDITION}
         newGame={newGame}
         quitGame={quitGame}
         answerQuestion={answerQuestion}
         nextQuestion={nextQuestion}
+        gameOver={gameOver}
+        updateScore={updateScore}
+        onAction={onAction}
     />);
 
 })
@@ -45,5 +62,30 @@ test('Should render MathGame correctly', () => {
 
 test('Should call the newGame method', () => {
     expect(newGame).toHaveBeenCalled();
-})
+});
+test('Should answerQuestion be called', () => {
+    wrapper.instance().gameAnswerSelectionHandler(6, 1);
+
+    expect(answerQuestion).toHaveBeenLastCalledWith(6, 1);
+});
+test('Should updateScore, gameOver and newGame be called', () => {
+    wrapper.instance().gameOverActionHandler('replay');
+
+    expect(updateScore).toHaveBeenCalled();
+    expect(gameOver).toHaveBeenCalled();
+    expect(newGame).toHaveBeenLastCalledWith(config);
+});
+test('Should updateScore, gameOver and onAction be called', () => {
+    wrapper.instance().gameOverActionHandler('menu');
+
+    expect(updateScore).toHaveBeenCalled();
+    expect(gameOver).toHaveBeenCalled();
+    expect(onAction).toHaveBeenLastCalledWith('/');
+});
+test('Should nextQuestion to be called', () => {
+    wrapper.instance().feedbackActionHandler();
+
+    expect(nextQuestion).toHaveBeenCalled();
+
+ });
 // test('', () => { });

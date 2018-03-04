@@ -104,7 +104,6 @@ export class MathGame extends Component {
 
     render() {
         const { type, game } = this.props;
-        console.log(game);
         if (game.hasOwnProperty('questionCount') === false) return null;
         const { hudQuestionCurrent, questionCount } = game;
         const isGameOver = hudQuestionCurrent > questionCount;
@@ -126,7 +125,6 @@ MathGame.propTypes = {
     nextQuestion: PropTypes.func.isRequired,
     gameOver: PropTypes.func.isRequired,
     updateScore: PropTypes.func.isRequired,
-    replayGame: PropTypes.func.isRequired,
     onAction: PropTypes.func.isRequired,
 }
 
@@ -141,7 +139,6 @@ const mapDispatchToProps = (dispatch) => ({
     answerQuestion: (answer, optionId) => dispatch(answerQuestion(answer, optionId)),
     nextQuestion: () => dispatch(nextQuestion()),
     gameOver: () => dispatch(gameOver()),
-    replayGame: () => dispatch(replayGame()),
     updateScore: (score, type) => dispatch(increaseScoreOfGame(score, type)),
 });
 
