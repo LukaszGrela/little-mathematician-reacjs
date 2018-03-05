@@ -16,8 +16,10 @@
 import { combineReducers } from "redux";
 import scoreReducer from './scoreReducer'
 import configReducer from './configReducer'
+import gameReducer from "./gameReducer";
 
 export default combineReducers({
     score: scoreReducer,
-    config: configReducer
+    config: configReducer,
+    game: gameReducer
 });
