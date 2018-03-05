@@ -16,6 +16,7 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
 
 import { connect } from 'react-redux';
 import GameHud from '../components/GameHud'
@@ -32,6 +33,14 @@ export class MathGame extends Component {
 
     componentDidMount() {
         this.props.newGame(this.props.config);
+        this.unlistenHistory = this.props.history.listen((location, action) => {
+            if(location.pathname === '/') {
+                this.props.quitGame();
+            }
+        });
+    }
+    componentWillUnmount() {
+        this.unlistenHistory();
     }
 
     gameOverActionHandler = (action) => {
@@ -40,10 +49,10 @@ export class MathGame extends Component {
         const { hudCorrectAnswers } = game;
         this.props.updateScore(hudCorrectAnswers, type);
         this.props.gameOver();
-        if(action === 'replay') {
+        if (action === 'replay') {
             this.props.newGame(this.props.config);
         }
-        else if(action === 'menu') {
+        else if (action === 'menu') {
             this.props.onAction('/');
         }
     }
@@ -77,7 +86,7 @@ export class MathGame extends Component {
         const { type, game } = this.props;
         const { hudCorrectAnswers, hudQuestionCurrent, questionCount, questions } = game;
         const current = questions[hudQuestionCurrent - 1];
-        console.log('current', current);
+
         return (
             <div className='game-view'>
                 <GameHud
@@ -142,4 +151,6 @@ const mapDispatchToProps = (dispatch) => ({
     updateScore: (score, type) => dispatch(increaseScoreOfGame(score, type)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(MathGame);
+export default withRouter(
+    connect(mapStateToProps, mapDispatchToProps)(MathGame)
+);
