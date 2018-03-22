@@ -4,7 +4,7 @@ import {
     prepareQuestions,
     mergeSettings,
     generateGameObject
-} from "../../gamelogic/gamelogic";
+} from '../../gamelogic/gamelogic';
 import { GAME_SUBTRACTION, GAME_ADDITION, GAME_MULTIPLICATION, GAME_DIVISION } from "../../gameTypes";
 
 jest.mock('../../utils/math');
@@ -106,18 +106,66 @@ test('Should mergeSettings return correct values', () => {
 
 });
 
-test('Should generateGameObject return correct data object', () => {
+test('Should generateGameObject return GAME_ADDITION data object', () => {
     const config = {
         general: {
             questionCount: 10,
             from: 0,
             to: 10
         },
-        type:GAME_ADDITION
+        type: GAME_ADDITION
     };
     const gameObject = generateGameObject(config);
-    
+
     expect(gameObject.questions).toHaveLength(10);
     expect(gameObject.type).toBe(GAME_ADDITION);
     expect(gameObject.operation).toBe('+');
+});
+
+test('Should generateGameObject return GAME_SUBTRACTION data object', () => {
+    const config = {
+        general: {
+            questionCount: 10,
+            from: 0,
+            to: 10
+        },
+        type: GAME_SUBTRACTION
+    };
+    const gameObject = generateGameObject(config);
+
+    expect(gameObject.questions).toHaveLength(10);
+    expect(gameObject.type).toBe(GAME_SUBTRACTION);
+    expect(gameObject.operation).toBe('-');
+});
+
+test('Should generateGameObject return GAME_MULTIPLICATION data object', () => {
+    const config = {
+        general: {
+            questionCount: 10,
+            from: 0,
+            to: 10
+        },
+        type: GAME_MULTIPLICATION
+    };
+    const gameObject = generateGameObject(config);
+
+    expect(gameObject.questions).toHaveLength(10);
+    expect(gameObject.type).toBe(GAME_MULTIPLICATION);
+    expect(gameObject.operation).toBe('x');
+});
+
+test('Should generateGameObject return GAME_DIVISION data object', () => {
+    const config = {
+        general: {
+            questionCount: 10,
+            from: 0,
+            to: 10
+        },
+        type: GAME_DIVISION
+    };
+    const gameObject = generateGameObject(config);
+
+    expect(gameObject.questions).toHaveLength(10);
+    expect(gameObject.type).toBe(GAME_DIVISION);
+    expect(gameObject.operation).toBe('/');
 });

@@ -18,12 +18,15 @@
  * Returns random number from the given range
  * @param {number} min lower value to pick from
  * @param {number} max higher value to pick from
+ * @param {boolean} includeZero Default true. If set to false, then zero is excluded from the result.
  * @returns number
  */
-export function randomRange(min, max) {
+export function randomRange(min, max, includeZero=true) {
 
     if (min === max) min = 0;
-    return min + Math.floor(Math.random() * (max - min + 1))
+    const result = min + Math.floor(Math.random() * (max - min + 1));
+    if(!includeZero && result === 0) return randomRange(min, max, includeZero);
+    return result;
 }
 
 

@@ -97,8 +97,8 @@ export const prepareQuestionsDivision = (from, to, questionCount) => {
     // initiate the game 
     let questions = [];
     for (let index = 0; index < questionCount; index++) {
-        let a = randomRange(from, to),
-            b = randomRange(from, to)
+        let a = randomRange(from, to, false),
+            b = randomRange(from, to, false)
             , mul = a * b
             , result = b
             , ask = randomOption(['result', 'a', 'b']),
@@ -129,9 +129,9 @@ export const prepareQuestionsDivision = (from, to, questionCount) => {
         else {
             distractors = [
                 b,
-                b + randomRange(1, 3),
-                b + randomRange(4, 7),
-                b - randomRange(1, 3),
+                b + randomRange(1, 3, false),
+                b + randomRange(4, 7, false),
+                b - randomRange(1, 3, false),
             ]
         }
         questions.push({
@@ -148,6 +148,22 @@ export const prepareQuestionsDivision = (from, to, questionCount) => {
     }
     return questions;
 }
+/**
+ * 
+ * @param {number} from minimum number for question 
+ * @param {number} to maximum number for question
+ * @param {number} questionCount how many question
+ * @returns {object}    {
+            id: {number},
+            operandA: {number},
+            operandB: {number},
+            result: {number},
+            ask: {'result'|'a'|'b'},
+            correct: {number},
+            distractors: [number]
+            operation: 'x',
+        }
+ */
 export const prepareQuestionsMultiplication = (from, to, questionCount) => {
 
     // initiate the game 
