@@ -13,11 +13,11 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 */
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 
 import './Footer.scss'
 
-class Footer extends Component {
+class Footer extends PureComponent {
     state = {
         currentYear: (new Date()).getFullYear()
     }
