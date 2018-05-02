@@ -14,6 +14,12 @@
    limitations under the License.
 */
 import React from 'react';
+
+if (process.env.NODE_ENV !== 'production') {
+    const { whyDidYouUpdate } = require('why-did-you-update');
+    whyDidYouUpdate(React);
+}
+
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom'
 
