@@ -23,6 +23,7 @@ import Menu from './pages/Menu'
 import About from './pages/About'
 import MathGame from './pages/MathGame'
 import Config from './pages/Config';
+import GameHistoryContainer from './pages/GameHistoryContainer';
 
 // components
 import Footer from './components/Footer'
@@ -41,7 +42,6 @@ import IconSettings from './icons/IconSettings';
 import { GAME_ADDITION, GAME_SUBTRACTION, GAME_MULTIPLICATION, GAME_DIVISION } from './gameTypes';
 import { IconMore } from './icons/IconMore';
 import IconHistory from './icons/IconHistory';
-import GameHistoryContainer from './pages/GameHistoryContainer';
 
 class App extends Component {
 
