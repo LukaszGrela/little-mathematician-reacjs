@@ -42,6 +42,7 @@ import IconSettings from './icons/IconSettings';
 import { GAME_ADDITION, GAME_SUBTRACTION, GAME_MULTIPLICATION, GAME_DIVISION } from './gameTypes';
 import { IconMore } from './icons/IconMore';
 import IconHistory from './icons/IconHistory';
+import MenuButton from './components/MenuButton';
 
 class App extends Component {
 
@@ -90,6 +91,9 @@ class App extends Component {
       case '/about':
         title = 'About';
         break;
+      case '/history':
+        title = 'Game History';
+        break;
 
       case '/':
       default:
@@ -132,9 +136,25 @@ class App extends Component {
           {(matches) => {
             if (matches) {
               return [
-                <button key={'about-btn'} className='button-about' onClick={() => { this.handleNavigationAction('about') }}><IconInfo /></button>,
-                <button key={'settings-btn'} className='button-settings' onClick={() => { this.handleNavigationAction('config') }}><IconSettings /></button>,
-                <button key={'history-btn'} className='button-history' onClick={() => { this.handleNavigationAction('history') }}><IconHistory /></button>
+                <MenuButton
+                  key={'about-btn'}
+                  className='button-about'
+                  clickHandler={() => { this.handleNavigationAction('about') }}
+                  icon={<IconInfo />}
+                />,
+                <MenuButton
+                  key={'settings-btn'}
+                  className='button-settings'
+                  clickHandler={() => { this.handleNavigationAction('config') }}
+                  icon={<IconSettings />}
+                />,
+                <MenuButton
+                  key={'history-btn'}
+                  className='button-history'
+                  clickHandler={() => { this.handleNavigationAction('history') }}
+                  icon={<IconHistory />}
+                />
+
               ]
             } else {
               return [
@@ -142,9 +162,27 @@ class App extends Component {
                 <div key={'dd-menu-box'} className={'dd-menu' + (this.state.ddMenuOpen ? ' open' : ' close')}>
                   <div className='cloak' onClick={() => { this.setState({ ddMenuOpen: false }) }}></div>
                   <div className='dd-menu-container'>
-                    <button key={'about-btn'} className='button-about' onClick={() => { this.handleNavigationAction('about') }}><IconInfo /><span className='label'>About</span></button>
-                    <button key={'settings-btn'} className='button-settings' onClick={() => { this.handleNavigationAction('config') }}><IconSettings /><span className='label'>Config</span></button>
-                    <button key={'history-btn'} className='button-history' onClick={() => { this.handleNavigationAction('config') }}><IconHistory /><span className='label'>History</span></button>
+                    <MenuButton
+                      key={'about-btn'}
+                      className='button-about'
+                      clickHandler={() => { this.handleNavigationAction('about') }}
+                      label='About'
+                      icon={<IconInfo />}
+                    />
+                    <MenuButton
+                      key={'settings-btn'}
+                      className='button-settings'
+                      clickHandler={() => { this.handleNavigationAction('config') }}
+                      label='Config'
+                      icon={<IconSettings />}
+                    />
+                    <MenuButton
+                      key={'history-btn'}
+                      className='button-history'
+                      clickHandler={() => { this.handleNavigationAction('config') }}
+                      label='History'
+                      icon={<IconHistory />}
+                    />
                   </div>
                 </div>
               ]
@@ -188,11 +226,11 @@ class App extends Component {
       case 'about':
         to = '/about';
         break;
-        case 'config':
+      case 'config':
         to = '/config'
         break;
-        case 'history':
-        to = '/game-history'
+      case 'history':
+        to = '/history'
         break;
 
       default:
@@ -236,7 +274,7 @@ class App extends Component {
             />
 
             <Route path='/config' component={(p) => <Config />} />
-            <Route path='/game-history' component={GameHistoryContainer} />
+            <Route path='/history' component={GameHistoryContainer} />
             <Route path='/about' component={About} />
             <Route component={NoMatch} />
           </Switch>
