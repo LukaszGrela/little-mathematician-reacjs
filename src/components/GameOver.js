@@ -25,6 +25,12 @@ class GameOver extends Component {
     handleClick = (action) => {
         this.props.onAction && this.props.onAction(action);
     }
+    handleMenu = () => {
+        this.handleClick('menu');
+    }
+    handleReplay = () => {
+        this.handleClick('replay');
+    }
     render() {
         return (
             <div className='game-over'>
@@ -33,14 +39,10 @@ class GameOver extends Component {
                 <div className='footer'>
                     <button
                         className='replay-button'
-                        onClick={() => {
-                            this.handleClick('replay')
-                        }}><IconReplay /></button>
+                        onClick={this.handleReplay}><IconReplay /></button>
                     <button
                         className='menu-button'
-                        onClick={() => {
-                            this.handleClick('menu')
-                        }}><IconMenu /></button>
+                        onClick={this.handleMenu}><IconMenu /></button>
                 </div>
             </div>
         );
