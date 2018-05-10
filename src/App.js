@@ -40,6 +40,8 @@ import IconSettings from './icons/IconSettings';
 
 import { GAME_ADDITION, GAME_SUBTRACTION, GAME_MULTIPLICATION, GAME_DIVISION } from './gameTypes';
 import { IconMore } from './icons/IconMore';
+import IconHistory from './icons/IconHistory';
+import GameHistoryContainer from './pages/GameHistoryContainer';
 
 class App extends Component {
 
@@ -131,7 +133,8 @@ class App extends Component {
             if (matches) {
               return [
                 <button key={'about-btn'} className='button-about' onClick={() => { this.handleNavigationAction('about') }}><IconInfo /></button>,
-                <button key={'settings-btn'} className='button-settings' onClick={() => { this.handleNavigationAction('config') }}><IconSettings /></button>
+                <button key={'settings-btn'} className='button-settings' onClick={() => { this.handleNavigationAction('config') }}><IconSettings /></button>,
+                <button key={'history-btn'} className='button-history' onClick={() => { this.handleNavigationAction('history') }}><IconHistory /></button>
               ]
             } else {
               return [
@@ -141,6 +144,7 @@ class App extends Component {
                   <div className='dd-menu-container'>
                     <button key={'about-btn'} className='button-about' onClick={() => { this.handleNavigationAction('about') }}><IconInfo /><span className='label'>About</span></button>
                     <button key={'settings-btn'} className='button-settings' onClick={() => { this.handleNavigationAction('config') }}><IconSettings /><span className='label'>Config</span></button>
+                    <button key={'history-btn'} className='button-history' onClick={() => { this.handleNavigationAction('config') }}><IconHistory /><span className='label'>History</span></button>
                   </div>
                 </div>
               ]
@@ -184,8 +188,11 @@ class App extends Component {
       case 'about':
         to = '/about';
         break;
-      case 'config':
+        case 'config':
         to = '/config'
+        break;
+        case 'history':
+        to = '/game-history'
         break;
 
       default:
@@ -229,6 +236,7 @@ class App extends Component {
             />
 
             <Route path='/config' component={(p) => <Config />} />
+            <Route path='/game-history' component={GameHistoryContainer} />
             <Route path='/about' component={About} />
             <Route component={NoMatch} />
           </Switch>
