@@ -44,7 +44,7 @@ export class MathGame extends Component {
     }
 
     gameOverActionHandler = (action) => {
-
+        console.log('gameOverActionHandler', action);
         const { type, game } = this.props;
         const { hudCorrectAnswers } = game;
         this.props.updateScore(hudCorrectAnswers, type);
