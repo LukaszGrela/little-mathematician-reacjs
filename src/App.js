@@ -55,7 +55,7 @@ class App extends Component {
       ddMenuOpen: false
     }
     // 
-    this.handleNavigationAction = this.handleNavigationAction.bind(this);
+    // this.handleNavigationAction = this.handleNavigationAction.bind(this);
   }
 
 
@@ -206,7 +206,7 @@ class App extends Component {
    * Handles navigation requests, updates state
    * @param {string} action Navigation ID
    */
-  handleNavigationAction(action) {
+  handleNavigationAction = (action) => {
     console.log("App", action);
     let to = '/';
     switch (action) {
