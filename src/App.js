@@ -266,10 +266,7 @@ class App extends Component {
 
             <Route path='/game:type' render={(p) => <MathGame {...p.match.params}
 
-              onAction={(userAnswer) => {
-                this.handleNavigationAction()
-              }
-              } />}
+              onAction={this.handleNavigationAction} />}
             />
 
             <Route path='/config' component={Config} />
