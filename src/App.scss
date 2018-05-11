@@ -81,6 +81,14 @@
                     transform: rotate(1turn);
                 }
 
+                &:disabled {
+                    opacity: 0.5;
+                    svg {
+                        -webkit-transition: none;
+                        -o-transition: none;
+                        transition: none;
+                    }
+                }
             }
         }
     }

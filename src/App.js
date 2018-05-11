@@ -43,6 +43,7 @@ import { GAME_ADDITION, GAME_SUBTRACTION, GAME_MULTIPLICATION, GAME_DIVISION } f
 import { IconMore } from './icons/IconMore';
 import IconHistory from './icons/IconHistory';
 import MenuButton from './components/MenuButton';
+import HistoryButton from './components/HistoryButton';
 
 class App extends Component {
 
@@ -132,7 +133,7 @@ class App extends Component {
     const { location } = this.state;
     if (location === '/') {
       return [
-        <MediaQuery minDeviceWidth={410} key={'media-query'}>
+        <MediaQuery minDeviceWidth={480} key={'media-query'}>
           {(matches) => {
             if (matches) {
               return [
@@ -148,7 +149,7 @@ class App extends Component {
                   clickHandler={() => { this.handleNavigationAction('config') }}
                   icon={<IconSettings />}
                 />,
-                <MenuButton
+                <HistoryButton
                   key={'history-btn'}
                   className='button-history'
                   clickHandler={() => { this.handleNavigationAction('history') }}
@@ -176,10 +177,10 @@ class App extends Component {
                       label='Config'
                       icon={<IconSettings />}
                     />
-                    <MenuButton
+                    <HistoryButton
                       key={'history-btn'}
                       className='button-history'
-                      clickHandler={() => { this.handleNavigationAction('config') }}
+                      clickHandler={() => { this.handleNavigationAction('history') }}
                       label='History'
                       icon={<IconHistory />}
                     />
