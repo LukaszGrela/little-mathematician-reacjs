@@ -54,8 +54,6 @@ class App extends Component {
       location: props.location.pathname || '/',
       ddMenuOpen: false
     }
-    // 
-    // this.handleNavigationAction = this.handleNavigationAction.bind(this);
   }
 
 
@@ -262,11 +260,11 @@ class App extends Component {
         </header>
         <section className='content'>
           <Switch>
-            <Route exact path='/' component={() => <Menu
+            <Route exact path='/' render={() => <Menu
               onAction={this.handleNavigationAction}
             />} />
 
-            <Route path='/game:type' component={(p) => <MathGame {...p.match.params}
+            <Route path='/game:type' render={(p) => <MathGame {...p.match.params}
 
               onAction={(userAnswer) => {
                 this.handleNavigationAction()
@@ -274,7 +272,7 @@ class App extends Component {
               } />}
             />
 
-            <Route path='/config' component={(p) => <Config />} />
+            <Route path='/config' component={Config} />
             <Route path='/history' component={GameHistoryContainer} />
             <Route path='/about' component={About} />
             <Route component={NoMatch} />
