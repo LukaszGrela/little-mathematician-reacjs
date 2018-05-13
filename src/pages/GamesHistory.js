@@ -6,7 +6,11 @@ class GameHistory extends React.Component {
         const { games = [] } = this.props;
         return (
             <div className="game-history">
-                You have played {games.length} games.
+                <ul>
+                    {
+                        games.map(game => <li key={game.finished}>{`Game ${game.type}, ${game.hudCorrectAnswers}/${game.questionCount} correct answers.`}</li>)
+                    }
+                </ul>
             </div>
         );
     }

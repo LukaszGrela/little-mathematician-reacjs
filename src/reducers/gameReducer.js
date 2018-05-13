@@ -40,6 +40,8 @@ export default (state = DEFAULT_STATE, action) => {
             };
             // clear questions list
             newState.history[0].questions.length = 0;
+            // add timestamp
+            newState.history[0].finished = (new Date()).getTime();
             //
             const { historyLengthCap: cap } = newState;
             // cap
