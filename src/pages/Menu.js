@@ -17,12 +17,9 @@
 import React, { Component } from 'react';
 
 import './Menu.scss'
-import ButtonIconPlus from '../icons/ButtonIconPlus';
-import ButtonIconMinus from '../icons/ButtonIconMinus';
-import ButtonIconMultiply from '../icons/ButtonIconMultiply';
-import ButtonIconDivide from '../icons/ButtonIconDivide';
 import { connect } from 'react-redux';
 import { GAME_MULTIPLICATION, GAME_ADDITION, GAME_SUBTRACTION, GAME_DIVISION } from '../gameTypes';
+import GameTypeIcon from '../components/GameTypeIcon';
 
 export class Menu extends Component {
     state = {};
@@ -46,7 +43,7 @@ export class Menu extends Component {
                             this.handleClick(GAME_ADDITION);
                         }}>
                         <span className="badge score">{this.props.stats.addition}</span>
-                        <ButtonIconPlus />
+                        <GameTypeIcon type={GAME_ADDITION} />
                     </button>
                     <button
                         className='subtraction'
@@ -54,7 +51,7 @@ export class Menu extends Component {
                             this.handleClick(GAME_SUBTRACTION);
                         }}>
                         <span className="badge score">{this.props.stats.subtraction}</span>
-                        <ButtonIconMinus />
+                        <GameTypeIcon type={GAME_SUBTRACTION} />
                     </button>
                 </div>
                 <div className="row">
@@ -64,7 +61,7 @@ export class Menu extends Component {
                             this.handleClick(GAME_MULTIPLICATION);
                         }}>
                         <span className="badge score">{this.props.stats.multiplication}</span>
-                        <ButtonIconMultiply />
+                        <GameTypeIcon type={GAME_MULTIPLICATION} />
                     </button>
                     <button
                         className='division'
@@ -72,7 +69,7 @@ export class Menu extends Component {
                             this.handleClick(GAME_DIVISION);
                         }}>
                         <span className="badge score">{this.props.stats.division}</span>
-                        <ButtonIconDivide />
+                        <GameTypeIcon type={GAME_DIVISION} />
                     </button>
                 </div>
             </div>
