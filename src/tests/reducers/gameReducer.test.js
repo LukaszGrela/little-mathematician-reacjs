@@ -4,6 +4,16 @@ import { GAME_ADDITION } from "../../gameTypes";
 import { generateGameObject } from "../../gamelogic/gamelogic";
 jest.mock('../../gamelogic/gamelogic');
 
+
+const NEW_DATE = 123456789;
+let originalGetTime = Date.prototype.getTime;
+beforeEach(() => {
+    jest.spyOn(Date.prototype, 'getTime').mockImplementation(() => NEW_DATE);
+});
+afterEach(() => {
+    Date.prototype.getTime = originalGetTime;
+});
+
 const defaultState = {
     history: [],
     currentGame: null,
@@ -22,7 +32,7 @@ test('Should set currentGame to null for QUIT_GAME action', () => {
 test('should add currentGame to history and set currentGame to null for GAME_OVER action', () => {
     const currentGame = {
         game: 'my game',
-        questions:[0,1,2]
+        questions: [0, 1, 2]
     };
     const state = gameReducer({
         ...defaultState,
@@ -34,6 +44,8 @@ test('should add currentGame to history and set currentGame to null for GAME_OVE
     expect(state.history.length).toBeGreaterThan(0);
 
     expect(state.history[0]).toEqual(currentGame);
+    // has finished time set
+    expect(state.history[0].finished).toEqual(NEW_DATE);
     // questions reset to be empty array
     expect(state.history[0].questions).toHaveLength(0);
 });
@@ -41,7 +53,7 @@ test('should add currentGame to history and set currentGame to null for GAME_OVE
 test('should add currentGame to history keep history within historyLengthCap limit for GAME_OVER action', () => {
     const currentGame = {
         game: 'my game',
-        questions:[0,1,2]
+        questions: [0, 1, 2]
     };
     const state = gameReducer({
         ...defaultState,
@@ -67,8 +79,10 @@ test('should set currentGame to be a new game object', () => {
     };
 
     const state = gameReducer(defaultState, newGame(config));
+    let currentGame = generateGameObject(config);
+    currentGame.started = (new Date()).getTime();
     //
-    expect(state.currentGame).toEqual(generateGameObject(config));
+    expect(state.currentGame).toEqual(currentGame);
 
 });
 

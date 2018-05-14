@@ -27,7 +27,9 @@ export default (state = DEFAULT_STATE, action) => {
     switch (action.type) {
         case NEW_GAME:
             // create current game object
-            return { ...state, currentGame: generateGameObject(action.config) };
+            newState = { ...state, currentGame: generateGameObject(action.config) };
+            newState.currentGame.started = (new Date()).getTime();
+            return newState;
 
             break;
         case GAME_OVER:
