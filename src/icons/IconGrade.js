@@ -15,9 +15,12 @@
 */
 
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class IconGrade extends Component {
-    state = {}
+    shouldComponentUpdate(nextProps, nextState, nextContext) {
+        return nextProps.className !== this.props.className;
+    }
     render() {
         return (
             <svg xmlns="http://www.w3.org/2000/svg"
@@ -30,5 +33,7 @@ class IconGrade extends Component {
         );
     }
 }
-
+IconGrade.propTypes = {
+    className: PropTypes.string.isRequired
+};
 export default IconGrade;
