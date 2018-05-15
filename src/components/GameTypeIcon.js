@@ -6,22 +6,27 @@ import ButtonIconMinus from '../icons/ButtonIconMinus';
 import ButtonIconMultiply from '../icons/ButtonIconMultiply';
 import ButtonIconDivide from '../icons/ButtonIconDivide';
 
-const GameTypeIcon = ({ type }) => {
+const GameTypeIcon = ({ type, className }) => {
+    console.log(`GameTypeIcon ${type}, ${className}`);
     switch (type) {
         case GAME_MULTIPLICATION:
-            return <ButtonIconMultiply />;
+            return <ButtonIconMultiply className={className}/>;
         case GAME_DIVISION:
-            return <ButtonIconDivide />;
+            return <ButtonIconDivide className={className} />;
         case GAME_SUBTRACTION:
-            return <ButtonIconMinus />;
+            return <ButtonIconMinus className={className} />;
         case GAME_ADDITION:
         default:
-            return <ButtonIconPlus />;
+            return <ButtonIconPlus className={className} />;
     }
 };
 
+GameTypeIcon.defaultProps = {
+    className: undefined
+};
 GameTypeIcon.propTypes = {
-    type: PropTypes.string.isRequired
+    type: PropTypes.string.isRequired,
+    className: PropTypes.string,
 };
 
 export default GameTypeIcon;
