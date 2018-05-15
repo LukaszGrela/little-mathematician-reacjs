@@ -15,31 +15,48 @@
 */
 
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import IconGrade from '../icons/IconGrade';
 
 import './GameHud.scss'
 
 class GameHud extends Component {
+    shouldComponentUpdate(nextProps, nextState, nextContext) {
+        if (nextProps.type !== this.props.type) return true;
+        if (nextProps.hudQuestionCurrent !== this.props.hudQuestionCurrent) return true;
+        if (nextProps.hudCorrectAnswers !== this.props.hudCorrectAnswers) return true;
+        if (nextProps.questionCount !== this.props.questionCount) return true;
+
+        return false;
+    }
     render() {
+        const { type, hudQuestionCurrent, hudCorrectAnswers, questionCount } = this.props;
         return (
             <div className={'game-hud '
-                + this.props.type.split(':').join('')
-                + (this.props.hudCorrectAnswers > 0 ?
-                    ' gain-' + (this.props.hudCorrectAnswers % 2 === 0 ? 'even' : 'odd')
-                    :''
+                + type.split(':').join('')
+                + (hudCorrectAnswers > 0 ?
+                    ' gain-' + (hudCorrectAnswers % 2 === 0 ? 'even' : 'odd')
+                    : ''
                 )
             }>
                 <div className='container'>
-                    <div className='question-counter'>{this.props.hudQuestionCurrent} / {this.props.questionCount}</div>
+                    <div className='question-counter'>{hudQuestionCurrent} / {questionCount}</div>
                     <div className='correct-answers'>
                         <IconGrade className='icon-grade' />
-                        <span className='label'>{this.props.hudCorrectAnswers}</span>
+                        <span className='label'>{hudCorrectAnswers}</span>
                     </div>
                 </div>
             </div>
         );
     }
+}
+
+GameHud.propTypes = {
+    type: PropTypes.string.isRequired,
+    hudQuestionCurrent: PropTypes.number.isRequired,
+    hudCorrectAnswers: PropTypes.number.isRequired,
+    questionCount: PropTypes.number.isRequired,
 }
 
 export default GameHud;
