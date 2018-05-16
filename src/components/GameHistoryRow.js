@@ -2,8 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import GameTypeIcon from './GameTypeIcon';
 
+import './GameHistoryRow.scss';
+
 const GameHistoryRow = ({ type, correctAnswers, duration, questionCount }) => (
-    <li>
+    <li className='game-history-row'>
         <GameTypeIcon className={"game-type-icon"} type={type} />
         <span className="score">{`${correctAnswers}/${questionCount} correct answers.`}</span>
         <span className="duration">{`It took you ${duration} to finish.`}</span>

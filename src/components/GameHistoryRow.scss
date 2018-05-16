@@ -1,0 +1,16 @@
+@import '../sass/_variables.scss';
+.game-history-row {
+    
+    #button-icon-plus {
+        fill: $accent-color-1;
+    }
+    #button-icon-minus {
+        fill: $accent-color-2;
+    }
+    #button-icon-multiply {
+        fill: $accent-color-3;
+    }
+    #button-icon-divide {
+        fill: $accent-color-4;
+    }
+}
