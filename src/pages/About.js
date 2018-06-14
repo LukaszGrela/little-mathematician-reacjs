@@ -26,7 +26,7 @@ class About extends Component {
             <div className='about'>
                 <div className='title'>Little Mathematician</div>
                 <div className='content'>
-                    Simple Math game for children made in ReactJS to learn this framework.
+                    Simple Maths game for children made in ReactJS with aim to explore this framework.
                 </div>
                 <div className='git-source'>
                     <GitHubIcon/><a href="https://github.com/LukaszGrela/little-mathematician-reacjs" 
