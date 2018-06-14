@@ -1,5 +1,5 @@
 # Little Mathematicion
-An educational web app for simple math training. Project made with ReactJS to learn this library.
+An educational web app for simple maths training. Project made with ReactJS to learn this library.
 
 ## Live Link
 [Little Mathematician Web App](http://greladesign.com/little-mathematician/)
