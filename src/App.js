@@ -30,8 +30,8 @@ import Footer from './components/Footer'
 import MediaQuery from 'react-responsive';
 
 // css
-import './App.css';
-import './DropDown.css';
+import './App.scss';
+import './DropDown.scss';
 
 import LogoIcon from './icons/LogoIcon';
 import IconArrowBack from './icons/IconArrowBack';
@@ -167,16 +167,16 @@ class App extends Component {
     console.log("App", action);
     let to = '/';
     switch (action) {
-      case 'plus':
+      case GAME_ADDITION:
         to = '/game' + GAME_ADDITION;
         break;
-      case 'minus':
+      case GAME_SUBTRACTION:
         to = '/game' + GAME_SUBTRACTION;
         break;
-      case 'multiply':
+      case GAME_MULTIPLICATION:
         to = '/game' + GAME_MULTIPLICATION;
         break;
-      case 'divide':
+      case GAME_DIVISION:
         to = '/game' + GAME_DIVISION;
 
         break;

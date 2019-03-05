@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should render About page correctly 1`] = `
+<div
+  className="about"
+>
+  <div
+    className="title"
+  >
+    Little Mathematician
+  </div>
+  <div
+    className="content"
+  >
+    Simple Math game for children made in ReactJS to learn this framework.
+  </div>
+  <div
+    className="git-source"
+  >
+    <GitHubIcon />
+    <a
+      href="https://github.com/LukaszGrela/little-mathematician-reacjs"
+      rel="noopener noreferrer"
+      target="_blank"
+    >
+      LukaszGrela/little-mathematician-reacjs
+    </a>
+  </div>
+  <div
+    className="acknowledgement"
+  >
+    <ul>
+      <li>
+        Icons in menu (and logo) by Leona Grande from the Noun Project, thenounproject.com/
+      </li>
+      <li>
+        Other icons came from material ui icons, www.materialui.co/
+      </li>
+    </ul>
+  </div>
+</div>
+`;

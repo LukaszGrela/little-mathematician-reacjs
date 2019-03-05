@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should GameAnswers to render correctly 1`] = `
+<div
+  className="game-answers"
+>
+  <hr />
+  <button
+    className="answer option-1"
+    key="1"
+    onClick={[Function]}
+  >
+    4
+  </button>
+  <button
+    className="answer option-2"
+    key="2"
+    onClick={[Function]}
+  >
+    3
+  </button>
+  <button
+    className="answer option-3"
+    key="3"
+    onClick={[Function]}
+  >
+    2
+  </button>
+  <button
+    className="answer option-4"
+    key="4"
+    onClick={[Function]}
+  >
+    1
+  </button>
+</div>
+`;

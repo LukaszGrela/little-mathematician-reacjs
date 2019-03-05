@@ -15,22 +15,11 @@
 */
 import React, { Component } from 'react';
 
-import './GameAnswers.css'
+import './GameAnswers.scss'
 
 class GameAnswers extends Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {};
-        console.log("GameAnswers", props);
-    }
-
-
-
-
-
-
-    generateAnswers() {
+    generateAnswers = () => {
         let i = 0;
         const options = this.props.options;
 

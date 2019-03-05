@@ -1,0 +1,102 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render GameOver correctly 1`] = `
+<div
+  className="game-over"
+>
+  <div
+    className="title"
+  >
+    <span
+      className="p1"
+    >
+      Game 
+    </span>
+    <span
+      className="p2"
+    >
+      Over
+    </span>
+    <span
+      className="p3"
+    >
+      !
+    </span>
+  </div>
+  <div
+    className="content"
+  >
+    You have resolved 
+    10
+     equation
+    s
+     correctly.
+  </div>
+  <div
+    className="footer"
+  >
+    <button
+      className="replay-button"
+      onClick={[Function]}
+    >
+      <IconReplay />
+    </button>
+    <button
+      className="menu-button"
+      onClick={[Function]}
+    >
+      <IconMenu />
+    </button>
+  </div>
+</div>
+`;
+
+exports[`should render GameOver correctly with 1 correct answer 1`] = `
+<div
+  className="game-over"
+>
+  <div
+    className="title"
+  >
+    <span
+      className="p1"
+    >
+      Game 
+    </span>
+    <span
+      className="p2"
+    >
+      Over
+    </span>
+    <span
+      className="p3"
+    >
+      !
+    </span>
+  </div>
+  <div
+    className="content"
+  >
+    You have resolved 
+    1
+     equation
+     correctly.
+  </div>
+  <div
+    className="footer"
+  >
+    <button
+      className="replay-button"
+      onClick={[Function]}
+    >
+      <IconReplay />
+    </button>
+    <button
+      className="menu-button"
+      onClick={[Function]}
+    >
+      <IconMenu />
+    </button>
+  </div>
+</div>
+`;

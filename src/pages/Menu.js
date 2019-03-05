@@ -16,14 +16,15 @@
 
 import React, { Component } from 'react';
 
-import './Menu.css'
+import './Menu.scss'
 import ButtonIconPlus from '../icons/ButtonIconPlus';
 import ButtonIconMinus from '../icons/ButtonIconMinus';
 import ButtonIconMultiply from '../icons/ButtonIconMultiply';
 import ButtonIconDivide from '../icons/ButtonIconDivide';
 import { connect } from 'react-redux';
+import { GAME_MULTIPLICATION, GAME_ADDITION, GAME_SUBTRACTION, GAME_DIVISION } from '../gameTypes';
 
-class Menu extends Component {
+export class Menu extends Component {
     state = {};
     constructor(props) {
         super(props);
@@ -35,15 +36,6 @@ class Menu extends Component {
         this.props.onAction && this.props.onAction(action);
     }
 
-
-    componentWillMount() {
-        console.log('Menu#componentWillMount', this.props);
-    }
-
-    componentWillUnmount() {
-        console.log('Menu#componentWillUnmount');
-    }
-
     render() {
         return (
             <div className="menu">
@@ -51,7 +43,7 @@ class Menu extends Component {
                     <button
                         className='addition'
                         onClick={() => {
-                            this.handleClick("plus");
+                            this.handleClick(GAME_ADDITION);
                         }}>
                         <span className="badge score">{this.props.stats.addition}</span>
                         <ButtonIconPlus />
@@ -59,7 +51,7 @@ class Menu extends Component {
                     <button
                         className='subtraction'
                         onClick={() => {
-                            this.handleClick("minus");
+                            this.handleClick(GAME_SUBTRACTION);
                         }}>
                         <span className="badge score">{this.props.stats.subtraction}</span>
                         <ButtonIconMinus />
@@ -69,7 +61,7 @@ class Menu extends Component {
                     <button
                         className='multiplication'
                         onClick={() => {
-                            this.handleClick("multiply");
+                            this.handleClick(GAME_MULTIPLICATION);
                         }}>
                         <span className="badge score">{this.props.stats.multiplication}</span>
                         <ButtonIconMultiply />
@@ -77,7 +69,7 @@ class Menu extends Component {
                     <button
                         className='division'
                         onClick={() => {
-                            this.handleClick("divide");
+                            this.handleClick(GAME_DIVISION);
                         }}>
                         <span className="badge score">{this.props.stats.division}</span>
                         <ButtonIconDivide />

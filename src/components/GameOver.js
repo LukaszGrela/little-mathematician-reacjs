@@ -16,18 +16,13 @@
  
 import React, { Component } from 'react';
 
-import './GameOver.css'
+import './GameOver.scss'
 import IconReplay from '../icons/IconReplay';
 import IconMenu from '../icons/IconMenu';
 
 class GameOver extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {}
 
-        this.handleClick = this.handleClick.bind(this);
-    }
-    handleClick(action) {
+    handleClick = (action) => {
         this.props.onAction && this.props.onAction(action);
     }
     render() {

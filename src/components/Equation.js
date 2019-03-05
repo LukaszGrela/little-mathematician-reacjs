@@ -15,14 +15,9 @@
 */
 import React, { Component } from 'react';
 
-import './Equation.css'
+import './Equation.scss'
 
 class Equation extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {};
-        console.log('Equation#constructor', props);
-    }
     render() {
         const { operandA, operandB, result, ask, operation, answer } = this.props;
         let userAnswer = answer ? answer.user : '?';
