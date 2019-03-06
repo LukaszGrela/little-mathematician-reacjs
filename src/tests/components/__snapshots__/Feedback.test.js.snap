@@ -17,7 +17,7 @@ exports[`Should render Feedback correctly 1`] = `
       Well done!
     </div>
     <button
-      className="cell"
+      className="cell animate"
       onClick={[Function]}
     >
       <ButtonIconNext />
@@ -49,7 +49,7 @@ exports[`Should render Feedback correctly on wrong answer 1`] = `
       </span>
     </div>
     <button
-      className="cell"
+      className="cell animate"
       onClick={[Function]}
     >
       <ButtonIconNext />

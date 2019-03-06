@@ -47,7 +47,7 @@ test('Should GameHud className contain gain-even class', () => {
 });
 // 
 test('Should GameHud className contain gain-odd class', () => {
-    let hudCorrectAnswers = 3;
+    const hudCorrectAnswers = 3;
     wrapper.setProps({
         hudCorrectAnswers
     });

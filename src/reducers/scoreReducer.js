@@ -14,44 +14,44 @@
    limitations under the License.
 */
 
-import { INCREASE_SCORE_OF_GAME } from "../actions/actions";
+import { INCREASE_SCORE_OF_GAME } from '../actions/actions';
 import {
-    GAME_SUBTRACTION,
-    GAME_ADDITION,
-    GAME_DIVISION,
-    GAME_MULTIPLICATION
-} from "../gameTypes";
+  GAME_SUBTRACTION,
+  GAME_ADDITION,
+  GAME_DIVISION,
+  GAME_MULTIPLICATION,
+} from '../gameTypes';
 
-
-export default function reducer(state = {
+export default function reducer(
+  state = {
     addScore: 0,
     subScore: 0,
     mulScore: 0,
-    divScore: 0
-}, action) {
-    if (action.type === INCREASE_SCORE_OF_GAME) {
-        const { payload } = action;
-        let o = {};
-        switch (payload.game) {
-            case GAME_SUBTRACTION:
-                o = { subScore: state.subScore + payload.score };
-                break;
+    divScore: 0,
+  },
+  action
+) {
+  if (action.type === INCREASE_SCORE_OF_GAME) {
+    const { payload } = action;
+    let o = {};
+    switch (payload.game) {
+      case GAME_SUBTRACTION:
+        o = { subScore: state.subScore + payload.score };
+        break;
 
-            case GAME_MULTIPLICATION:
-                o = { mulScore: state.mulScore + payload.score };
-                break;
+      case GAME_MULTIPLICATION:
+        o = { mulScore: state.mulScore + payload.score };
+        break;
 
-            case GAME_DIVISION:
-                o = { divScore: state.divScore + payload.score };
-                break;
+      case GAME_DIVISION:
+        o = { divScore: state.divScore + payload.score };
+        break;
 
-            case GAME_ADDITION:
-                o = { addScore: state.addScore + payload.score };
-                break;
-            default:break;
-
-        }
-        return Object.assign({}, state, o);
+      case GAME_ADDITION:
+        o = { addScore: state.addScore + payload.score };
+        break;
     }
-    return state;
-};
+    return Object.assign({}, state, o);
+  }
+  return state;
+}

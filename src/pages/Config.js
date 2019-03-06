@@ -23,10 +23,6 @@ import { changeNumberOfQuestions, ConfigType, changeRangeTo, changeRangeFrom } f
 export class Config extends Component {
 
 
-    constructor(props) {
-        super(props);
-    }
-
 
 
     handleChange = (field, value) => {

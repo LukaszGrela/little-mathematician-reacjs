@@ -18,28 +18,32 @@ import React, { Component } from 'react';
 
 import IconGrade from '../icons/IconGrade';
 
-import './GameHud.scss'
+import './GameHud.scss';
 
-class GameHud extends Component {
-    render() {
-        return (
-            <div className={'game-hud '
-                + this.props.type.split(':').join('')
-                + (this.props.hudCorrectAnswers > 0 ?
-                    ' gain-' + (this.props.hudCorrectAnswers % 2 === 0 ? 'even' : 'odd')
-                    :''
-                )
-            }>
-                <div className='container'>
-                    <div className='question-counter'>{this.props.hudQuestionCurrent} / {this.props.questionCount}</div>
-                    <div className='correct-answers'>
-                        <IconGrade className='icon-grade' />
-                        <span className='label'>{this.props.hudCorrectAnswers}</span>
-                    </div>
-                </div>
-            </div>
-        );
-    }
+class GameHud extends React.PureComponent {
+  render() {
+    return (
+      <div
+        className={
+          'game-hud ' +
+          this.props.type.split(':').join('') +
+          (this.props.hudCorrectAnswers > 0
+            ? ' gain-' +
+              (this.props.hudCorrectAnswers % 2 === 0 ? 'even' : 'odd')
+            : '')
+        }>
+        <div className="container">
+          <div className="question-counter">
+            {this.props.hudQuestionCurrent} / {this.props.questionCount}
+          </div>
+          <div className="correct-answers">
+            <IconGrade className="icon-grade" />
+            <span className="label">{this.props.hudCorrectAnswers}</span>
+          </div>
+        </div>
+      </div>
+    );
+  }
 }
 
 export default GameHud;
