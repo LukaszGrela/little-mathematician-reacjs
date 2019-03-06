@@ -12,7 +12,7 @@ exports[`Should render About page correctly 1`] = `
   <div
     className="content"
   >
-    Simple Math game for children made in ReactJS to learn this framework.
+    Simple Maths game for children made in ReactJS with aim to explore this framework.
   </div>
   <div
     className="git-source"

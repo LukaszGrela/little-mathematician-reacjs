@@ -47,10 +47,12 @@ test('Should GameHud className contain gain-even class', () => {
 });
 // 
 test('Should GameHud className contain gain-odd class', () => {
-    let hudCorrectAnswers = 3;
+    const hudCorrectAnswers = 3;
     wrapper.setProps({
         hudCorrectAnswers
     });
+    const odd = wrapper.find('.game-hud.gain-odd');
+    console.log('odd.length',odd.length);
     expect(wrapper.find('.game-hud.gain-odd')).toHaveLength(1);
 });
 // 
