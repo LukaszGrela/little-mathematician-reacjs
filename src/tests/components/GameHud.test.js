@@ -51,8 +51,6 @@ test('Should GameHud className contain gain-odd class', () => {
     wrapper.setProps({
         hudCorrectAnswers
     });
-    const odd = wrapper.find('.game-hud.gain-odd');
-    console.log('odd.length',odd.length);
     expect(wrapper.find('.game-hud.gain-odd')).toHaveLength(1);
 });
 // 
