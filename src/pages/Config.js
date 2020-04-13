@@ -15,17 +15,13 @@
 */
 
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import './Config.scss'
-import connect from 'react-redux/lib/connect/connect';
 import { changeNumberOfQuestions, ConfigType, changeRangeTo, changeRangeFrom } from '../actions/actions';
 
 export class Config extends Component {
 
-
-    constructor(props) {
-        super(props);
-    }
 
 
 

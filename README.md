@@ -2,7 +2,7 @@
 An educational web app for simple maths training. Project made with ReactJS to learn this library.
 
 ## Live Link
-[Little Mathematician Web App](http://greladesign.com/little-mathematician/)
+[Little Mathematician Web App](http://greladesign.co/little-mathematician/)
 
 ### Tested on
 - Windows 7 Chrome, FireFox, Opera, IE11
@@ -13,10 +13,10 @@ An educational web app for simple maths training. Project made with ReactJS to l
 ### Ideas
 Revision of the game
  - game state: finished|not-finished
- -- finished - game was played to the end
- --- finished - can be reviewed
- -- not-finished - game is not completed, either in the middle of the play or exited mid-way
- --- not-finished - can be continued
+  - finished - game was played to the end
+  - finished - can be reviewed
+  - not-finished - game is not completed, either in the middle of the play or exited mid-way
+  - not-finished - can be continued
  - game id - game identifier
 
  routes:
