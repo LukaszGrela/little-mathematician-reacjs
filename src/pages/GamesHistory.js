@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 import GameHistoryRow from '../components/GameHistoryRow';
 
+import './GameHistory.scss'
+
 const dummy = {
     "questionCount": 10, "from": 0, "to": 10, "type": ":addition",
     "history": [

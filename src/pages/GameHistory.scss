@@ -1,3 +1,10 @@
 .game-history {
-    
+    &-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      & .score {
+        padding: 0 1rem;
+      }
+    }
 }
