@@ -2,7 +2,7 @@
 An educational web app for simple maths training. Project made with ReactJS to learn this library.
 
 ## Live Link
-[Little Mathematician Web App](http://greladesign.co/little-mathematician/)
+[Little Mathematician Web App](https://greladesign.co/little-mathematician/)
 
 ### Tested on
 - Windows 7 Chrome, FireFox, Opera, IE11
