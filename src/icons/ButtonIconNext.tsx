@@ -14,21 +14,18 @@
    limitations under the License.
 */
 
-import React, { Component } from 'react';
+const ButtonIconNext = () => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      className="button-icon-next"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+    >
+      <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
+    </svg>
+  );
+};
 
-class IconReplay extends Component {
-    state = {}
-    render() {
-        return (
-            <svg xmlns="http://www.w3.org/2000/svg"
-                id='icon-replay'
-                className='icon-replay'
-                width="24" height="24"
-                viewBox="0 0 24 24">
-                <path d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z" />
-            </svg>
-        );
-    }
-}
-
-export default IconReplay;
+export default ButtonIconNext;

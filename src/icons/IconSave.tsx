@@ -14,19 +14,17 @@
    limitations under the License.
 */
 
-import React, { Component } from 'react';
+const IconSave = () => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+    >
+      <path d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z" />
+    </svg>
+  );
+};
 
-class IconArrowBack extends Component {
-    state = {}
-    render() {
-        return (
-            <svg id='arrow-back' xmlns="http://www.w3.org/2000/svg"
-                width="18" height="18"
-                viewBox="0 0 18 18">
-                <path d="M15 8.25H5.87l4.19-4.19L9 3 3 9l6 6 1.06-1.06-4.19-4.19H15v-1.5z" />
-            </svg>
-        );
-    }
-}
-
-export default IconArrowBack;
+export default IconSave;

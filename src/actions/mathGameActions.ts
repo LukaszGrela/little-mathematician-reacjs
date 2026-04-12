@@ -14,17 +14,10 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
+import type { TGameConfig } from "../types";
+
 export const NEW_GAME = "gd:NEW_GAME" as const;
-export type TGameConfig = {
-  general: {
-    /** number of questions to ask */
-    questionCount: number;
-    /** lower range of tested numbers */
-    from: number;
-    /** upper range of tested numbers */
-    to: number;
-  };
-};
+
 /**
  * Creates the NEW_GAME action object
  * @param {object} config game configuration object

@@ -14,21 +14,19 @@
    limitations under the License.
 */
 
-import React, { Component } from 'react';
+const IconMenu = () => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      id="icon-menu"
+      className="icon-menu"
+      width="18"
+      height="18"
+      viewBox="0 0 18 18"
+    >
+      <path d="M2 13.5h14V12H2v1.5zm0-4h14V8H2v1.5zM2 4v1.5h14V4H2z" />
+    </svg>
+  );
+};
 
-class IconGrade extends Component {
-    state = {}
-    render() {
-        return (
-            <svg xmlns="http://www.w3.org/2000/svg"
-                className={this.props.className}
-                id='icon-grade'
-                width="24" height="24"
-                viewBox="0 0 24 24">
-                <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
-            </svg>
-        );
-    }
-}
-
-export default IconGrade;
+export default IconMenu;

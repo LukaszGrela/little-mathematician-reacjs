@@ -21,39 +21,41 @@
  * @param {boolean} includeZero Default true. If set to false, then zero is excluded from the result.
  * @returns number
  */
-export function randomRange(min, max, includeZero=true) {
-
-    if (min === max) min = 0;
-    const result = min + Math.floor(Math.random() * (max - min + 1));
-    if(!includeZero && result === 0) return randomRange(min, max, includeZero);
-    return result;
+export function randomRange(
+  min: number,
+  max: number,
+  includeZero: boolean = true,
+) {
+  if (min === max) min = 0;
+  const result = min + Math.floor(Math.random() * (max - min + 1));
+  if (!includeZero && result === 0) return randomRange(min, max, includeZero);
+  return result;
 }
-
 
 /**
  * Returns random option from given list
  * @param {Array} list Array with elements to choose
  * @returns any
  */
-export function randomOption(list) {
-    return list[Math.floor(Math.random() * list.length)];
+export function randomOption<T>(list: Array<T>) {
+  return list[Math.floor(Math.random() * list.length)];
 }
 
+export function shuffle<T>(array: Array<T>): Array<T> {
+  let m = array.length,
+    t,
+    i;
 
-export function shuffle(array) {
-    let m = array.length, t, i;
+  // While there remain elements to shuffle…
+  while (m) {
+    // Pick a remaining element…
+    i = Math.floor(Math.random() * m--);
 
-    // While there remain elements to shuffle…
-    while (m) {
+    // And swap it with the current element.
+    t = array[m];
+    array[m] = array[i];
+    array[i] = t;
+  }
 
-        // Pick a remaining element…
-        i = Math.floor(Math.random() * m--);
-
-        // And swap it with the current element.
-        t = array[m];
-        array[m] = array[i];
-        array[i] = t;
-    }
-
-    return array;
+  return array;
 }

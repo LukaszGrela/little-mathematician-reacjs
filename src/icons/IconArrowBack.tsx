@@ -13,15 +13,19 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 */
-import { applyMiddleware, createStore, compose } from "redux"
 
-import { logger } from "redux-logger"
+const IconArrowBack = () => {
+  return (
+    <svg
+      id="arrow-back"
+      xmlns="http://www.w3.org/2000/svg"
+      width="18"
+      height="18"
+      viewBox="0 0 18 18"
+    >
+      <path d="M15 8.25H5.87l4.19-4.19L9 3 3 9l6 6 1.06-1.06-4.19-4.19H15v-1.5z" />
+    </svg>
+  );
+};
 
-import reducer from "./reducers"
-
-const middleware = applyMiddleware(logger);
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const store = createStore(reducer, /* preloadedState, */ composeEnhancers(middleware));
-// const store = createStore(reducer, middleware);
-
-export default store;
+export default IconArrowBack;
