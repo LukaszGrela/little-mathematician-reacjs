@@ -15,7 +15,7 @@
 */
 import React, { Component } from 'react';
 
-import { Switch, Route, withRouter } from "react-router-dom";
+import { Route, withRouter, Routes } from "react-router-dom";
 
 // pages
 import NoMatch from './pages/NoMatch'
@@ -215,7 +215,7 @@ class App extends Component {
           </div>
         </header>
         <section className='content'>
-          <Switch>
+          <Routes>
             <Route exact path='/' component={() => <Menu
               onAction={this.handleNavigationAction}
             />} />
@@ -231,7 +231,7 @@ class App extends Component {
             <Route path='/config' component={(p) => <Config />} />
             <Route path='/about' component={About} />
             <Route component={NoMatch} />
-          </Switch>
+          </Routes>
         </section>
         <Footer />
       </div>

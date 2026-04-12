@@ -14,8 +14,17 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-
-export const NEW_GAME = 'gd:NEW_GAME';
+export const NEW_GAME = "gd:NEW_GAME" as const;
+export type TGameConfig = {
+  general: {
+    /** number of questions to ask */
+    questionCount: number;
+    /** lower range of tested numbers */
+    from: number;
+    /** upper range of tested numbers */
+    to: number;
+  };
+};
 /**
  * Creates the NEW_GAME action object
  * @param {object} config game configuration object
@@ -24,37 +33,37 @@ export const NEW_GAME = 'gd:NEW_GAME';
  * @param {number} config.general.from lower range of tested numbers
  * @param {number} config.general.to upper range of tested numbers
  */
-export const newGame = (config) => ({
-    type:NEW_GAME,
-    config
+export const newGame = (config: TGameConfig) => ({
+  type: NEW_GAME,
+  config,
 });
 
-export const NEXT_QUESTION = 'gd:NEXT_QUESTION';
+export const NEXT_QUESTION = "gd:NEXT_QUESTION" as const;
 /** Creates NEXT_QUESTION action object */
 export const nextQuestion = () => ({
-    type:NEXT_QUESTION
+  type: NEXT_QUESTION,
 });
 
-export const ANSWER_QUESTION = 'gd:ANSWER_QUESTION';
+export const ANSWER_QUESTION = "gd:ANSWER_QUESTION" as const;
 /**
  * Creates ANSWER_QUESTION action object
  * @param {number} answer user answer
  * @param {number} optionId selected option id
  */
-export const answerQuestion = (answer, optionId) => ({
-    type: ANSWER_QUESTION,
-    answer,
-    optionId
-})
-
-export const QUIT_GAME = 'gd:QUIT_GAME';
-/** Creates QUIT_GAME action object */
-export const quitGame = () => ({
-    type:QUIT_GAME
+export const answerQuestion = (answer: number, optionId: number) => ({
+  type: ANSWER_QUESTION,
+  answer,
+  optionId,
 });
 
-export const GAME_OVER = 'gd:GAME_OVER';
+export const QUIT_GAME = "gd:QUIT_GAME" as const;
+/** Creates QUIT_GAME action object */
+export const quitGame = () => ({
+  type: QUIT_GAME,
+});
+
+export const GAME_OVER = "gd:GAME_OVER" as const;
 /** Creates GAME_OVER action object */
 export const gameOver = () => ({
-    type:GAME_OVER
+  type: GAME_OVER,
 });
