@@ -28,6 +28,8 @@ export function increaseScoreOfGame(score: number, game: TGameType) {
   };
 }
 
+export type TScoreActions = ReturnType<typeof increaseScoreOfGame>;
+
 /**
  * Config actions
  */
@@ -73,3 +75,8 @@ export function changeRangeTo(
     payload: { value, configType: type },
   };
 }
+
+export type TConfigActions =
+  | ReturnType<typeof changeNumberOfQuestions>
+  | ReturnType<typeof changeRangeFrom>
+  | ReturnType<typeof changeRangeTo>;

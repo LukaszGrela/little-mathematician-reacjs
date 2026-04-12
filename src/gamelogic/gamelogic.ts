@@ -20,10 +20,10 @@ import {
   GAME_DIVISION,
   type TGameType,
 } from "../gameTypes";
-import type { TAskOption, TGameConfig, TQuestion } from "../types";
+import type { TAskOption, TGameConfig, TGameObject, TQuestion } from "../types";
 import { randomRange, randomOption, shuffle } from "../utils/math";
 
-export const generateGameObject = (config: TGameConfig) => {
+export const generateGameObject = (config: TGameConfig): TGameObject => {
   //transform config
   const settings = mergeSettings(config, config.type);
   const questions = prepareQuestions(
@@ -189,7 +189,7 @@ export const prepareQuestionsMultiplication = (
     const a = randomRange(from, to),
       b = randomRange(from, to),
       result = a * b,
-      ask = randomOption(["result", "a", "b"]);
+      ask = randomOption<TAskOption>(["result", "a", "b"]);
     let distractors = [] as number[];
 
     if (ask === "result") {
@@ -246,7 +246,7 @@ export const prepareQuestionsSubtraction = (
     }
 
     const result = a - b,
-      ask = randomOption(["result", "a", "b"]);
+      ask = randomOption<TAskOption>(["result", "a", "b"]);
     let distractors = [];
 
     if (ask === "result") {
@@ -301,7 +301,7 @@ export const prepareQuestionsAddition = (
     const a = randomRange(from, to),
       b = randomRange(from, to),
       result = a + b,
-      ask = randomOption(["result", "a", "b"]);
+      ask = randomOption<TAskOption>(["result", "a", "b"]);
     let distractors = [];
 
     if (ask === "result") {

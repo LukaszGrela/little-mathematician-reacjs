@@ -14,22 +14,29 @@
    limitations under the License.
 */
 
-import { INCREASE_SCORE_OF_GAME } from '../actions/actions';
+import { INCREASE_SCORE_OF_GAME, type TScoreActions } from "../actions/actions";
 import {
   GAME_SUBTRACTION,
   GAME_ADDITION,
   GAME_DIVISION,
   GAME_MULTIPLICATION,
-} from '../gameTypes';
+} from "../gameTypes";
+
+type TScoreState = {
+  addScore: number;
+  subScore: number;
+  mulScore: number;
+  divScore: number;
+};
 
 export default function reducer(
-  state = {
+  state: TScoreState = {
     addScore: 0,
     subScore: 0,
     mulScore: 0,
     divScore: 0,
   },
-  action
+  action: TScoreActions,
 ) {
   if (action.type === INCREASE_SCORE_OF_GAME) {
     const { payload } = action;

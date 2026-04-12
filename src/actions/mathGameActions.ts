@@ -60,3 +60,10 @@ export const GAME_OVER = "gd:GAME_OVER" as const;
 export const gameOver = () => ({
   type: GAME_OVER,
 });
+
+export type TGameActions =
+  | ReturnType<typeof newGame>
+  | ReturnType<typeof nextQuestion>
+  | ReturnType<typeof answerQuestion>
+  | ReturnType<typeof quitGame>
+  | ReturnType<typeof gameOver>;
