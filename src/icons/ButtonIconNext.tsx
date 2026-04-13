@@ -1,5 +1,5 @@
 /*
-   Copyright {{year}} {{author}}
+   Copyright 2018 Łukasz 'Severiaan' Grela GrelaDesign
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -13,3 +13,19 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 */
+
+const ButtonIconNext = () => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      className="button-icon-next"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+    >
+      <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
+    </svg>
+  );
+};
+
+export default ButtonIconNext;

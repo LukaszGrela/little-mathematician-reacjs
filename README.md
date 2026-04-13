@@ -20,8 +20,8 @@ Revision of the game
  - game id - game identifier
 
  routes:
- /game:addition/gameId/1 - first question of addition game
- /game:addition/review/gameId/1 - first question of addition game review
+ /game/addition/gameId/1 - first question of addition game
+ /game/addition/review/gameId/1 - first question of addition game review
 
  #### firebase 
  Storage of the player data

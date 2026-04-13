@@ -1,4 +1,4 @@
-@import '../sass/_variables.scss';
+@use '../sass/_variables.scss';
 .no-match-404 {
     padding-top: 50px;
     .title {
@@ -6,18 +6,18 @@
         .sign {
             font-size: 1.5em;
             vertical-align: top;
-            color: $accent-color-4;
+            color: variables.$accent-color-4;
         }
         .digit {
             font-size: 3em;
             &.d1 {
-                color: $accent-color-1;
+                color: variables.$accent-color-1;
             }
             &.d2 {
-                color: $accent-color-2;
+                color: variables.$accent-color-2;
             }
             &.d3 {
-                color: $accent-color-3;
+                color: variables.$accent-color-3;
             }
         }
     }

@@ -1,5 +1,5 @@
 /*
-   Copyright {{year}} {{author}}
+   Copyright 2018 Łukasz 'Severiaan' Grela GrelaDesign
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -13,3 +13,24 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 */
+import {
+  applyMiddleware,
+  legacy_createStore as createStore,
+  compose,
+} from "redux";
+
+import { logger } from "redux-logger";
+
+import reducer from "../reducers";
+
+const middleware = applyMiddleware(logger);
+const composeEnhancers =
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+const store = createStore(
+  reducer,
+  /* preloadedState, */ composeEnhancers(middleware),
+);
+
+export default store;

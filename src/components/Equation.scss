@@ -1,10 +1,10 @@
 
 
-@import '../sass/_variables.scss';
+@use '../sass/_variables.scss';
 .equation {
     margin: 0 auto;
     padding: 75px 0;
-    width: $width-game-column;
+    width: variables.$width-game-column;
     display: table;
     @media only screen and (max-device-height: 668px) and (orientation: landscape) {
         padding: 10px 0;
@@ -37,14 +37,14 @@
 }
 
 .question {
-    border: 2px solid $divider-color;
+    border: 2px solid variables.$divider-color;
     border-radius: 5px;
     .correct & {
-        border-color: $color-correct;
+        border-color: variables.$color-correct;
         border-radius: 15px;
     }
     .incorrect & {
-        border-color: $color-incorrect;
+        border-color: variables.$color-incorrect;
         border-radius: 0;
     }
 }

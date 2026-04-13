@@ -1,6 +1,6 @@
 
 
-@import '../sass/_variables.scss';
+@use '../sass/_variables.scss';
 @keyframes fadeInLeft {
     from {
         opacity: 0;
@@ -27,7 +27,7 @@
         align-items: center;
         display: flex;
         margin: 0 auto;
-        width: $width-game-column;
+        width: variables.$width-game-column;
     }
     .cell {
         display: inline-block;
@@ -54,7 +54,7 @@
     .message {
         display: inline-block;
         .correct-answer {
-            color: $color-correct;
+            color: variables.$color-correct;
             font-weight: bold;
             font-size: 1.25em;
             margin-left: 8px;
@@ -71,7 +71,7 @@
         margin-left: 8px;
         padding: 0;
         svg {
-            fill: $primary-text-color;
+            fill: variables.$primary-text-color;
             -webkit-transition: all .5s ease;
             transition: all .5s ease;
             width: 38px;
@@ -84,9 +84,9 @@
 }
 
 .feedback.incorrect .mood-icon {
-    fill: $color-incorrect;
+    fill: variables.$color-incorrect;
 }
 
 .feedback.correct .mood-icon {
-    fill: $color-correct;
+    fill: variables.$color-correct;
 }

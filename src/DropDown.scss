@@ -1,6 +1,6 @@
 
 
-@import 'sass/_variables.scss';
+@use 'sass/_variables.scss';
 .dd-menu {
     z-index: 100001;
     position: fixed;

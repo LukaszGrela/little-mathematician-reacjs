@@ -1,5 +1,5 @@
 /*
-   Copyright {{year}} {{author}}
+   Copyright 2018 Łukasz 'Severiaan' Grela GrelaDesign
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -13,3 +13,18 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 */
+
+const IconInfo = () => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+    >
+      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z" />
+    </svg>
+  );
+};
+
+export default IconInfo;
