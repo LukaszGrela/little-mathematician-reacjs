@@ -26,6 +26,7 @@ exports[`Should render Feedback correctly 1`] = `
       </div>
       <button
         class="cell animate"
+        data-testid="Feedback-next"
       >
         <svg
           class="button-icon-next"
@@ -75,6 +76,7 @@ exports[`Should render Feedback correctly on wrong answer 1`] = `
       </div>
       <button
         class="cell animate"
+        data-testid="Feedback-next"
       >
         <svg
           class="button-icon-next"

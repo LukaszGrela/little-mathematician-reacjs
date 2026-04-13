@@ -55,6 +55,7 @@ const Feedback: FC<{
               ]}
         </div>
         <button
+          data-testid="Feedback-next"
           className={classNames("cell", promptAnimation && "animate")}
           onClick={() => {
             onAction?.();
