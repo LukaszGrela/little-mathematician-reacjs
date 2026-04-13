@@ -315,7 +315,7 @@ const App = () => {
 
           <Route path="/config" Component={Config} />
           <Route path="/about" Component={About} />
-          <Route Component={NoMatch} />
+          <Route path="*" Component={NoMatch} />
         </Routes>
       </section>
       <Footer />
