@@ -1,0 +1,31 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Should GameAnswers to render correctly 1`] = `
+<div>
+  <div
+    class="game-answers"
+  >
+    <hr />
+    <button
+      class="answer option-1"
+    >
+      4
+    </button>
+    <button
+      class="answer option-2"
+    >
+      3
+    </button>
+    <button
+      class="answer option-3"
+    >
+      2
+    </button>
+    <button
+      class="answer option-4"
+    >
+      1
+    </button>
+  </div>
+</div>
+`;
