@@ -22,7 +22,7 @@ import {
 } from "../actions/actions";
 import type { TGeneralConfig } from "../types";
 
-type TConfigState = {
+export type TConfigState = {
   general: TGeneralConfig;
 };
 
@@ -34,7 +34,7 @@ export default function reducer(
       to: 10,
     },
   },
-  action: TConfigActions,
+  action: TConfigActions | { type: "@@INIT"; payload?: unknown },
 ) {
   const { payload, type } = action;
   let questionCount, configType, value;

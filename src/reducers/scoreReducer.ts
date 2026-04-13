@@ -22,7 +22,7 @@ import {
   GAME_MULTIPLICATION,
 } from "../gameTypes";
 
-type TScoreState = {
+export type TScoreState = {
   addScore: number;
   subScore: number;
   mulScore: number;
@@ -36,7 +36,7 @@ export default function reducer(
     mulScore: 0,
     divScore: 0,
   },
-  action: TScoreActions,
+  action: TScoreActions | { type: "@@INIT"; payload?: unknown },
 ) {
   if (action.type === INCREASE_SCORE_OF_GAME) {
     const { payload } = action;
