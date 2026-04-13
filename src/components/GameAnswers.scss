@@ -1,13 +1,13 @@
 
 
-@import '../sass/_variables.scss';
+@use '../sass/_variables.scss';
 .game-answers {
-    width: $width-game-column;
+    width: variables.$width-game-column;
     margin: 0 auto;
     
     button {
         /* reset */
-        background-color: $primary-color-text;
+        background-color: variables.$primary-color-text;
         /**/
         cursor: pointer;
     }
@@ -15,10 +15,10 @@
         cursor: default;
         pointer-events: none;
 
-        background-color: $divider-color;
+        background-color: variables.$divider-color;
     }
     hr {
-        border-color: $divider-color;
+        border-color: variables.$divider-color;
         border-style: solid;
     }
 }
@@ -27,7 +27,7 @@
     padding: 20px;
     margin: 2px;
     min-width: 70px;
-    border: 1px solid $divider-color;
+    border: 1px solid variables.$divider-color;
     font-size: 1em;
     &:focus {
         outline: none;

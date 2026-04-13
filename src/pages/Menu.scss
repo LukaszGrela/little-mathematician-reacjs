@@ -1,5 +1,5 @@
 
-@import '../sass/_variables.scss';
+@use '../sass/_variables.scss';
 .menu {
     position: absolute;
     top: 50%;
@@ -26,16 +26,16 @@
             transform: rotate(1turn);
         }
         #button-icon-plus {
-            fill: $accent-color-1;
+            fill: variables.$accent-color-1;
         }
         #button-icon-minus {
-            fill: $accent-color-2;
+            fill: variables.$accent-color-2;
         }
         #button-icon-multiply {
-            fill: $accent-color-3;
+            fill: variables.$accent-color-3;
         }
         #button-icon-divide {
-            fill: $accent-color-4;
+            fill: variables.$accent-color-4;
         }
         .badge {
             position: absolute;
@@ -45,22 +45,22 @@
             z-index: 1;
         }
         &.addition .badge {
-            background-color: $accent-color-4;
+            background-color: variables.$accent-color-4;
             right: 140px;
             top: -5px;
         }
         &.subtraction .badge {
-            background-color: $accent-color-3;
+            background-color: variables.$accent-color-3;
             top: -5px;
             left: 140px;
         }
         &.multiplication .badge {
-            background-color: $accent-color-2;
+            background-color: variables.$accent-color-2;
             right: 140px;
             bottom: -5px;
         }
         &.division .badge {
-            background-color: $accent-color-1;
+            background-color: variables.$accent-color-1;
             left: 140px;
             bottom: -5px;
         }

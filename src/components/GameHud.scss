@@ -1,12 +1,12 @@
 
-@import '../sass/_variables.scss';
+@use '../sass/_variables.scss';
 
 .game-hud {
     background-color: transparent;
     padding: 10px 0;
     margin-bottom: 10px;
     .container {
-        width: $width-game-column;
+        width: variables.$width-game-column;
         margin: 0 auto;
         div {
             display: inline-block;
@@ -16,16 +16,16 @@
     }
     /* bottom border of the hud */
     &.addition {
-        border-bottom: 2px solid $accent-color-1;
+        border-bottom: 2px solid variables.$accent-color-1;
     }
     &.subtraction {
-        border-bottom: 2px solid $accent-color-2;
+        border-bottom: 2px solid variables.$accent-color-2;
     }
     &.multiplication {
-        border-bottom: 2px solid $accent-color-3;
+        border-bottom: 2px solid variables.$accent-color-3;
     }
     &.division {
-        border-bottom: 2px solid $accent-color-4;
+        border-bottom: 2px solid variables.$accent-color-4;
     }
 }
 
@@ -42,10 +42,10 @@
 }
 
 .correct-answers {
-    color: $color-correct;
+    color: variables.$color-correct;
     text-align: right;
     svg.icon-grade {
-        fill: $color-gold-star;
+        fill: variables.$color-gold-star;
     }
 }
 

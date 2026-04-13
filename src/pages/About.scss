@@ -1,15 +1,15 @@
-@import '../sass/_variables.scss';
+@use '../sass/_variables.scss';
 .about {
     padding: 1em;
     text-align: left;
-    width: $width-game-column;
+    width: variables.$width-game-column;
     margin: 0 auto;
     .title {
         font-size: 2em;
         line-height: 3em;
     }
     .acknowledgement {
-        color: $secondary-text-color;
+        color: variables.$secondary-text-color;
     }
     .git-source {
         padding: 1rem 0;

@@ -1,22 +1,22 @@
 
-@import '../sass/_variables.scss';
+@use '../sass/_variables.scss';
 .game-over {
     padding-top: 1rem;
     text-align: left;
-    width: $width-game-column;
+    width: variables.$width-game-column;
     margin: 0 auto;
     .title {
         font-size: 2rem;
         margin: 1.5rem 0;
         text-align: center;
         .p1 {
-            color: $accent-color-1;
+            color: variables.$accent-color-1;
         }
         .p2 {
-            color: $accent-color-2;
+            color: variables.$accent-color-2;
         }
         .p3 {
-            color: $accent-color-3;
+            color: variables.$accent-color-3;
         }
     }
     .content {
@@ -35,7 +35,7 @@
             border: none;
             background: none;
             svg {
-                fill: $primary-color-text;
+                fill: variables.$primary-color-text;
                 width: 50px;
                 height: 50px;
                 -webkit-transition: all .5s ease;
@@ -48,10 +48,10 @@
                 transform: rotate(1turn);
             }
             &.menu-button {
-                background-color: $accent-color-6;
+                background-color: variables.$accent-color-6;
             }
             &.replay-button {
-                background-color: $accent-color-5;
+                background-color: variables.$accent-color-5;
             }
         }
     }
