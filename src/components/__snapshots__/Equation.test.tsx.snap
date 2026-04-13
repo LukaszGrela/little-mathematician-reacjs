@@ -152,44 +152,6 @@ exports[`Should Equation put "userAnswer" value in the operand A 1`] = `
 </div>
 `;
 
-exports[`Should Equation put "userAnswer" value in the operand A 2`] = `
-<div>
-  <div
-    class="equation incorrect"
-  >
-    <div
-      class="wrapper"
-    >
-      <div
-        class="part operand-a"
-      >
-        1
-      </div>
-      <div
-        class="part operation"
-      >
-        +
-      </div>
-      <div
-        class="part operand-b question"
-      >
-        10
-      </div>
-      <div
-        class="part equation"
-      >
-        =
-      </div>
-      <div
-        class="part result"
-      >
-        3
-      </div>
-    </div>
-  </div>
-</div>
-`;
-
 exports[`Should Equation put "userAnswer" value in the operand B 1`] = `
 <div>
   <div
