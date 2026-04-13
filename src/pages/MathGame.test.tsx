@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { MathGame } from '../../pages/MathGame';
-import { GAME_ADDITION } from '../../gameTypes';
+import { MathGame } from './MathGame';
+import { GAME_ADDITION } from '../gameTypes';
 
 let wrapper,
     game,

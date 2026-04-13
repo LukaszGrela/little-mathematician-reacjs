@@ -1,7 +1,7 @@
 import React from 'react';
-import { Config } from '../../pages/Config';
+import { Config } from './Config';
 import { shallow } from 'enzyme';
-import { ConfigType } from '../../actions/actions';
+import { ConfigType } from '../actions/actions';
 
 let wrapper,
     changeNumberOfQuestions,
