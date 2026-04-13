@@ -66,7 +66,6 @@ export const MathGame: FC = () => {
   }, [game, hudQuestionCurrent]);
 
   const gameView = useCallback(() => {
-    console.log("gameView", game);
     if (!game || !hudQuestionCurrent) return null;
 
     const { hudCorrectAnswers, questionCount, questions } = game;
