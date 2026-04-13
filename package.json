@@ -1,7 +1,7 @@
 {
   "name": "little-mathematician",
   "private": true,
-  "version": "0.20.1",
+  "version": "0.20.2",
   "type": "module",
   "homepage": "http://greladesign.co/little-mathematician",
   "scripts": {
@@ -43,7 +43,7 @@
     "globals": "^17.4.0",
     "typescript": "~5.9.3",
     "typescript-eslint": "^8.57.0",
-    "vite": "^8.0.1",
+    "vite": "^8.0.5",
     "vitest": "^4.1.2"
   }
 }
