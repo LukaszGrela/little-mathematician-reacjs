@@ -28,9 +28,14 @@ const composeEnhancers =
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-const store = createStore(
-  reducer,
-  /* preloadedState, */ composeEnhancers(middleware),
-);
+export const setupStore = () => {
+  const store = createStore(
+    reducer,
+    /* preloadedState, */ composeEnhancers(middleware),
+  );
+  return store;
+};
+
+const store = setupStore();
 
 export default store;
