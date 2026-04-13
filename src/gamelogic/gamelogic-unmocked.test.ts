@@ -1,7 +1,7 @@
 import {
     generateGameObject
-} from '../../gamelogic/gamelogic';
-import { GAME_DIVISION } from "../../gameTypes";
+} from './gamelogic';
+import { GAME_DIVISION } from "../gameTypes";
 
 
 test('Should generateGameObject return GAME_DIVISION data object without 0 as divisor', () => {    
@@ -19,5 +19,5 @@ test('Should generateGameObject return GAME_DIVISION data object without 0 as di
     expect(gameObject.type).toBe(GAME_DIVISION);
     expect(gameObject.operation).toBe('/');
 
-    expect(gameObject.questions.filter(question => question.operandB === 0)).toHaveLength(0);
+    expect(gameObject.questions.filter(question => question?.operandB === 0)).toHaveLength(0);
 });

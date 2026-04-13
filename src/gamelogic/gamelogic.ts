@@ -48,7 +48,10 @@ export const generateGameObject = (config: TGameConfig): TGameObject => {
  * @param {object} config game settings
  * @param {string} type Game type id
  */
-export const mergeSettings = (config: TGameConfig, type: TGameType) => {
+export const mergeSettings = (
+  config: Omit<TGameConfig, "type">,
+  type?: TGameType,
+) => {
   let sectionSettings;
   const { questionCount, from, to } = config.general;
   let settings = {
@@ -104,7 +107,6 @@ export const prepareQuestions = (
       return prepareQuestionsDivision(from, to, count);
 
     case GAME_ADDITION:
-    default:
       return prepareQuestionsAddition(from, to, count);
   }
 };
