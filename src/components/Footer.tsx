@@ -16,7 +16,12 @@
 import "./Footer.scss";
 
 const Footer = () => {
-  return <footer>GrelaDesign (c) 2017 - {new Date().getFullYear()}</footer>;
+  return (
+    <footer>
+      GrelaDesign (c) 2017 - {new Date().getFullYear()} (
+      {import.meta.env.VITE_VERSION})
+    </footer>
+  );
 };
 
 export default Footer;
