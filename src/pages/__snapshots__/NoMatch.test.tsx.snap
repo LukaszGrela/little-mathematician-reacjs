@@ -1,0 +1,44 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Should render NoMatch page correctly 1`] = `
+<div>
+  <div
+    class="no-match-404"
+  >
+    <div
+      class="title"
+    >
+      <span
+        class="digit d1"
+      >
+        4
+      </span>
+      <span
+        class="sign"
+      >
+         - 
+      </span>
+      <span
+        class="digit d2"
+      >
+        0
+      </span>
+      <span
+        class="sign"
+      >
+         = 
+      </span>
+      <span
+        class="digit d3"
+      >
+        4
+      </span>
+    </div>
+    <div
+      class="content"
+    >
+      Sorry, we can't find result you were counting on...
+    </div>
+  </div>
+</div>
+`;

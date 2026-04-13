@@ -1,0 +1,203 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Should badge display correct value 1`] = `
+<div>
+  <div
+    class="menu"
+  >
+    <div
+      class="row"
+    >
+      <button
+        aria-label="Addition game"
+        class="addition"
+      >
+        <span
+          class="badge score"
+        >
+          1
+        </span>
+        <svg
+          height="50"
+          id="button-icon-plus"
+          viewBox="0 0 50 50"
+          width="50"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M45.184,1H4.818C2.637,1,1,2.638,1,4.82v40.362C1,47.361,2.637,49,4.818,49h40.366C46.818,49,49,47.361,49,45.182V4.82	C49,2.638,46.818,1,45.184,1z M38.637,27.727H27.729v10.912c0,3.814-5.456,3.814-5.456,0V27.727H10.818	c-3.272,0-3.272-5.453,0-5.453h11.454V10.818c0-3.271,5.455-3.271,5.455,0v11.456h10.91C42.456,22.273,42.456,27.727,38.637,27.727z"
+          />
+        </svg>
+      </button>
+      <button
+        aria-label="Subtraction game"
+        class="subtraction"
+      >
+        <span
+          class="badge score"
+        >
+          2
+        </span>
+        <svg
+          height="50"
+          id="button-icon-minus"
+          viewBox="0 0 50 50"
+          width="50"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M45.182,1H4.817C2.633,1,1,2.639,1,4.82v40.361C1,47.361,2.633,49,4.815,49h40.367C47.363,49,49,47.361,49,45.182V4.82	C49,2.639,47.363,1,45.182,1z M34.271,27.727H15.727c-3.275,0-3.275-5.452,0-5.452h18.544C38.09,22.273,38.09,27.727,34.271,27.727z"
+          />
+        </svg>
+      </button>
+    </div>
+    <div
+      class="row"
+    >
+      <button
+        aria-label="Multiplication game"
+        class="multiplication"
+      >
+        <span
+          class="badge score"
+        >
+          3
+        </span>
+        <svg
+          height="50"
+          id="button-icon-multiply"
+          viewBox="0 0 50 50"
+          width="50"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M45.182,1H4.82C2.637,1,1,2.637,1,4.818v40.366C1,46.82,2.637,49,4.819,49h40.363C46.818,49,49,46.818,49,45.184V4.818	C49,2.637,46.818,1,45.182,1z M39.729,35.909c2.729,2.727-1.092,6.545-3.818,3.817L25,28.818L13.546,39.727	c-2.183,2.728-6.001-1.092-3.817-3.817L21.182,25L9.729,13.545c-2.184-2.182,1.636-6,3.817-3.819L25,21.182L35.91,9.727	c2.727-2.182,6.545,1.637,3.816,3.819L28.818,25L39.729,35.909z"
+          />
+        </svg>
+      </button>
+      <button
+        aria-label="Division game"
+        class="division"
+      >
+        <span
+          class="badge score"
+        >
+          4
+        </span>
+        <svg
+          height="50"
+          id="button-icon-divide"
+          viewBox="0 0 50 50"
+          width="50"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M45.182,1H4.817C2.633,1,1,2.637,1,4.818v40.366C1,46.82,2.633,49,4.816,49h40.366C47.365,49,49,46.818,49,45.184V4.818	C49,2.637,47.365,1,45.182,1z M29.361,14.091c0,6-8.726,6-8.726,0C20.636,8.091,29.361,8.091,29.361,14.091z M20.636,35.909	c0-5.999,8.727-5.999,8.727,0C29.361,41.91,20.636,41.91,20.636,35.909z M34.271,27.729H15.727c-3.275,0-3.275-5.456,0-5.456h18.544	C38.09,22.272,38.09,27.729,34.271,27.729z"
+          />
+        </svg>
+      </button>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Should render Menu correctly 1`] = `
+<div>
+  <div
+    class="menu"
+  >
+    <div
+      class="row"
+    >
+      <button
+        aria-label="Addition game"
+        class="addition"
+      >
+        <span
+          class="badge score"
+        >
+          0
+        </span>
+        <svg
+          height="50"
+          id="button-icon-plus"
+          viewBox="0 0 50 50"
+          width="50"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M45.184,1H4.818C2.637,1,1,2.638,1,4.82v40.362C1,47.361,2.637,49,4.818,49h40.366C46.818,49,49,47.361,49,45.182V4.82	C49,2.638,46.818,1,45.184,1z M38.637,27.727H27.729v10.912c0,3.814-5.456,3.814-5.456,0V27.727H10.818	c-3.272,0-3.272-5.453,0-5.453h11.454V10.818c0-3.271,5.455-3.271,5.455,0v11.456h10.91C42.456,22.273,42.456,27.727,38.637,27.727z"
+          />
+        </svg>
+      </button>
+      <button
+        aria-label="Subtraction game"
+        class="subtraction"
+      >
+        <span
+          class="badge score"
+        >
+          0
+        </span>
+        <svg
+          height="50"
+          id="button-icon-minus"
+          viewBox="0 0 50 50"
+          width="50"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M45.182,1H4.817C2.633,1,1,2.639,1,4.82v40.361C1,47.361,2.633,49,4.815,49h40.367C47.363,49,49,47.361,49,45.182V4.82	C49,2.639,47.363,1,45.182,1z M34.271,27.727H15.727c-3.275,0-3.275-5.452,0-5.452h18.544C38.09,22.273,38.09,27.727,34.271,27.727z"
+          />
+        </svg>
+      </button>
+    </div>
+    <div
+      class="row"
+    >
+      <button
+        aria-label="Multiplication game"
+        class="multiplication"
+      >
+        <span
+          class="badge score"
+        >
+          0
+        </span>
+        <svg
+          height="50"
+          id="button-icon-multiply"
+          viewBox="0 0 50 50"
+          width="50"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M45.182,1H4.82C2.637,1,1,2.637,1,4.818v40.366C1,46.82,2.637,49,4.819,49h40.363C46.818,49,49,46.818,49,45.184V4.818	C49,2.637,46.818,1,45.182,1z M39.729,35.909c2.729,2.727-1.092,6.545-3.818,3.817L25,28.818L13.546,39.727	c-2.183,2.728-6.001-1.092-3.817-3.817L21.182,25L9.729,13.545c-2.184-2.182,1.636-6,3.817-3.819L25,21.182L35.91,9.727	c2.727-2.182,6.545,1.637,3.816,3.819L28.818,25L39.729,35.909z"
+          />
+        </svg>
+      </button>
+      <button
+        aria-label="Division game"
+        class="division"
+      >
+        <span
+          class="badge score"
+        >
+          0
+        </span>
+        <svg
+          height="50"
+          id="button-icon-divide"
+          viewBox="0 0 50 50"
+          width="50"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M45.182,1H4.817C2.633,1,1,2.637,1,4.818v40.366C1,46.82,2.633,49,4.816,49h40.366C47.365,49,49,46.818,49,45.184V4.818	C49,2.637,47.365,1,45.182,1z M29.361,14.091c0,6-8.726,6-8.726,0C20.636,8.091,29.361,8.091,29.361,14.091z M20.636,35.909	c0-5.999,8.727-5.999,8.727,0C29.361,41.91,20.636,41.91,20.636,35.909z M34.271,27.729H15.727c-3.275,0-3.275-5.456,0-5.456h18.544	C38.09,22.272,38.09,27.729,34.271,27.729z"
+          />
+        </svg>
+      </button>
+    </div>
+  </div>
+</div>
+`;
