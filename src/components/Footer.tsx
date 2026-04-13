@@ -13,19 +13,10 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 */
-import React, { PureComponent } from 'react';
+import "./Footer.scss";
 
-import './Footer.scss'
-
-class Footer extends PureComponent {
-    state = {
-        currentYear: (new Date()).getFullYear()
-    }
-    render() {
-        return (
-            <footer>GrelaDesign (c) 2017 - {this.state.currentYear}</footer>
-        );
-    }
-}
+const Footer = () => {
+  return <footer>GrelaDesign (c) 2017 - {new Date().getFullYear()}</footer>;
+};
 
 export default Footer;
