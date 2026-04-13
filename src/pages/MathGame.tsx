@@ -33,7 +33,7 @@ export const MathGame: FC = () => {
   const type = match?.params.type as TGameType | undefined;
 
   const dispatch = useDispatch<TAppDispatch>();
-  console.log("MathGame", match?.params.type);
+
   const game = useSelector((state: TRootState) => state.game.currentGame);
 
   const hudQuestionCurrent = useSelector(
@@ -43,7 +43,6 @@ export const MathGame: FC = () => {
   const questionCount = useSelector(
     (state: TRootState) => state.game.currentGame?.questionCount ?? 0,
   );
-  console.log("hudQuestionCurrent", hudQuestionCurrent);
 
   const feedbackActionHandler = useCallback(() => {
     dispatch(nextQuestion());
@@ -67,7 +66,6 @@ export const MathGame: FC = () => {
   }, [game, hudQuestionCurrent]);
 
   const gameView = useCallback(() => {
-    console.log("gameView", game);
     if (!game || !hudQuestionCurrent) return null;
 
     const { hudCorrectAnswers, questionCount, questions } = game;

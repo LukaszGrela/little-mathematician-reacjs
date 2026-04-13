@@ -16,6 +16,7 @@
 import "./Equation.scss";
 import { type FC } from "react";
 import type { TAnswer, TQuestion } from "../types";
+import { classNames } from "../utils/classNames";
 
 interface IProps extends TQuestion {
   answer?: TAnswer;
@@ -32,9 +33,11 @@ const Equation: FC<IProps> = ({
   const userAnswer = answer ? answer.user : "?";
   return (
     <div
-      className={
-        "equation " + (answer ? (answer.correct ? "correct" : "incorrect") : "")
-      }
+      className={classNames(
+        "equation",
+        answer && answer.correct && "correct",
+        answer && !answer.correct && "incorrect",
+      )}
     >
       <div className={"wrapper"}>
         <div className={"part operand-a" + (ask === "a" ? " question" : "")}>

@@ -1,0 +1,267 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Should Equation put "?" in the operand A 1`] = `
+<div>
+  <div
+    class="equation"
+  >
+    <div
+      class="wrapper"
+    >
+      <div
+        class="part operand-a question"
+      >
+        ?
+      </div>
+      <div
+        class="part operation"
+      >
+        +
+      </div>
+      <div
+        class="part operand-b"
+      >
+        2
+      </div>
+      <div
+        class="part equation"
+      >
+        =
+      </div>
+      <div
+        class="part result"
+      >
+        3
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Should Equation put "?" in the operand B 1`] = `
+<div>
+  <div
+    class="equation"
+  >
+    <div
+      class="wrapper"
+    >
+      <div
+        class="part operand-a"
+      >
+        1
+      </div>
+      <div
+        class="part operation"
+      >
+        +
+      </div>
+      <div
+        class="part operand-b question"
+      >
+        ?
+      </div>
+      <div
+        class="part equation"
+      >
+        =
+      </div>
+      <div
+        class="part result"
+      >
+        3
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Should Equation put "?" in the result 1`] = `
+<div>
+  <div
+    class="equation"
+  >
+    <div
+      class="wrapper"
+    >
+      <div
+        class="part operand-a"
+      >
+        1
+      </div>
+      <div
+        class="part operation"
+      >
+        +
+      </div>
+      <div
+        class="part operand-b"
+      >
+        2
+      </div>
+      <div
+        class="part equation"
+      >
+        =
+      </div>
+      <div
+        class="part result question"
+      >
+        ?
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Should Equation put "userAnswer" value in the operand A 1`] = `
+<div>
+  <div
+    class="equation incorrect"
+  >
+    <div
+      class="wrapper"
+    >
+      <div
+        class="part operand-a question"
+      >
+        1979
+      </div>
+      <div
+        class="part operation"
+      >
+        +
+      </div>
+      <div
+        class="part operand-b"
+      >
+        2
+      </div>
+      <div
+        class="part equation"
+      >
+        =
+      </div>
+      <div
+        class="part result"
+      >
+        3
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Should Equation put "userAnswer" value in the operand B 1`] = `
+<div>
+  <div
+    class="equation incorrect"
+  >
+    <div
+      class="wrapper"
+    >
+      <div
+        class="part operand-a"
+      >
+        1
+      </div>
+      <div
+        class="part operation"
+      >
+        +
+      </div>
+      <div
+        class="part operand-b question"
+      >
+        1979
+      </div>
+      <div
+        class="part equation"
+      >
+        =
+      </div>
+      <div
+        class="part result"
+      >
+        3
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Should Equation put "userAnswer" value in the result 1`] = `
+<div>
+  <div
+    class="equation correct"
+  >
+    <div
+      class="wrapper"
+    >
+      <div
+        class="part operand-a"
+      >
+        1
+      </div>
+      <div
+        class="part operation"
+      >
+        +
+      </div>
+      <div
+        class="part operand-b"
+      >
+        2
+      </div>
+      <div
+        class="part equation"
+      >
+        =
+      </div>
+      <div
+        class="part result question"
+      >
+        1979
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Should render Equation correctly 1`] = `
+<div>
+  <div
+    class="equation"
+  >
+    <div
+      class="wrapper"
+    >
+      <div
+        class="part operand-a"
+      >
+        1
+      </div>
+      <div
+        class="part operation"
+      >
+        +
+      </div>
+      <div
+        class="part operand-b"
+      >
+        2
+      </div>
+      <div
+        class="part equation"
+      >
+        =
+      </div>
+      <div
+        class="part result question"
+      >
+        ?
+      </div>
+    </div>
+  </div>
+</div>
+`;

@@ -1,7 +1,7 @@
 import type { TGameType } from "./gameTypes";
 
 type TSectionConfig = {
-  [key in TGameType]?: unknown;
+  [key in TGameType]?: Partial<TGeneralConfig>;
 };
 
 export type TGeneralConfig = {

@@ -60,7 +60,6 @@ const App = () => {
   const [ddMenuOpen, setDdMenuOpen] = useState(false);
 
   const handleDropDown = useCallback(() => {
-    console.log("Show menu");
     setDdMenuOpen(true);
   }, []);
 
@@ -70,8 +69,6 @@ const App = () => {
    */
   const handleNavigationAction = useCallback(
     (action?: TGameType | "about" | "config") => {
-      console.log("App", action, location);
-
       let to = "/";
       switch (action) {
         case GAME_ADDITION:
@@ -170,8 +167,6 @@ const App = () => {
         title = "";
         break;
     }
-
-    console.log("getTitle", pathname, title);
 
     if (title !== "") return <h3>{title}</h3>;
     else return null;

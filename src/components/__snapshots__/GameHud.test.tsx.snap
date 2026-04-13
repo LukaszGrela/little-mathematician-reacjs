@@ -1,0 +1,124 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Should GameHud className contain gain-even class 1`] = `
+<div>
+  <div
+    class="game-hud addition gain-even"
+  >
+    <div
+      class="container"
+    >
+      <div
+        class="question-counter"
+      >
+        2
+         / 
+        10
+      </div>
+      <div
+        class="correct-answers"
+      >
+        <svg
+          class="icon-grade"
+          height="24"
+          id="icon-grade"
+          viewBox="0 0 24 24"
+          width="24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+          />
+        </svg>
+        <span
+          class="label"
+        >
+          2
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Should render GameHud correctly 1`] = `
+<div>
+  <div
+    class="game-hud addition"
+  >
+    <div
+      class="container"
+    >
+      <div
+        class="question-counter"
+      >
+        2
+         / 
+        3
+      </div>
+      <div
+        class="correct-answers"
+      >
+        <svg
+          class="icon-grade"
+          height="24"
+          id="icon-grade"
+          viewBox="0 0 24 24"
+          width="24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+          />
+        </svg>
+        <span
+          class="label"
+        >
+          0
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Should render GameHud correctly with different props 1`] = `
+<div>
+  <div
+    class="game-hud addition gain-odd"
+  >
+    <div
+      class="container"
+    >
+      <div
+        class="question-counter"
+      >
+        2
+         / 
+        10
+      </div>
+      <div
+        class="correct-answers"
+      >
+        <svg
+          class="icon-grade"
+          height="24"
+          id="icon-grade"
+          viewBox="0 0 24 24"
+          width="24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+          />
+        </svg>
+        <span
+          class="label"
+        >
+          3
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+`;

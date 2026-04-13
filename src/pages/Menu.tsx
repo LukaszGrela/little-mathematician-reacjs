@@ -35,10 +35,11 @@ const MenuButton: FC<{
   className?: string;
   icon: ReactNode;
   score: number;
+  ariaLabel: string;
   onClick: () => void;
-}> = ({ className, icon, onClick, score }) => {
+}> = ({ className, icon, onClick, score, ariaLabel }) => {
   return (
-    <button className={className} onClick={onClick}>
+    <button className={className} onClick={onClick} aria-label={ariaLabel}>
       <span className="badge score">{score}</span>
       {icon}
     </button>
@@ -58,6 +59,7 @@ const AdditionMenuButton: FC<{
       onClick={handleOnClick}
       score={score}
       className="addition"
+      ariaLabel="Addition game"
     />
   );
 };
@@ -74,6 +76,7 @@ const SubtractionMenuButton: FC<{
       onClick={handleOnClick}
       score={score}
       className="subtraction"
+      ariaLabel="Subtraction game"
     />
   );
 };
@@ -90,6 +93,7 @@ const MultiplicationMenuButton: FC<{
       onClick={handleOnClick}
       score={score}
       className="multiplication"
+      ariaLabel="Multiplication game"
     />
   );
 };
@@ -106,6 +110,7 @@ const DivisionMenuButton: FC<{
       onClick={handleOnClick}
       score={score}
       className="division"
+      ariaLabel="Division game"
     />
   );
 };

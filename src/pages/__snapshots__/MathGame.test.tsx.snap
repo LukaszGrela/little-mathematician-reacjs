@@ -1,0 +1,108 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Should render MathGame correctly 1`] = `
+<div>
+  <div
+    class="game game-addition"
+  >
+    <div
+      class="game-view"
+    >
+      <div
+        class="game-hud addition"
+      >
+        <div
+          class="container"
+        >
+          <div
+            class="question-counter"
+          >
+            1
+             / 
+            10
+          </div>
+          <div
+            class="correct-answers"
+          >
+            <svg
+              class="icon-grade"
+              height="24"
+              id="icon-grade"
+              viewBox="0 0 24 24"
+              width="24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+              />
+            </svg>
+            <span
+              class="label"
+            >
+              0
+            </span>
+          </div>
+        </div>
+      </div>
+      <div
+        class="equation"
+      >
+        <div
+          class="wrapper"
+        >
+          <div
+            class="part operand-a"
+          >
+            0
+          </div>
+          <div
+            class="part operation"
+          >
+            +
+          </div>
+          <div
+            class="part operand-b"
+          >
+            0
+          </div>
+          <div
+            class="part equation"
+          >
+            =
+          </div>
+          <div
+            class="part result question"
+          >
+            ?
+          </div>
+        </div>
+      </div>
+      <div
+        class="game-answers"
+      >
+        <hr />
+        <button
+          class="answer option-1"
+        >
+          0
+        </button>
+        <button
+          class="answer option-2"
+        >
+          1
+        </button>
+        <button
+          class="answer option-3"
+        >
+          4
+        </button>
+        <button
+          class="answer option-4"
+        >
+          -1
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;

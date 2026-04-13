@@ -25,7 +25,7 @@ import {
 import { generateGameObject } from "../gamelogic/gamelogic";
 import type { TGameObject, TQuestion } from "../types";
 
-type TGameState = {
+export type TGameState = {
   history: TGameObject[];
   currentGame: null | TGameObject;
   historyLengthCap: number;
@@ -36,7 +36,10 @@ const DEFAULT_STATE: TGameState = {
   currentGame: null,
   historyLengthCap: 10,
 };
-export default (state = DEFAULT_STATE, action: TGameActions) => {
+export default (
+  state = DEFAULT_STATE,
+  action: TGameActions | { type: "@@INIT"; payload?: unknown },
+) => {
   let newState: TGameState, currentQuestion: TQuestion;
   switch (action.type) {
     case NEW_GAME:

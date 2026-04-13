@@ -39,7 +39,7 @@ const GameHud: FC<IProps> = ({
         "game-hud",
         type,
         hudCorrectAnswers > 0 &&
-          " gain-" + (hudCorrectAnswers % 2 === 0 ? "even" : "odd"),
+          "gain-" + (hudCorrectAnswers % 2 === 0 ? "even" : "odd"),
       )}
     >
       <div className="container">
