@@ -19,6 +19,7 @@ import MoodIcon from "../icons/MoodIcon";
 
 import ButtonIconNext from "../icons/ButtonIconNext";
 import type { TAnswer } from "../types";
+import { classNames } from "../utils/classNames";
 
 const Feedback: FC<{
   answer: TAnswer;
@@ -35,7 +36,12 @@ const Feedback: FC<{
   }, []);
 
   return (
-    <div className={"feedback" + (answer.correct ? " correct" : " incorrect")}>
+    <div
+      className={classNames(
+        "feedback",
+        answer.correct ? "correct" : "incorrect",
+      )}
+    >
       <div className="row">
         <MoodIcon className="cell" isGood={answer.correct} />
         <div className="message cell">
@@ -49,7 +55,7 @@ const Feedback: FC<{
               ]}
         </div>
         <button
-          className={"cell" + (promptAnimation ? " animate" : "")}
+          className={classNames("cell", promptAnimation && "animate")}
           onClick={() => {
             onAction?.();
           }}
