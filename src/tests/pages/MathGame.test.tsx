@@ -34,7 +34,7 @@ beforeEach(() => {
         "questionCount": 10,
         "from": 0,
         "to": 10,
-        "type": ":addition",
+        "type": "addition",
         "history": [],
         "hudQuestionCurrent": 1,
         "hudCorrectAnswers": 0,

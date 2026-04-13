@@ -14,10 +14,10 @@
    limitations under the License.
 */
 
-export const GAME_ADDITION = ":addition" as const;
-export const GAME_SUBTRACTION = ":subtraction" as const;
-export const GAME_MULTIPLICATION = ":multiplication" as const;
-export const GAME_DIVISION = ":division" as const;
+export const GAME_ADDITION = "addition" as const;
+export const GAME_SUBTRACTION = "subtraction" as const;
+export const GAME_MULTIPLICATION = "multiplication" as const;
+export const GAME_DIVISION = "division" as const;
 
 export type TGameType =
   | typeof GAME_ADDITION

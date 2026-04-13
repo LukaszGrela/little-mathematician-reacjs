@@ -18,10 +18,11 @@ import React, { useState, type FC } from "react";
 import MoodIcon from "../icons/MoodIcon";
 
 import ButtonIconNext from "../icons/ButtonIconNext";
+import type { TAnswer } from "../types";
 
 const Feedback: FC<{
-  answer: { correct: boolean };
-  correct: string;
+  answer: TAnswer;
+  correct: number;
   onAction?: () => void;
 }> = ({ answer, correct, onAction }) => {
   const [promptAnimation, setPromptAnimation] = useState(false);

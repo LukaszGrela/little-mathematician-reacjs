@@ -87,8 +87,6 @@ export default function reducer(
           break;
       }
       break;
-
-    default:
-      return state;
   }
+  return state;
 }

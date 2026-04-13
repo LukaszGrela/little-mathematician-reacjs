@@ -37,7 +37,7 @@ const DEFAULT_STATE: TGameState = {
   historyLengthCap: 10,
 };
 export default (state = DEFAULT_STATE, action: TGameActions) => {
-  let newState: TGameState, current: TQuestion;
+  let newState: TGameState, currentQuestion: TQuestion;
   switch (action.type) {
     case NEW_GAME:
       // create current game object
@@ -69,21 +69,24 @@ export default (state = DEFAULT_STATE, action: TGameActions) => {
     case ANSWER_QUESTION: {
       newState = { ...state };
       if (newState.currentGame) {
-        current =
+        newState.currentGame = { ...newState.currentGame };
+
+        currentQuestion =
           newState.currentGame.questions[
             newState.currentGame.hudQuestionCurrent - 1
           ]!;
         // validate answer
-        current.answer = {
+        currentQuestion.answer = {
           user: action.answer,
-          correct: action.answer === current.correct,
+          correct: action.answer === currentQuestion.correct,
           selectionId: action.optionId,
         };
         newState.currentGame.questions[
           newState.currentGame.hudQuestionCurrent - 1
-        ] = current;
+        ] = currentQuestion;
         // score
-        if (current.answer.correct) newState.currentGame.hudCorrectAnswers += 1;
+        if (currentQuestion.answer.correct)
+          newState.currentGame.hudCorrectAnswers += 1;
         //
       }
       return newState;
@@ -93,11 +96,11 @@ export default (state = DEFAULT_STATE, action: TGameActions) => {
       newState = { ...state };
       if (newState.currentGame) {
         // move current question to the history stack
-        current =
+        currentQuestion =
           newState.currentGame.questions[
             newState.currentGame.hudQuestionCurrent - 1
           ]!;
-        newState.currentGame.history.push(current);
+        newState.currentGame.history.push(currentQuestion);
 
         // nullify current question array slot
         newState.currentGame.questions[
@@ -111,9 +114,8 @@ export default (state = DEFAULT_STATE, action: TGameActions) => {
     case QUIT_GAME:
       // dispose current game object
       return { ...state, currentGame: null };
-      break;
+
     default:
-      break;
+      return state;
   }
-  return state;
 };

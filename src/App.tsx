@@ -14,7 +14,7 @@
    limitations under the License.
 */
 import { useCallback, useState } from "react";
-
+import { useDispatch, useSelector } from "react-redux";
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 
 // pages
@@ -47,10 +47,15 @@ import {
 } from "./gameTypes";
 import { IconMore } from "./icons/IconMore";
 import { classNames } from "./utils/classNames";
+import type { TAppDispatch, TRootState } from "./store/types";
+import { newGame, quitGame } from "./actions/mathGameActions";
+import GameOverPage from "./pages/GameOverPage";
 
 const App = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const dispatch = useDispatch<TAppDispatch>();
+  const config = useSelector((state: TRootState) => state.config);
 
   const [ddMenuOpen, setDdMenuOpen] = useState(false);
 
@@ -65,21 +70,45 @@ const App = () => {
    */
   const handleNavigationAction = useCallback(
     (action?: TGameType | "about" | "config") => {
-      console.log("App", action);
+      console.log("App", action, location);
+
       let to = "/";
       switch (action) {
         case GAME_ADDITION:
-          to = "/game" + GAME_ADDITION;
+          to = "/game/" + GAME_ADDITION;
+          dispatch(
+            newGame({
+              ...config,
+              type: action,
+            }),
+          );
           break;
         case GAME_SUBTRACTION:
-          to = "/game" + GAME_SUBTRACTION;
+          to = "/game/" + GAME_SUBTRACTION;
+          dispatch(
+            newGame({
+              ...config,
+              type: action,
+            }),
+          );
           break;
         case GAME_MULTIPLICATION:
-          to = "/game" + GAME_MULTIPLICATION;
+          to = "/game/" + GAME_MULTIPLICATION;
+          dispatch(
+            newGame({
+              ...config,
+              type: action,
+            }),
+          );
           break;
         case GAME_DIVISION:
-          to = "/game" + GAME_DIVISION;
-
+          to = "/game/" + GAME_DIVISION;
+          dispatch(
+            newGame({
+              ...config,
+              type: action,
+            }),
+          );
           break;
 
         case "about":
@@ -91,14 +120,16 @@ const App = () => {
 
         default:
           to = "/";
+          if (location.pathname.indexOf("/game/") !== -1) {
+            dispatch(quitGame());
+          }
           break;
       }
-      // this.props.history.push(to);
-      // this.setState({ location: to, ddMenuOpen: false });
+
       setDdMenuOpen(false);
       navigate(to);
     },
-    [navigate],
+    [config, dispatch, location, navigate],
   );
 
   /**
@@ -151,7 +182,9 @@ const App = () => {
    * @returns {JSX.Element|null} JSX fragment
    */
   const getLeftIconSlotFragment = useCallback(() => {
-    if (location.pathname !== "/") {
+    if (location.pathname.indexOf("/game-over") !== -1) {
+      return null;
+    } else if (location.pathname !== "/") {
       return (
         <button
           onClick={() => {
@@ -276,18 +309,9 @@ const App = () => {
             Component={() => <Menu onAction={handleNavigationAction} />}
           />
 
-          <Route
-            path="/game:type"
-            Component={() => (
-              <MathGame
-                // {...p.match.params}
-                onAction={(userAnswer: unknown) => {
-                  console.log("userAnswer", userAnswer);
-                  handleNavigationAction();
-                }}
-              />
-            )}
-          />
+          <Route path="/game/:type" Component={MathGame} />
+
+          <Route path="/game/:type/game-over" Component={GameOverPage} />
 
           <Route path="/config" Component={Config} />
           <Route path="/about" Component={About} />
