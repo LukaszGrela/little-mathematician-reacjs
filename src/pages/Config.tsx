@@ -27,14 +27,13 @@ import {
 import type { TAppDispatch, TRootState } from "../store/types";
 
 export const Config = () => {
-  const config = useSelector((state: TRootState) => state.config);
+  const general = useSelector((state: TRootState) => state.config.general);
+  const { from: gFrom, questionCount: gQuestionCount, to: gTo } = general;
   const dispatch = useDispatch<TAppDispatch>();
 
   const handleChange = useCallback(
     (field: string, value: string) => {
       const _val = parseInt(value, 10);
-      const gFrom = config.general.from;
-      const gTo = config.general.to;
 
       switch (field) {
         case "general-qn":
@@ -56,7 +55,7 @@ export const Config = () => {
           break;
       }
     },
-    [config.general.from, config.general.to, dispatch],
+    [dispatch, gFrom, gTo],
   );
 
   return (
@@ -67,7 +66,8 @@ export const Config = () => {
             Number of questions:
             <select
               id="general-questions"
-              value={config.general.questionCount}
+              data-testid="general-questions"
+              value={gQuestionCount}
               onChange={(e) => handleChange("general-qn", e.target.value)}
             >
               <option value="10">10</option>
@@ -80,7 +80,8 @@ export const Config = () => {
             Number range from:
             <select
               id="general-range-from"
-              value={config.general.from}
+              data-testid="general-range-from"
+              value={gFrom}
               onChange={(e) => handleChange("general-rf", e.target.value)}
             >
               <option value="0">0</option>
@@ -94,7 +95,8 @@ export const Config = () => {
             Number range to:
             <select
               id="general-range-to"
-              value={config.general.to}
+              data-testid="general-range-to"
+              value={gTo}
               onChange={(e) => handleChange("general-rt", e.target.value)}
             >
               <option value="10">10</option>
