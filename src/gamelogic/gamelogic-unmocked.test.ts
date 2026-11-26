@@ -11,7 +11,7 @@ import {
   GAME_SUBTRACTION,
   type TGameType,
 } from "../gameTypes";
-import type { TGameConfig, TQuestion } from "../types";
+import type { TGameConfig, TGameObject, TQuestion } from "../types";
 
 const configFor = (
   type: TGameType,
@@ -34,6 +34,20 @@ const answerOf = (question: TQuestion) =>
     : question.ask === "a"
       ? question.operandA
       : question.operandB;
+
+/**
+ * `TGameObject.questions` is `(TQuestion | null)[]`, because the reducer
+ * replaces an answered question with `null`. A freshly generated game never
+ * has holes, so the tests narrow the type here and fail loudly if that ever
+ * changes instead of silently skipping a missing question.
+ */
+const generatedQuestions = (game: TGameObject): TQuestion[] =>
+  game.questions.map((question, index) => {
+    if (question === null) {
+      throw new Error(`expected question ${index} to be generated, got null`);
+    }
+    return question;
+  });
 
 describe("buildDistractors", () => {
   test("returns four unique options including the correct answer", () => {
@@ -90,7 +104,7 @@ describe("generateGameObject", () => {
     expect(game.hudQuestionCurrent).toBe(1);
     expect(game.hudCorrectAnswers).toBe(0);
 
-    game.questions.forEach((question) => {
+    generatedQuestions(game).forEach((question) => {
       expect(question.operation).toBe(operation);
       expect(question.correct).toBe(answerOf(question));
       expect(question.distractors).toHaveLength(4);
@@ -101,7 +115,9 @@ describe("generateGameObject", () => {
   });
 
   test("division questions are solvable and never divide by zero", () => {
-    const { questions } = generateGameObject(configFor(GAME_DIVISION));
+    const questions = generatedQuestions(
+      generateGameObject(configFor(GAME_DIVISION)),
+    );
     questions.forEach((question) => {
       expect(question.operandB).not.toBe(0);
       expect(question.operandA % question.operandB).toBe(0);
@@ -113,7 +129,9 @@ describe("generateGameObject", () => {
   });
 
   test("subtraction never produces negative operands or results", () => {
-    const { questions } = generateGameObject(configFor(GAME_SUBTRACTION));
+    const questions = generatedQuestions(
+      generateGameObject(configFor(GAME_SUBTRACTION)),
+    );
     questions.forEach((question) => {
       expect(question.operandA).toBeGreaterThanOrEqual(question.operandB);
       expect(question.result).toBe(question.operandA - question.operandB);
@@ -122,8 +140,8 @@ describe("generateGameObject", () => {
   });
 
   test("keeps the configured range for both operands", () => {
-    const { questions } = generateGameObject(
-      configFor(GAME_MULTIPLICATION, { from: 2, to: 6 }),
+    const questions = generatedQuestions(
+      generateGameObject(configFor(GAME_MULTIPLICATION, { from: 2, to: 6 })),
     );
     questions.forEach((question) => {
       expect(question.operandA).toBeGreaterThanOrEqual(2);
