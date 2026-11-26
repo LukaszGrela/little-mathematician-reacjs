@@ -138,19 +138,19 @@ const App = () => {
     let title = "";
 
     switch (pathname) {
-      case "/game" + GAME_ADDITION:
+      case "/game/" + GAME_ADDITION:
         title = "Addition";
         break;
 
-      case "/game" + GAME_SUBTRACTION:
+      case "/game/" + GAME_SUBTRACTION:
         title = "Subtraction";
         break;
 
-      case "/game" + GAME_MULTIPLICATION:
+      case "/game/" + GAME_MULTIPLICATION:
         title = "Multiplication";
         break;
 
-      case "/game" + GAME_DIVISION:
+      case "/game/" + GAME_DIVISION:
         title = "Division";
         break;
 
