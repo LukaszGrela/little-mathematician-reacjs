@@ -1,4 +1,4 @@
-/* eslint-disable */
+ 
 // import { toMatchShapeOf, toMatchOneOf } from 'jest-to-match-shape-of';
 
 // import Enzyme from 'enzyme';

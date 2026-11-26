@@ -29,6 +29,7 @@ const Feedback: FC<{
   const [promptAnimation, setPromptAnimation] = useState(false);
 
   React.useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setPromptAnimation(true);
     return () => {
       setPromptAnimation(true);

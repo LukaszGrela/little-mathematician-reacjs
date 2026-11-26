@@ -5,7 +5,7 @@ describe('utils', () => {
     describe('classNamesToCssSelector', () => {
       it('Returns class name string', () => {
         expect(
-          // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition, no-constant-binary-expression
+          // eslint-disable-next-line no-constant-binary-expression
           classNamesToCssSelector('a', false && 'x', true && 'b', 1 && 'c'),
         ).toEqual('.a.b.c');
         expect(classNamesToCssSelector('a')).toEqual('.a');
@@ -14,7 +14,7 @@ describe('utils', () => {
       it('Returns undefined', () => {
         expect(classNamesToCssSelector()).toEqual(undefined);
         expect(
-          // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition, no-constant-binary-expression
+          // eslint-disable-next-line no-constant-binary-expression
           classNamesToCssSelector('', false && 'x'),
         ).toEqual(undefined);
       });
