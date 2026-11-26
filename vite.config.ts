@@ -4,7 +4,11 @@ import react from "@vitejs/plugin-react";
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: "./",
+  // The app is hosted under https://greladesign.co/little-mathematician
+  // (package.json "homepage", public/.htaccess RewriteBase), so emitted asset
+  // URLs must be absolute under that path. src/main.tsx derives the router
+  // basename from the resulting import.meta.env.BASE_URL.
+  base: "/little-mathematician/",
 
   plugins: [react()],
 

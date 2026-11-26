@@ -21,11 +21,12 @@ import { BrowserRouter as Router } from "react-router";
 import { Provider } from "react-redux";
 import App from "./App";
 import store from "./store/Store";
+import { toBasename } from "./utils/basename";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <Provider store={store}>
-      <Router basename="/little-mathematician">
+      <Router basename={toBasename(import.meta.env.BASE_URL)}>
         <App />
       </Router>
     </Provider>
