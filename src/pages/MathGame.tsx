@@ -16,7 +16,7 @@
 
 import "./MathGame.scss";
 import { useCallback, useEffect, type FC } from "react";
-import { useMatch, useNavigate } from "react-router-dom";
+import { useMatch, useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 
 import GameHud from "../components/GameHud";

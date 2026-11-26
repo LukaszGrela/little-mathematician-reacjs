@@ -22,7 +22,7 @@ import {
   type MemoryRouterOpts,
   type RouteObject,
   RouterProvider,
-} from "react-router-dom";
+} from "react-router";
 import { render, type RenderOptions } from "@testing-library/react";
 import { storeDecoratorWrapper } from "./storeDecorator";
 import { setupStore } from "../store/Store";

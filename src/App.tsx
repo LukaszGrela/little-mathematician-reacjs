@@ -15,7 +15,7 @@
 */
 import { useCallback, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
+import { Route, Routes, useLocation, useNavigate } from "react-router";
 
 // pages
 import NoMatch from "./pages/NoMatch";
