@@ -36,6 +36,20 @@ const OPERATION_BY_TYPE: Record<TGameType, TOperation> = {
   [GAME_DIVISION]: "/",
 };
 
+/**
+ * Creates a unique id for a new game.
+ *
+ * `crypto.randomUUID` is only available in secure contexts (https, localhost),
+ * so a time + random based fallback keeps the id unique on plain http.
+ */
+export const createGameId = (): string => {
+  const cryptoApi = globalThis.crypto;
+  if (cryptoApi && typeof cryptoApi.randomUUID === "function") {
+    return cryptoApi.randomUUID();
+  }
+  return `game-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 10)}`;
+};
+
 /** Number of answer buttons rendered for every question. */
 export const DISTRACTOR_COUNT = 4;
 
@@ -86,6 +100,10 @@ export const generateGameObject = (config: TGameConfig): TGameObject => {
   );
   return {
     ...settings,
+    id: createGameId(),
+    status: "in-progress",
+    finishedAt: null,
+    score: 0,
     questionCount,
     type: config.type,
     history: [],

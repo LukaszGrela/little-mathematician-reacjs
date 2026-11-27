@@ -40,7 +40,18 @@ export type TAnswer = {
   user: number;
 };
 
+/** Lifecycle status of a single game. */
+export type TGameStatus = "in-progress" | "finished" | "abandoned";
+
 export type TGameObject = {
+  /** Unique id of this game (generated when the game starts). */
+  id: string;
+  /** Where the game is in its lifecycle. */
+  status: TGameStatus;
+  /** Epoch milliseconds of finishing/abandoning, `null` while in-progress. */
+  finishedAt: number | null;
+  /** Correct answers, frozen when the game is finished or abandoned. */
+  score: number;
   type: TGameType;
   history: TQuestion[];
   hudQuestionCurrent: number;

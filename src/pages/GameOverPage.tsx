@@ -21,7 +21,6 @@ import GameOver from "../components/GameOver";
 import type { TAppDispatch, TRootState } from "../store/types";
 import { gameOver, newGame } from "../actions/mathGameActions";
 import { isGameType } from "../gameTypes";
-import { increaseScoreOfGame } from "../actions/actions";
 
 const GameOverPage = () => {
   const navigate = useNavigate();
@@ -35,8 +34,9 @@ const GameOverPage = () => {
 
   const gameOverActionHandler = useCallback(
     (action: "replay" | "menu") => {
+      // the score is already added when MathGame marks the game as finished,
+      // here we only archive the game (a game that finished keeps its status)
       if (gameType) {
-        dispatch(increaseScoreOfGame(hudCorrectAnswers, gameType));
         dispatch(gameOver());
       }
 
@@ -52,7 +52,7 @@ const GameOverPage = () => {
         navigate("/");
       }
     },
-    [config, dispatch, gameType, hudCorrectAnswers, navigate],
+    [config, dispatch, gameType, navigate],
   );
 
   return (

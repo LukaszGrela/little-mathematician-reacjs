@@ -55,6 +55,18 @@ export const quitGame = () => ({
   type: QUIT_GAME,
 });
 
+export const FINISH_GAME = "gd:FINISH_GAME" as const;
+/**
+ * Creates FINISH_GAME action object.
+ *
+ * Marks the current game as finished (status, finish time and the frozen
+ * score) but keeps it as the current game, so the game-over screen can still
+ * read it. Idempotent - a game that is no longer in-progress is left alone.
+ */
+export const finishGame = () => ({
+  type: FINISH_GAME,
+});
+
 export const GAME_OVER = "gd:GAME_OVER" as const;
 /** Creates GAME_OVER action object */
 export const gameOver = () => ({
@@ -66,4 +78,5 @@ export type TGameActions =
   | ReturnType<typeof nextQuestion>
   | ReturnType<typeof answerQuestion>
   | ReturnType<typeof quitGame>
+  | ReturnType<typeof finishGame>
   | ReturnType<typeof gameOver>;

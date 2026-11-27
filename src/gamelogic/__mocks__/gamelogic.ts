@@ -4,6 +4,10 @@ export const generateGameObject = (config: TGameConfig) => {
   //transform config
   const questions = prepareQuestions();
   return {
+    id: "mock-game-id",
+    status: "in-progress",
+    finishedAt: null,
+    score: 0,
     from: 0,
     to: 10,
     questionCount: 10,

@@ -23,7 +23,12 @@ import GameHud from "../components/GameHud";
 import GameAnswers from "../components/GameAnswers";
 import Equation from "../components/Equation";
 import Feedback from "../components/Feedback";
-import { answerQuestion, nextQuestion } from "../actions/mathGameActions";
+import {
+  answerQuestion,
+  finishGame,
+  nextQuestion,
+} from "../actions/mathGameActions";
+import { increaseScoreOfGame } from "../actions/actions";
 import { isGameType } from "../gameTypes";
 import { type TAppDispatch, type TRootState } from "../store/types";
 
@@ -44,6 +49,12 @@ export const MathGame: FC = () => {
   const questionCount = useSelector(
     (state: TRootState) => state.game.currentGame?.questionCount ?? 0,
   );
+
+  const hudCorrectAnswers = useSelector(
+    (state: TRootState) => state.game.currentGame?.hudCorrectAnswers ?? 0,
+  );
+
+  const gameStatus = game?.status;
 
   const feedbackActionHandler = useCallback(() => {
     dispatch(nextQuestion());
@@ -110,6 +121,19 @@ export const MathGame: FC = () => {
   ]);
 
   const isGameOver = hudQuestionCurrent > questionCount;
+
+  // The end of the game is derived from the state, not from a click: once the
+  // last question is behind us the game is marked as finished (exactly once -
+  // the reducer ignores a game that is no longer in-progress) and its score is
+  // added to the totals. The game-over screen can still read the game, because
+  // FINISH_GAME keeps it as the current game.
+  useEffect(() => {
+    if (!isGameOver || !type) return;
+    if (gameStatus !== "in-progress") return;
+
+    dispatch(finishGame());
+    dispatch(increaseScoreOfGame(hudCorrectAnswers, type));
+  }, [dispatch, gameStatus, hudCorrectAnswers, isGameOver, type]);
 
   useEffect(() => {
     if (isGameOver && type) {
