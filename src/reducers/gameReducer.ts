@@ -55,15 +55,18 @@ const closeGame = (
   };
 };
 
-const DEFAULT_STATE: TGameState = {
+/** Maximum number of closed games kept in `history` (and in the saved state). */
+export const HISTORY_LENGTH_CAP = 10;
+
+export const DEFAULT_GAME_STATE: TGameState = {
   history: [],
   currentGame: null,
-  historyLengthCap: 10,
+  historyLengthCap: HISTORY_LENGTH_CAP,
 };
-export default (
-  state = DEFAULT_STATE,
+export default function reducer(
+  state = DEFAULT_GAME_STATE,
   action: TGameActions | { type: "@@INIT"; payload?: unknown },
-) => {
+) {
   switch (action.type) {
     case NEW_GAME:
       // create current game object
@@ -182,4 +185,4 @@ export default (
     default:
       return state;
   }
-};
+}

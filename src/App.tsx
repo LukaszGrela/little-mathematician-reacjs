@@ -23,6 +23,7 @@ import Menu from "./pages/Menu";
 import About from "./pages/About";
 import MathGame from "./pages/MathGame";
 import Config from "./pages/Config";
+import History from "./pages/History";
 
 // components
 import Footer from "./components/Footer";
@@ -37,6 +38,7 @@ import LogoIcon from "./icons/LogoIcon";
 import IconArrowBack from "./icons/IconArrowBack";
 import IconInfo from "./icons/IconInfo";
 import IconSettings from "./icons/IconSettings";
+import IconGrade from "./icons/IconGrade";
 
 import {
   GAME_ADDITION,
@@ -50,6 +52,7 @@ import { classNames } from "./utils/classNames";
 import type { TAppDispatch, TRootState } from "./store/types";
 import { newGame, quitGame } from "./actions/mathGameActions";
 import GameOverPage from "./pages/GameOverPage";
+import { MIN_DEVICE_WIDTH } from "./utils/constants";
 
 const App = () => {
   const location = useLocation();
@@ -68,7 +71,7 @@ const App = () => {
    * @param {string} action Navigation ID
    */
   const handleNavigationAction = useCallback(
-    (action?: TGameType | "about" | "config") => {
+    (action?: TGameType | "about" | "config" | "history") => {
       let to = "/";
       switch (action) {
         case GAME_ADDITION:
@@ -113,6 +116,9 @@ const App = () => {
           break;
         case "config":
           to = "/config";
+          break;
+        case "history":
+          to = "/history";
           break;
 
         default:
@@ -162,6 +168,10 @@ const App = () => {
         title = "About";
         break;
 
+      case "/history":
+        title = "History";
+        break;
+
       case "/":
       default:
         title = "";
@@ -201,10 +211,19 @@ const App = () => {
   const getRightIconSlotFragment = useCallback(() => {
     if (location.pathname === "/") {
       return [
-        <MediaQuery minDeviceWidth={410} key={"media-query"}>
+        <MediaQuery minDeviceWidth={MIN_DEVICE_WIDTH} key={"media-query"}>
           {(matches) => {
             if (matches) {
               return [
+                <button
+                  key={"history-btn"}
+                  className="button-history"
+                  onClick={() => {
+                    handleNavigationAction("history");
+                  }}
+                >
+                  <IconGrade />
+                </button>,
                 <button
                   key={"about-btn"}
                   className="button-about"
@@ -246,6 +265,16 @@ const App = () => {
                     }}
                   ></div>
                   <div className="dd-menu-container">
+                    <button
+                      key={"history-btn"}
+                      className="button-history"
+                      onClick={() => {
+                        handleNavigationAction("history");
+                      }}
+                    >
+                      <IconGrade />
+                      <span className="label">History</span>
+                    </button>
                     <button
                       key={"about-btn"}
                       className="button-about"
@@ -310,6 +339,7 @@ const App = () => {
 
           <Route path="/config" Component={Config} />
           <Route path="/about" Component={About} />
+          <Route path="/history" Component={History} />
           <Route path="*" Component={NoMatch} />
         </Routes>
       </section>

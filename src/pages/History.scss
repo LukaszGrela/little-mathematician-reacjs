@@ -1,0 +1,72 @@
+@use "../sass/_variables.scss";
+
+.history {
+    padding: 50px 12px 12px;
+    max-width: 640px;
+    margin: 0 auto;
+
+    .history-totals {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin: 0 0 18px;
+        padding: 0;
+
+        .history-total {
+            min-width: 96px;
+            margin: 0 6px 8px;
+            padding: 6px 10px;
+            text-align: center;
+            border-radius: 4px;
+            background-color: rgba(variables.$accent-color-1, .12);
+
+            dt {
+                font-size: .75rem;
+                text-transform: uppercase;
+                letter-spacing: .04em;
+                opacity: .75;
+            }
+
+            dd {
+                margin: 2px 0 0;
+                font-size: 1.25rem;
+                font-weight: 700;
+            }
+        }
+    }
+
+    .history-empty {
+        text-align: center;
+        opacity: .75;
+    }
+
+    .history-table {
+        width: 100%;
+        border-collapse: collapse;
+
+        caption {
+            padding-bottom: 6px;
+            font-size: .8rem;
+            opacity: .7;
+        }
+
+        th,
+        td {
+            padding: 6px 4px;
+            text-align: center;
+            border-bottom: 1px solid rgba(variables.$primary-text-color, .15);
+        }
+
+        th {
+            font-size: .75rem;
+            text-transform: uppercase;
+            letter-spacing: .04em;
+            opacity: .7;
+        }
+
+        .history-status-abandoned {
+            font-style: italic;
+            opacity: .75;
+        }
+    }
+}

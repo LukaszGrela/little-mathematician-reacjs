@@ -17,11 +17,29 @@ import {
   applyMiddleware,
   legacy_createStore as createStore,
   compose,
+  type Reducer,
+  type Store,
 } from "redux";
 
 import { logger } from "redux-logger";
 
 import reducer from "../reducers";
+import {
+  DEFAULT_GAME_STATE,
+  HISTORY_LENGTH_CAP,
+} from "../reducers/gameReducer";
+import type { TRootState } from "./types";
+import {
+  readPersistedState,
+  writePersistedState,
+  type TPersistableState,
+} from "./persistence";
+import { DEFAULT_CONFIG_STATE } from "../reducers/configReducer";
+import { DEFAULT_SCORE_STATE } from "../reducers/scoreReducer";
+import type { TActions } from "../actions/actions";
+
+/** Every action the store accepts, including the one Redux itself dispatches. */
+export type TRootAction = TActions | { type: "@@INIT"; payload?: unknown };
 
 // Log actions and state only in development. A production build must not print
 // the player's answers or the internal game state to the browser console.
@@ -30,11 +48,84 @@ const composeEnhancers =
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-export const setupStore = () => {
+/**
+ * State restored from `localStorage`: the closed games and the score totals.
+ * Only these two slices are persisted, everything else starts fresh.
+ */
+const createPreloadedState = (): Omit<TRootState, "config"> => {
+  const persisted = readPersistedState();
+  return {
+    score: persisted.score,
+    game: {
+      ...DEFAULT_GAME_STATE,
+      history: persisted.history,
+      currentGame: null,
+      historyLengthCap: HISTORY_LENGTH_CAP,
+    },
+  };
+};
+
+/**
+ * Saves the persisted slices after every change that can affect them.
+ * Comparing references keeps the write off the hot path (answering a question
+ * does not touch the history or the totals).
+ */
+const subscribePersistence = (store: Store<TRootState>): void => {
+  let previous = store.getState();
+  store.subscribe(() => {
+    const state = store.getState();
+    if (
+      state.game.history === previous.game.history &&
+      state.score === previous.score
+    ) {
+      return;
+    }
+    previous = state;
+    writePersistedState(state as TPersistableState);
+  });
+};
+
+export const setupStore = (preloadedState?: TRootState): Store<TRootState> => {
+  // The cast on the combined reducer is needed because redux infers its
+  // preloaded-state type with `PreloadedStateShapeFromReducersMapObject`, which
+  // only matches reducers whose action parameter accepts `UnknownAction`. Our
+  // slice reducers narrow their actions (`TScoreActions`, ...), so inference
+  // bails out to `Partial<{ score: never; ... }>` and the combined reducer is
+  // not assignable to `Reducer<TRootState, TRootAction, Partial<TRootState>>`
+  // even though the state/action types are correct. At runtime nothing changes:
+  // only the inferred preloaded-state parameter is re-asserted here. Typing the
+  // reducer also lets `createStore` infer `S`, `A` and `PreloadedState` from it
+  // instead of defaulting `PreloadedState` to the full `TRootState`.
+  const rootReducer = reducer as Reducer<
+    TRootState,
+    TRootAction,
+    Partial<TRootState>
+  >;
+
   const store = createStore(
-    reducer,
-    /* preloadedState, */ composeEnhancers(middleware),
+    rootReducer,
+    preloadedState
+      ? Object.assign(
+          {
+            config: DEFAULT_CONFIG_STATE,
+            score: DEFAULT_SCORE_STATE,
+            game: DEFAULT_GAME_STATE,
+          } as TRootState,
+          preloadedState,
+        )
+      : Object.assign(
+          {
+            config: DEFAULT_CONFIG_STATE,
+            score: DEFAULT_SCORE_STATE,
+            game: DEFAULT_GAME_STATE,
+          },
+          createPreloadedState(),
+        ),
+    composeEnhancers(middleware),
   );
+
+  subscribePersistence(store);
+
   return store;
 };
 

@@ -29,13 +29,15 @@ export type TScoreState = {
   divScore: number;
 };
 
+export const DEFAULT_SCORE_STATE: TScoreState = {
+  addScore: 0,
+  subScore: 0,
+  mulScore: 0,
+  divScore: 0,
+};
+
 export default function reducer(
-  state: TScoreState = {
-    addScore: 0,
-    subScore: 0,
-    mulScore: 0,
-    divScore: 0,
-  },
+  state: TScoreState = DEFAULT_SCORE_STATE,
   action: TScoreActions | { type: "@@INIT"; payload?: unknown },
 ) {
   if (action.type === INCREASE_SCORE_OF_GAME) {

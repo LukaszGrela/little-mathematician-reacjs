@@ -26,6 +26,14 @@ export type TConfigState = {
   general: TGeneralConfig;
 };
 
+export const DEFAULT_CONFIG_STATE: TConfigState = {
+  general: {
+    questionCount: 10,
+    from: 0,
+    to: 10,
+  },
+};
+
 /**
  * Converts an incoming range value to a usable bound.
  * The game can only draw from whole, non negative numbers - anything else
@@ -45,13 +53,7 @@ const normalizeRangeBound = (value: unknown, fallback: number): number => {
 };
 
 export default function reducer(
-  state: TConfigState = {
-    general: {
-      questionCount: 10,
-      from: 0,
-      to: 10,
-    },
-  },
+  state: TConfigState = DEFAULT_CONFIG_STATE,
   action: TConfigActions | { type: "@@INIT"; payload?: unknown },
 ) {
   const { payload, type } = action;
