@@ -40,7 +40,8 @@ export default function reducer(
   let questionCount, configType, value;
   switch (type) {
     case CHANGE_NUMBER_OF_QUESTIONS:
-      questionCount = payload.questionCount;
+      // the action and the store may receive any number - keep it playable
+      questionCount = Math.max(1, Math.floor(payload.questionCount) || 1);
       configType = payload.configType;
       switch (configType) {
         case ConfigType.GENERAL:

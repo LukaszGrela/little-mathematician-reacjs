@@ -100,3 +100,25 @@ test("Should nextQuestion to be called", () => {
 
   expect(store.getState().game.currentGame?.questions.at(0)).toBeNull();
 });
+
+test("Should redirect to the home page for an unknown game type", () => {
+  const store = setupStore();
+  store.dispatch(
+    newGame({
+      type: "addition",
+      general: { from: 0, to: 10, questionCount: 10 },
+    }),
+  );
+
+  const { queryByTestId, container } = routerDecorator({
+    store,
+    routerConfig: { initialEntries: ["/game/cokolwiek"], initialIndex: 0 },
+    routes: [
+      { path: "/", element: <div data-testid="home-page" /> },
+      { path: "/game/:type", element: <MathGame /> },
+    ],
+  });
+
+  expect(queryByTestId("home-page")).not.toBeNull();
+  expect(container.querySelector(".game")).toBeNull();
+});

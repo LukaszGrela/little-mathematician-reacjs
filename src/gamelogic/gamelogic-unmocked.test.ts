@@ -170,3 +170,24 @@ describe("generateGameObject", () => {
     expect(game.to).toBe(4);
   });
 });
+
+describe("generateGameObject runtime guards", () => {
+  test("returns an empty question list for an unknown game type", () => {
+    const game = generateGameObject({
+      ...configFor(GAME_ADDITION),
+      type: "unknown" as never,
+    });
+
+    expect(game.questions).toEqual([]);
+    expect(game.questionCount).toBeGreaterThanOrEqual(1);
+  });
+
+  test.each([-5, Number.NaN])(
+    "normalises an invalid question count (%s) into a playable game",
+    (questionCount) => {
+      const game = generateGameObject(configFor(GAME_ADDITION, { questionCount }));
+      expect(game.questionCount).toBe(1);
+      expect(game.questions).toHaveLength(1);
+    },
+  );
+});

@@ -20,7 +20,7 @@ import { useDispatch, useSelector } from "react-redux";
 import GameOver from "../components/GameOver";
 import type { TAppDispatch, TRootState } from "../store/types";
 import { gameOver, newGame } from "../actions/mathGameActions";
-import type { TGameType } from "../gameTypes";
+import { isGameType } from "../gameTypes";
 import { increaseScoreOfGame } from "../actions/actions";
 
 const GameOverPage = () => {
@@ -30,28 +30,29 @@ const GameOverPage = () => {
     (state: TRootState) => state.game.currentGame?.hudCorrectAnswers ?? 0,
   );
   const type = useSelector((state: TRootState) => state.game.currentGame?.type);
+  const gameType = isGameType(type) ? type : undefined;
   const config = useSelector((state: TRootState) => state.config);
 
   const gameOverActionHandler = useCallback(
     (action: "replay" | "menu") => {
-      if (type) {
-        dispatch(increaseScoreOfGame(hudCorrectAnswers, type));
+      if (gameType) {
+        dispatch(increaseScoreOfGame(hudCorrectAnswers, gameType));
         dispatch(gameOver());
       }
 
-      if (action === "replay" && type) {
+      if (action === "replay" && gameType) {
         dispatch(
           newGame({
-            type: type as TGameType,
+            type: gameType,
             ...config,
           }),
         );
-        navigate(`/game/${type}`, { replace: true });
+        navigate(`/game/${gameType}`, { replace: true });
       } else if (action === "menu") {
         navigate("/");
       }
     },
-    [config, dispatch, hudCorrectAnswers, navigate, type],
+    [config, dispatch, gameType, hudCorrectAnswers, navigate],
   );
 
   return (

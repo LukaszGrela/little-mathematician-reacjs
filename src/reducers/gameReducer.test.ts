@@ -150,3 +150,27 @@ test("should progress to next question on NEXT_QUESTION action", () => {
   expect(state.currentGame?.hudQuestionCurrent).toBe(2);
   expect(state.currentGame?.questions[0]).toBeNull();
 });
+
+test("should ignore ANSWER_QUESTION when the current question is missing", () => {
+  const prevState = {
+    currentGame: {
+      hudQuestionCurrent: 1,
+      hudCorrectAnswers: 0,
+      questions: [],
+    },
+  } as unknown as TGameState;
+
+  expect(gameReducer(prevState, answerQuestion(1, 1))).toBe(prevState);
+});
+
+test("should ignore NEXT_QUESTION when the current question is missing", () => {
+  const prevState = {
+    currentGame: {
+      history: [],
+      hudQuestionCurrent: 1,
+      questions: [],
+    },
+  } as unknown as TGameState;
+
+  expect(gameReducer(prevState, nextQuestion())).toBe(prevState);
+});

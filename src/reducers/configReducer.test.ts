@@ -65,3 +65,16 @@ test("Should general range to be updated", () => {
     },
   });
 });
+
+test.each([
+  [0, 1],
+  [-5, 1],
+  [Number.NaN, 1],
+  [7.9, 7],
+])("Should clamp questionCount %s to %s", (requested, expected) => {
+  const state = reducer(
+    defaultState,
+    changeNumberOfQuestions(requested, ConfigType.GENERAL),
+  );
+  expect(state.general.questionCount).toBe(expected);
+});

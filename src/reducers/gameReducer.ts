@@ -78,6 +78,10 @@ export default (
           newState.currentGame.questions[
             newState.currentGame.hudQuestionCurrent - 1
           ]!;
+        // nothing to answer (e.g. a game without questions) - keep the state
+        if (!currentQuestion) {
+          return state;
+        }
         // validate answer
         currentQuestion.answer = {
           user: action.answer,
@@ -103,6 +107,10 @@ export default (
           newState.currentGame.questions[
             newState.currentGame.hudQuestionCurrent - 1
           ]!;
+        // nothing to advance (e.g. a game without questions) - keep the state
+        if (!currentQuestion) {
+          return state;
+        }
         newState.currentGame.history.push(currentQuestion);
 
         // nullify current question array slot

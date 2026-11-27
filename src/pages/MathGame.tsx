@@ -16,7 +16,7 @@
 
 import "./MathGame.scss";
 import { useCallback, useEffect, type FC } from "react";
-import { useMatch, useNavigate } from "react-router";
+import { Navigate, useMatch, useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 
 import GameHud from "../components/GameHud";
@@ -24,13 +24,14 @@ import GameAnswers from "../components/GameAnswers";
 import Equation from "../components/Equation";
 import Feedback from "../components/Feedback";
 import { answerQuestion, nextQuestion } from "../actions/mathGameActions";
-import type { TGameType } from "../gameTypes";
+import { isGameType } from "../gameTypes";
 import { type TAppDispatch, type TRootState } from "../store/types";
 
 export const MathGame: FC = () => {
   const navigate = useNavigate();
   const match = useMatch("/game/:type");
-  const type = match?.params.type as TGameType | undefined;
+  const rawType = match?.params.type;
+  const type = isGameType(rawType) ? rawType : undefined;
 
   const dispatch = useDispatch<TAppDispatch>();
 
@@ -111,15 +112,20 @@ export const MathGame: FC = () => {
   const isGameOver = hudQuestionCurrent > questionCount;
 
   useEffect(() => {
-    if (isGameOver) {
+    if (isGameOver && type) {
       navigate(`/game/${type}/game-over`, {
         replace: true,
       });
     }
   }, [isGameOver, navigate, type]);
 
+  // unknown type in the URL - leave the game area instead of rendering it
+  if (!type) {
+    return <Navigate to="/" replace />;
+  }
+
   return (
-    <div className={"game game-" + type?.split(":").join("")}>
+    <div className={"game game-" + type.split(":").join("")}>
       {!isGameOver && gameView()}
     </div>
   );

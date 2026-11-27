@@ -24,3 +24,17 @@ export type TGameType =
   | typeof GAME_SUBTRACTION
   | typeof GAME_MULTIPLICATION
   | typeof GAME_DIVISION;
+
+export const GAME_TYPES: readonly TGameType[] = [
+  GAME_ADDITION,
+  GAME_SUBTRACTION,
+  GAME_MULTIPLICATION,
+  GAME_DIVISION,
+];
+
+/**
+ * Runtime guard for a game type coming from an untrusted source (e.g. the URL).
+ */
+export const isGameType = (value: unknown): value is TGameType =>
+  typeof value === "string" &&
+  (GAME_TYPES as readonly string[]).includes(value);
