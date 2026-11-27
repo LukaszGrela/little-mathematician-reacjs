@@ -10,8 +10,17 @@ Options -Indexes
   IndexIgnore */*
   RewriteEngine On
   RewriteBase /little-mathematician/
+
+  # The router drops the trailing slash when it navigates back to the start
+  # page, so a reload asks for "/little-mathematician" - send it to the
+  # directory URL instead of answering 404.
+  RewriteCond %{REQUEST_URI} ^/little-mathematician$
+  RewriteRule ^ /little-mathematician/ [R=301,L]
+
+  # Single page app: anything that is not a real file or directory is served
+  # by index.html, so deep links survive a reload.
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
-  RewriteRule (.*) /little-mathematician/index.html
+  RewriteRule (.*) /little-mathematician/index.html [L]
 </ifModule>
 # END   Little Mathematician Web-App
