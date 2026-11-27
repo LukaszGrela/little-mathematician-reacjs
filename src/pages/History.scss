@@ -69,4 +69,78 @@
             opacity: .75;
         }
     }
+
+    /*
+     * Narrow screens: the six column table does not fit, so every row becomes a
+     * card. The header row stays in the accessibility tree (visually hidden) and
+     * each cell repeats its column name through `data-label`, so the values keep
+     * their meaning once the labels above the table are no longer visible.
+     */
+    @media only screen and (max-width: 560px) {
+        padding: 42px 10px 12px;
+
+        .history-totals {
+            .history-total {
+                flex: 1 1 calc(50% - 12px);
+                min-width: 0;
+                margin: 0 6px 8px;
+            }
+        }
+
+        .history-table {
+            display: block;
+
+            caption {
+                text-align: left;
+            }
+
+            thead {
+                position: absolute;
+                width: 1px;
+                height: 1px;
+                overflow: hidden;
+                clip-path: inset(50%);
+                white-space: nowrap;
+            }
+
+            tbody,
+            tr,
+            td {
+                display: block;
+            }
+
+            tr {
+                margin-bottom: 10px;
+                padding: 6px 10px;
+                border-radius: 4px;
+                border: 1px solid rgba(variables.$primary-text-color, .12);
+                background-color: rgba(variables.$primary-color-light, .25);
+            }
+
+            td {
+                display: flex;
+                align-items: baseline;
+                justify-content: space-between;
+                gap: 12px;
+                width: 100%;
+                padding: 4px 0;
+                text-align: right;
+                border-bottom: 1px solid rgba(variables.$primary-text-color, .1);
+
+                &:last-child {
+                    border-bottom: 0;
+                }
+
+                &::before {
+                    content: attr(data-label);
+                    flex: 0 0 auto;
+                    font-size: .75rem;
+                    text-transform: uppercase;
+                    letter-spacing: .04em;
+                    text-align: left;
+                    opacity: .7;
+                }
+            }
+        }
+    }
 }

@@ -78,12 +78,18 @@ export const History: FC = () => {
           <tbody>
             {history.map((game) => (
               <tr key={game.id} data-testid="history-row">
-                <td>{TYPE_LABEL[game.type]}</td>
-                <td>{game.score}</td>
-                <td>{getAnsweredCount(game)}</td>
-                <td>{game.questionCount}</td>
-                <td>{formatTimestamp(game.finishedAt)}</td>
-                <td className={"history-status history-status-" + game.status}>
+                {/* data-label feeds the stacked mobile card layout (History.scss) */}
+                <td data-label="Operation">{TYPE_LABEL[game.type]}</td>
+                <td data-label="Score">{game.score}</td>
+                <td data-label="Answered">{getAnsweredCount(game)}</td>
+                <td data-label="Questions">{game.questionCount}</td>
+                <td data-label="Finished">
+                  {formatTimestamp(game.finishedAt)}
+                </td>
+                <td
+                  data-label="Status"
+                  className={"history-status history-status-" + game.status}
+                >
                   {STATUS_LABEL[game.status]}
                 </td>
               </tr>
