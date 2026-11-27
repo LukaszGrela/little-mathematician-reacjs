@@ -129,3 +129,43 @@ test("Should mark the picked answer as pressed", () => {
   expect(pressed).toHaveLength(1);
   expect(pressed[0]).toHaveTextContent("3");
 });
+//
+test("Should advertise the 1-4 keyboard shortcuts for the answers", () => {
+  const onSelection = vi.fn();
+  const options = [4, 3, 2, 1];
+
+  render(
+    <GameAnswers
+      selectionId={undefined}
+      onSelection={onSelection}
+      options={options}
+    />,
+  );
+
+  const buttons = screen.getAllByRole("button");
+  expect(buttons.map((button) => button.getAttribute("aria-keyshortcuts"))).toEqual(
+    ["1", "2", "3", "4"],
+  );
+});
+
+test("Should describe the answer group with the keyboard hint", () => {
+  const onSelection = vi.fn();
+  const options = [4, 3, 2, 1];
+
+  render(
+    <GameAnswers
+      selectionId={undefined}
+      onSelection={onSelection}
+      options={options}
+    />,
+  );
+
+  const group = screen.getByRole("group", { name: "Answer options" });
+  expect(group).toHaveAttribute("aria-describedby", "game-answers-hint");
+
+  const hint = document.getElementById("game-answers-hint");
+  expect(hint).not.toBeNull();
+  expect(hint).toHaveClass("visually-hidden");
+  expect(hint).toHaveTextContent(/Press 1 to 4 to choose an answer/);
+  expect(hint).toHaveTextContent(/press Enter for the next question/);
+});

@@ -14,7 +14,7 @@
    limitations under the License.
 */
 import "./Feedback.scss";
-import React, { useState, type FC } from "react";
+import React, { type RefObject, useState, type FC } from "react";
 import MoodIcon from "../icons/MoodIcon";
 
 import ButtonIconNext from "../icons/ButtonIconNext";
@@ -25,7 +25,9 @@ const Feedback: FC<{
   answer: TAnswer;
   correct: number;
   onAction?: () => void;
-}> = ({ answer, correct, onAction }) => {
+  /** Optional ref for the "next question" button - receives focus after answering. */
+  nextButtonRef?: RefObject<HTMLButtonElement | null>;
+}> = ({ answer, correct, onAction, nextButtonRef }) => {
   const [promptAnimation, setPromptAnimation] = useState(false);
 
   React.useEffect(() => {
@@ -61,12 +63,14 @@ const Feedback: FC<{
               ]}
         </div>
         <button
+          ref={nextButtonRef}
           data-testid="Feedback-next"
           className={classNames("cell", promptAnimation && "animate")}
           onClick={() => {
             onAction?.();
           }}
           aria-label="Next question"
+          aria-keyshortcuts="Enter"
         >
           <ButtonIconNext />
         </button>

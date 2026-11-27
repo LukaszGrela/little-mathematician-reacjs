@@ -3,30 +3,41 @@
 exports[`Should GameAnswers to render correctly 1`] = `
 <div>
   <div
+    aria-describedby="game-answers-hint"
     aria-label="Answer options"
     class="game-answers"
     role="group"
   >
+    <span
+      class="visually-hidden"
+      id="game-answers-hint"
+    >
+      Press 1 to 4 to choose an answer. After answering, press Enter for the next question.
+    </span>
     <hr />
     <button
+      aria-keyshortcuts="1"
       aria-pressed="false"
       class="answer option-1"
     >
       4
     </button>
     <button
+      aria-keyshortcuts="2"
       aria-pressed="false"
       class="answer option-2"
     >
       3
     </button>
     <button
+      aria-keyshortcuts="3"
       aria-pressed="false"
       class="answer option-3"
     >
       2
     </button>
     <button
+      aria-keyshortcuts="4"
       aria-pressed="false"
       class="answer option-4"
     >

@@ -28,6 +28,7 @@ exports[`Should render Feedback correctly 1`] = `
         Well done!
       </div>
       <button
+        aria-keyshortcuts="Enter"
         aria-label="Next question"
         class="cell animate"
         data-testid="Feedback-next"
@@ -82,6 +83,7 @@ exports[`Should render Feedback correctly on wrong answer 1`] = `
         </span>
       </div>
       <button
+        aria-keyshortcuts="Enter"
         aria-label="Next question"
         class="cell animate"
         data-testid="Feedback-next"

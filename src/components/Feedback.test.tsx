@@ -109,3 +109,13 @@ test("Should expose the next button with an accessible name", () => {
   const button = screen.getByRole("button", { name: "Next question" });
   expect(button).toBeInTheDocument();
 });
+//
+test("Should advertise the Enter shortcut on the next button", () => {
+  const onAction = vi.fn();
+  render(
+    <Feedback correct={1} answer={{ correct: true } as TAnswer} onAction={onAction} />,
+  );
+
+  const button = screen.getByRole("button", { name: "Next question" });
+  expect(button).toHaveAttribute("aria-keyshortcuts", "Enter");
+});

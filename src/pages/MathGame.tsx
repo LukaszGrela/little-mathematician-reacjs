@@ -15,7 +15,7 @@
 */
 
 import "./MathGame.scss";
-import { useCallback, useEffect, type FC } from "react";
+import { useCallback, useEffect, useRef, type FC } from "react";
 import { Navigate, useMatch, useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -55,6 +55,13 @@ export const MathGame: FC = () => {
   );
 
   const gameStatus = game?.status;
+  const isGameOver = hudQuestionCurrent > questionCount;
+
+  // Focus targets: the "next question" control after answering and the first
+  // answer button after a question change, so a keyboard player never has to
+  // hunt for the next control with Tab.
+  const nextButtonRef = useRef<HTMLButtonElement | null>(null);
+  const firstAnswerRef = useRef<HTMLButtonElement | null>(null);
 
   const feedbackActionHandler = useCallback(() => {
     dispatch(nextQuestion());
@@ -106,6 +113,50 @@ export const MathGame: FC = () => {
     };
   }, [answerLocked, distractors, gameAnswerSelectionHandler, type]);
 
+  // Enter advances to the next question once the answer is known. Safe by
+  // construction: it only listens while feedback is visible, ignores modifier
+  // keys and key repeats, and steps aside when focus is already on an
+  // interactive element (there the browser fires a native click instead, so a
+  // single Enter can never advance twice).
+  useEffect(() => {
+    if (!type || !answerLocked) return;
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key !== "Enter" || event.repeat) return;
+      if (event.altKey || event.ctrlKey || event.metaKey) return;
+
+      const target = event.target as HTMLElement | null;
+      if (
+        target?.closest(
+          'button, a[href], input, select, textarea, [role="menuitem"], [contenteditable="true"]',
+        )
+      ) {
+        return;
+      }
+
+      event.preventDefault();
+      feedbackActionHandler();
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [answerLocked, feedbackActionHandler, type]);
+
+  // Move focus to the "next question" button when the feedback appears.
+  useEffect(() => {
+    if (!answerLocked) return;
+    nextButtonRef.current?.focus();
+  }, [answerLocked, hudQuestionCurrent]);
+
+  // ...and back to the answers when the next question is shown. The first
+  // question is skipped so mounting the game does not steal focus.
+  useEffect(() => {
+    if (isGameOver || answerLocked || hudQuestionCurrent <= 1) return;
+    firstAnswerRef.current?.focus();
+  }, [answerLocked, hudQuestionCurrent, isGameOver]);
+
   const getNextEquationView = useCallback(() => {
     if (!game || !hudQuestionCurrent) return null;
 
@@ -138,6 +189,7 @@ export const MathGame: FC = () => {
               answer={current.answer!}
               correct={current.correct}
               onAction={feedbackActionHandler}
+              nextButtonRef={nextButtonRef}
             />
           ) : null
         }
@@ -146,6 +198,7 @@ export const MathGame: FC = () => {
             selectionId={current.answer ? current.answer.selectionId : null}
             options={current.distractors}
             onSelection={gameAnswerSelectionHandler}
+            firstAnswerRef={firstAnswerRef}
           />
         )}
       </div>
@@ -158,8 +211,6 @@ export const MathGame: FC = () => {
     type,
     hudQuestionCurrent,
   ]);
-
-  const isGameOver = hudQuestionCurrent > questionCount;
 
   // The end of the game is derived from the state, not from a click: once the
   // last question is behind us the game is marked as finished (exactly once -
