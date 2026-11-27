@@ -87,3 +87,35 @@ test("Should the button trigger onAction call", () => {
   fireEvent.click(button);
   expect(onAction).toHaveBeenCalled();
 });
+//
+test("Should announce the feedback through a polite live region", () => {
+  const onAction = vi.fn();
+  render(
+    <Feedback correct={1} answer={{ correct: true } as TAnswer} onAction={onAction} />,
+  );
+
+  const status = screen.getByRole("status");
+  expect(status).toHaveAttribute("aria-live", "polite");
+  expect(status).toHaveAttribute("aria-atomic", "true");
+  expect(status).toHaveTextContent("Well done!");
+});
+//
+test("Should expose the next button with an accessible name", () => {
+  const onAction = vi.fn();
+  render(
+    <Feedback correct={2} answer={{ correct: false } as TAnswer} onAction={onAction} />,
+  );
+
+  const button = screen.getByRole("button", { name: "Next question" });
+  expect(button).toBeInTheDocument();
+});
+//
+test("Should advertise the Enter shortcut on the next button", () => {
+  const onAction = vi.fn();
+  render(
+    <Feedback correct={1} answer={{ correct: true } as TAnswer} onAction={onAction} />,
+  );
+
+  const button = screen.getByRole("button", { name: "Next question" });
+  expect(button).toHaveAttribute("aria-keyshortcuts", "Enter");
+});

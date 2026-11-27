@@ -13,9 +13,15 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 */
-import { useCallback, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  type KeyboardEvent as ReactKeyboardEvent,
+} from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
+import { Route, Routes, useLocation, useNavigate } from "react-router";
 
 // pages
 import NoMatch from "./pages/NoMatch";
@@ -23,11 +29,12 @@ import Menu from "./pages/Menu";
 import About from "./pages/About";
 import MathGame from "./pages/MathGame";
 import Config from "./pages/Config";
+import History from "./pages/History";
 
 // components
 import Footer from "./components/Footer";
 
-import MediaQuery from "react-responsive";
+import { useMediaQuery } from "react-responsive";
 
 // css
 import "./App.scss";
@@ -37,6 +44,7 @@ import LogoIcon from "./icons/LogoIcon";
 import IconArrowBack from "./icons/IconArrowBack";
 import IconInfo from "./icons/IconInfo";
 import IconSettings from "./icons/IconSettings";
+import IconGrade from "./icons/IconGrade";
 
 import {
   GAME_ADDITION,
@@ -50,6 +58,164 @@ import { classNames } from "./utils/classNames";
 import type { TAppDispatch, TRootState } from "./store/types";
 import { newGame, quitGame } from "./actions/mathGameActions";
 import GameOverPage from "./pages/GameOverPage";
+import { MIN_DEVICE_WIDTH } from "./utils/constants";
+
+type TNarrowMenuAction = "about" | "config" | "history";
+
+interface INarrowMenuProps {
+  onNavigate: (action: TNarrowMenuAction) => void;
+}
+
+/**
+ * Dropdown used by the narrow layout only. It owns its open state, so the wide
+ * layout unmounts it and every switch back to the narrow layout starts with a
+ * closed menu - no effect has to reset that state.
+ */
+const NarrowMenu = ({ onNavigate }: INarrowMenuProps) => {
+  const [ddMenuOpen, setDdMenuOpen] = useState(false);
+  const ddMenuToggleRef = useRef<HTMLButtonElement | null>(null);
+  const ddMenuContainerRef = useRef<HTMLDivElement | null>(null);
+
+  const handleDropDown = useCallback(() => {
+    setDdMenuOpen((open) => !open);
+  }, []);
+
+  const handleSelect = useCallback(
+    (action: TNarrowMenuAction) => {
+      setDdMenuOpen(false);
+      onNavigate(action);
+    },
+    [onNavigate],
+  );
+
+  // move focus into the menu as soon as it opens
+  useEffect(() => {
+    if (!ddMenuOpen) return;
+    ddMenuContainerRef.current
+      ?.querySelector<HTMLElement>('[role="menuitem"]')
+      ?.focus();
+  }, [ddMenuOpen]);
+
+  /**
+   * Keyboard support for the narrow-layout dropdown: Escape closes it and
+   * returns focus to the toggle, arrows/Home/End move between the entries and
+   * Tab is trapped inside the open menu.
+   */
+  const handleDdMenuKeyDown = useCallback(
+    (event: ReactKeyboardEvent<HTMLDivElement>) => {
+      const items = Array.from(
+        ddMenuContainerRef.current?.querySelectorAll<HTMLElement>(
+          '[role="menuitem"]',
+        ) ?? [],
+      );
+      if (!items.length) return;
+
+      const index = items.indexOf(document.activeElement as HTMLElement);
+
+      switch (event.key) {
+        case "Escape":
+          event.preventDefault();
+          setDdMenuOpen(false);
+          ddMenuToggleRef.current?.focus();
+          break;
+        case "ArrowDown":
+          event.preventDefault();
+          items[index === items.length - 1 ? 0 : index + 1].focus();
+          break;
+        case "ArrowUp":
+          event.preventDefault();
+          items[index <= 0 ? items.length - 1 : index - 1].focus();
+          break;
+        case "Home":
+          event.preventDefault();
+          items[0].focus();
+          break;
+        case "End":
+          event.preventDefault();
+          items[items.length - 1].focus();
+          break;
+        case "Tab":
+          if (event.shiftKey && index <= 0) {
+            event.preventDefault();
+            items[items.length - 1].focus();
+          } else if (!event.shiftKey && index === items.length - 1) {
+            event.preventDefault();
+            items[0].focus();
+          }
+          break;
+      }
+    },
+    [],
+  );
+
+  return (
+    <>
+      <button
+        ref={ddMenuToggleRef}
+        className="dd-button-menu"
+        aria-label="More options"
+        aria-haspopup="menu"
+        aria-expanded={ddMenuOpen}
+        aria-controls="dd-menu"
+        onClick={() => {
+          handleDropDown();
+        }}
+      >
+        <IconMore />
+      </button>
+      <div
+        id="dd-menu"
+        className={"dd-menu" + (ddMenuOpen ? " open" : " close")}
+      >
+        <div
+          className="cloak"
+          aria-hidden="true"
+          onClick={() => {
+            setDdMenuOpen(false);
+          }}
+        ></div>
+        <div
+          className="dd-menu-container"
+          ref={ddMenuContainerRef}
+          role="menu"
+          aria-label="Main menu"
+          onKeyDown={handleDdMenuKeyDown}
+        >
+          <button
+            role="menuitem"
+            className="button-history"
+            onClick={() => {
+              handleSelect("history");
+            }}
+          >
+            <IconGrade />
+            <span className="label">History</span>
+          </button>
+          <button
+            role="menuitem"
+            className="button-about"
+            onClick={() => {
+              handleSelect("about");
+            }}
+          >
+            <IconInfo />
+            <span className="label">About</span>
+          </button>
+          <button
+            role="menuitem"
+            className="button-settings"
+            onClick={() => {
+              handleSelect("config");
+            }}
+          >
+            <IconSettings />
+            <span className="label">Config</span>
+          </button>
+        </div>
+      </div>
+    </>
+  );
+};
 
 const App = () => {
   const location = useLocation();
@@ -57,18 +223,14 @@ const App = () => {
   const dispatch = useDispatch<TAppDispatch>();
   const config = useSelector((state: TRootState) => state.config);
 
-  const [ddMenuOpen, setDdMenuOpen] = useState(false);
-
-  const handleDropDown = useCallback(() => {
-    setDdMenuOpen(true);
-  }, []);
+  const isWideLayout = useMediaQuery({ minDeviceWidth: MIN_DEVICE_WIDTH });
 
   /**
    * Handles navigation requests, updates state
    * @param {string} action Navigation ID
    */
   const handleNavigationAction = useCallback(
-    (action?: TGameType | "about" | "config") => {
+    (action?: TGameType | "about" | "config" | "history") => {
       let to = "/";
       switch (action) {
         case GAME_ADDITION:
@@ -114,6 +276,9 @@ const App = () => {
         case "config":
           to = "/config";
           break;
+        case "history":
+          to = "/history";
+          break;
 
         default:
           to = "/";
@@ -123,7 +288,6 @@ const App = () => {
           break;
       }
 
-      setDdMenuOpen(false);
       navigate(to);
     },
     [config, dispatch, location, navigate],
@@ -138,19 +302,19 @@ const App = () => {
     let title = "";
 
     switch (pathname) {
-      case "/game" + GAME_ADDITION:
+      case "/game/" + GAME_ADDITION:
         title = "Addition";
         break;
 
-      case "/game" + GAME_SUBTRACTION:
+      case "/game/" + GAME_SUBTRACTION:
         title = "Subtraction";
         break;
 
-      case "/game" + GAME_MULTIPLICATION:
+      case "/game/" + GAME_MULTIPLICATION:
         title = "Multiplication";
         break;
 
-      case "/game" + GAME_DIVISION:
+      case "/game/" + GAME_DIVISION:
         title = "Division";
         break;
 
@@ -160,6 +324,10 @@ const App = () => {
 
       case "/about":
         title = "About";
+        break;
+
+      case "/history":
+        title = "History";
         break;
 
       case "/":
@@ -185,6 +353,7 @@ const App = () => {
           onClick={() => {
             handleNavigationAction();
           }}
+          aria-label="Back"
         >
           <IconArrowBack />
         </button>
@@ -199,84 +368,48 @@ const App = () => {
    * @returns {JSX.Element|null} JSX fragment
    */
   const getRightIconSlotFragment = useCallback(() => {
-    if (location.pathname === "/") {
+    if (location.pathname !== "/") {
+      // else if (location === '/config') {}
+      return null;
+    }
+
+    if (isWideLayout) {
       return [
-        <MediaQuery minDeviceWidth={410} key={"media-query"}>
-          {(matches) => {
-            if (matches) {
-              return [
-                <button
-                  key={"about-btn"}
-                  className="button-about"
-                  onClick={() => {
-                    handleNavigationAction("about");
-                  }}
-                >
-                  <IconInfo />
-                </button>,
-                <button
-                  key={"settings-btn"}
-                  className="button-settings"
-                  onClick={() => {
-                    handleNavigationAction("config");
-                  }}
-                >
-                  <IconSettings />
-                </button>,
-              ];
-            } else {
-              return [
-                <button
-                  key={"dd-menu-btn"}
-                  className="dd-button-menu"
-                  onClick={() => {
-                    handleDropDown();
-                  }}
-                >
-                  <IconMore />
-                </button>,
-                <div
-                  key={"dd-menu-box"}
-                  className={"dd-menu" + (ddMenuOpen ? " open" : " close")}
-                >
-                  <div
-                    className="cloak"
-                    onClick={() => {
-                      setDdMenuOpen(false);
-                    }}
-                  ></div>
-                  <div className="dd-menu-container">
-                    <button
-                      key={"about-btn"}
-                      className="button-about"
-                      onClick={() => {
-                        handleNavigationAction("about");
-                      }}
-                    >
-                      <IconInfo />
-                      <span className="label">About</span>
-                    </button>
-                    <button
-                      key={"settings-btn"}
-                      className="button-settings"
-                      onClick={() => {
-                        handleNavigationAction("config");
-                      }}
-                    >
-                      <IconSettings />
-                      <span className="label">Config</span>
-                    </button>
-                  </div>
-                </div>,
-              ];
-            }
+        <button
+          key={"history-btn"}
+          className="button-history"
+          aria-label="History"
+          onClick={() => {
+            handleNavigationAction("history");
           }}
-        </MediaQuery>,
+        >
+          <IconGrade />
+        </button>,
+        <button
+          key={"about-btn"}
+          className="button-about"
+          aria-label="About"
+          onClick={() => {
+            handleNavigationAction("about");
+          }}
+        >
+          <IconInfo />
+        </button>,
+        <button
+          key={"settings-btn"}
+          className="button-settings"
+          aria-label="Settings"
+          onClick={() => {
+            handleNavigationAction("config");
+          }}
+        >
+          <IconSettings />
+        </button>,
       ];
     }
-    // else if (location === '/config') {}
-    return null;
-  }, [ddMenuOpen, handleDropDown, handleNavigationAction, location.pathname]);
+
+    return [<NarrowMenu key={"dd-menu"} onNavigate={handleNavigationAction} />];
+  }, [handleNavigationAction, isWideLayout, location.pathname]);
 
   return (
     <div
@@ -310,6 +443,7 @@ const App = () => {
 
           <Route path="/config" Component={Config} />
           <Route path="/about" Component={About} />
+          <Route path="/history" Component={History} />
           <Route path="*" Component={NoMatch} />
         </Routes>
       </section>

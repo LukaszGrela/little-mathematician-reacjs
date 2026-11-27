@@ -1,44 +1,43 @@
-
-
-@use '../sass/_variables.scss';
+@use "../sass/_variables.scss";
 .game-answers {
-    width: variables.$width-game-column;
-    margin: 0 auto;
-    
-    button {
-        /* reset */
-        background-color: variables.$primary-color-text;
-        /**/
-        cursor: pointer;
-    }
-    &.locked button {
-        cursor: default;
-        pointer-events: none;
+  width: variables.$width-game-column;
+  margin: 0 auto;
 
-        background-color: variables.$divider-color;
-    }
-    hr {
-        border-color: variables.$divider-color;
-        border-style: solid;
-    }
+  button {
+    /* reset */
+    background-color: variables.$primary-color-text;
+    /**/
+    cursor: pointer;
+  }
+  &.locked button {
+    cursor: default;
+    pointer-events: none;
+
+    background-color: variables.$divider-color;
+  }
+  hr {
+    border-color: variables.$divider-color;
+    border-style: solid;
+  }
 }
 
 .answer {
-    padding: 20px;
-    margin: 2px;
-    min-width: 70px;
-    border: 1px solid variables.$divider-color;
-    font-size: 1em;
-    &:focus {
-        outline: none;
-    }
-    @media only screen and (max-device-height: 668px) and (orientation: landscape), 
+  padding: 20px;
+  margin: 2px;
+  min-width: 70px;
+  border: 1px solid variables.$divider-color;
+  font-size: 1em;
+  &:focus-visible {
+    outline: 3px solid variables.$primary-color-dark;
+    outline-offset: 2px;
+  }
+  @media only screen and (max-device-height: 668px) and (orientation: landscape),
     screen and (max-device-height: 668px) and (orientation: portrait) {
-        padding: 15px 5px;
-    }
+    padding: 15px 5px;
+  }
 }
 
-
 .hidden {
-    visibility: hidden;
+  /* visibility: hidden; - getByRole('button') does not return hidden buttons */
+  opacity: 0;
 }

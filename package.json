@@ -1,7 +1,7 @@
 {
   "name": "little-mathematician",
   "private": true,
-  "version": "0.20.2",
+  "version": "0.21.1",
   "type": "module",
   "homepage": "http://greladesign.co/little-mathematician",
   "scripts": {
@@ -19,7 +19,6 @@
     "react-redux": "^9.2.0",
     "react-responsive": "^10.0.1",
     "react-router": "^8.3.0",
-    "react-router-dom": "^7.16.0",
     "redux": "^5.0.1",
     "redux-logger": "^3.0.6",
     "sass": "^1.99.0"
@@ -30,7 +29,6 @@
     "@testing-library/jest-dom": "^6.8.0",
     "@testing-library/react": "^16.3.0",
     "@testing-library/user-event": "^14.6.1",
-    "@types/jest": "^30.0.0",
     "@types/node": "^24.12.0",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",

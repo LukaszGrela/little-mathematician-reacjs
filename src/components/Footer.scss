@@ -1,17 +1,11 @@
-
 footer {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    padding: 10px 0;
-    font-size: 0.8em;
-}
-@media only screen 
-and (max-device-height : 668px)
-and (orientation: landscape)
-{
-    footer {
-        position: initial;
-    }
-    
+  /*
+   * Height comes from the layout, not from an absolute position: the footer is
+   * the last flex item of `.App`, so it stays on the bottom edge of a short page
+   * (the content area is stretched) and follows the content on a long one.
+   */
+  flex: 0 0 auto;
+  width: 100%;
+  padding: 10px 0;
+  font-size: 0.8em;
 }

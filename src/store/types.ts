@@ -14,9 +14,13 @@
    limitations under the License.
 */
 
-import store from "./Store";
-import type { Action, Dispatch } from "redux";
+import type { Action, Dispatch, Store } from "redux";
+import type reducer from "../reducers";
 
-export type TStore = typeof store;
-export type TRootState = ReturnType<typeof store.getState>;
+// The root state is derived from the combined reducer, never from the store
+// instance: `Store.ts` needs the state type for `createStore`, so asking the
+// store for its own state type creates a circular alias (TS2456/TS7022).
+export type TRootState = ReturnType<typeof reducer>;
+
+export type TStore = Store<TRootState>;
 export type TAppDispatch = Dispatch<Action>;

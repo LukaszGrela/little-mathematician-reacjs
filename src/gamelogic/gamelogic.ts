@@ -20,26 +20,99 @@ import {
   GAME_DIVISION,
   type TGameType,
 } from "../gameTypes";
-import type { TAskOption, TGameConfig, TGameObject, TQuestion } from "../types";
+import type {
+  TAskOption,
+  TGameConfig,
+  TGameObject,
+  TOperation,
+  TQuestion,
+} from "../types";
 import { randomRange, randomOption, shuffle } from "../utils/math";
+
+const OPERATION_BY_TYPE: Record<TGameType, TOperation> = {
+  [GAME_ADDITION]: "+",
+  [GAME_SUBTRACTION]: "-",
+  [GAME_MULTIPLICATION]: "x",
+  [GAME_DIVISION]: "/",
+};
+
+/**
+ * Creates a unique id for a new game.
+ *
+ * `crypto.randomUUID` is only available in secure contexts (https, localhost),
+ * so a time + random based fallback keeps the id unique on plain http.
+ */
+export const createGameId = (): string => {
+  const cryptoApi = globalThis.crypto;
+  if (cryptoApi && typeof cryptoApi.randomUUID === "function") {
+    return cryptoApi.randomUUID();
+  }
+  return `game-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 10)}`;
+};
+
+/** Number of answer buttons rendered for every question. */
+export const DISTRACTOR_COUNT = 4;
+
+/** Offsets tried first, so wrong answers stay close to the correct one. */
+const DISTRACTOR_DELTAS = [-1, 1, -2, 2, -3, 3, -4, 4, -5, 5, -6, 6, -7, 7];
+
+/**
+ * Builds the answer option list: the correct value plus unique, plausible
+ * distractors.
+ *
+ * Guarantees: exactly DISTRACTOR_COUNT values, no duplicates, the correct value
+ * is present, and no option is below `min` (0 for most games, 1 for divisors).
+ * @param {number} correct correct answer of the question
+ * @param {number} min lowest allowed option value (default 0)
+ */
+export const buildDistractors = (correct: number, min = 0): number[] => {
+  // The correct answer is always part of the list, so it also defines the
+  // lowest reachable value when a caller passes a minimum above it.
+  const floor = Math.min(min, correct);
+  const options = new Set<number>([correct]);
+
+  for (const delta of shuffle(DISTRACTOR_DELTAS)) {
+    if (options.size >= DISTRACTOR_COUNT) break;
+    const candidate = correct + delta;
+    if (candidate < floor) continue;
+    options.add(candidate);
+  }
+
+  // Small correct values (0, 1, 2) cannot reach DISTRACTOR_COUNT with deltas,
+  // so widen upwards - always unique and never below `min`.
+  for (let offset = 8; options.size < DISTRACTOR_COUNT; offset++) {
+    options.add(correct + offset);
+  }
+
+  return shuffle([...options]);
+};
 
 export const generateGameObject = (config: TGameConfig): TGameObject => {
   //transform config
   const settings = mergeSettings(config, config.type);
+  // A game with no questions would be an empty screen, so keep at least one.
+  const questionCount = Math.max(1, Math.floor(settings.questionCount) || 1);
   const questions = prepareQuestions(
     settings.from,
     settings.to,
-    settings.questionCount,
+    questionCount,
     config.type,
   );
   return {
     ...settings,
+    id: createGameId(),
+    status: "in-progress",
+    finishedAt: null,
+    score: 0,
+    questionCount,
     type: config.type,
     history: [],
     hudQuestionCurrent: 1,
     hudCorrectAnswers: 0,
     questions,
-    operation: questions[0].operation,
+    // Read the operation from the game type, not from the first question:
+    // with an empty question list the old code threw a TypeError.
+    operation: OPERATION_BY_TYPE[config.type],
   };
 };
 
@@ -108,6 +181,11 @@ export const prepareQuestions = (
 
     case GAME_ADDITION:
       return prepareQuestionsAddition(from, to, count);
+
+    default:
+      // Unknown game type: return an empty list instead of `undefined`
+      // (the caller used to crash on `questions[0].operation`).
+      return [];
   }
 };
 
@@ -120,8 +198,7 @@ export const prepareQuestionsDivision = (
   const questions: TQuestion[] = [];
   for (let index = 0; index < questionCount; index++) {
     let a = randomRange(from, to, false),
-      b = randomRange(from, to, false),
-      distractors = [];
+      b = randomRange(from, to, false);
     const mul = a * b,
       result = b,
       ask = randomOption(["result", "a", "b"] as const) as TAskOption;
@@ -129,36 +206,18 @@ export const prepareQuestionsDivision = (
     b = a;
     a = mul;
 
-    if (ask === "result") {
-      distractors = [
-        result,
-        result + randomRange(1, 3),
-        result + randomRange(4, 7),
-        result - randomRange(1, 3),
-      ];
-    } else if (ask === "a") {
-      distractors = [
-        a,
-        a + randomRange(1, 3),
-        a + randomRange(4, 7),
-        a - randomRange(4, 7),
-      ];
-    } else {
-      distractors = [
-        b,
-        b + randomRange(1, 3, false),
-        b + randomRange(4, 7, false),
-        b - randomRange(1, 3, false),
-      ];
-    }
+    const correct = ask === "result" ? result : ask === "a" ? a : b;
+    // A divisor must stay positive, so its option pool starts at 1.
+    const options = buildDistractors(correct, ask === "b" ? 1 : 0);
+
     questions.push({
       id: index,
       operandA: a,
       operandB: b,
       result: result,
       ask: ask,
-      correct: distractors[0],
-      distractors: shuffle(distractors),
+      correct: correct,
+      distractors: options,
       operation: "/",
     });
   }
@@ -192,38 +251,17 @@ export const prepareQuestionsMultiplication = (
       b = randomRange(from, to),
       result = a * b,
       ask = randomOption<TAskOption>(["result", "a", "b"]);
-    let distractors = [] as number[];
+    const correct = ask === "result" ? result : ask === "a" ? a : b;
+    const options = buildDistractors(correct);
 
-    if (ask === "result") {
-      distractors = [
-        result,
-        result + randomRange(1, 3),
-        result + randomRange(4, 7),
-        result - randomRange(1, 3),
-      ];
-    } else if (ask === "a") {
-      distractors = [
-        a,
-        a + randomRange(1, 3),
-        a + randomRange(4, 7),
-        a - randomRange(4, 7),
-      ];
-    } else {
-      distractors = [
-        b,
-        b + randomRange(1, 3),
-        b + randomRange(4, 7),
-        b - randomRange(1, 3),
-      ];
-    }
     questions.push({
       id: index,
       operandA: a,
       operandB: b,
       result: result,
       ask: ask,
-      correct: distractors[0],
-      distractors: shuffle(distractors),
+      correct: correct,
+      distractors: options,
       operation: "x",
     });
   }
@@ -249,38 +287,17 @@ export const prepareQuestionsSubtraction = (
 
     const result = a - b,
       ask = randomOption<TAskOption>(["result", "a", "b"]);
-    let distractors = [];
+    const correct = ask === "result" ? result : ask === "a" ? a : b;
+    const options = buildDistractors(correct);
 
-    if (ask === "result") {
-      distractors = [
-        result,
-        result + randomRange(1, 3),
-        result + randomRange(4, 7),
-        result - randomRange(1, 3),
-      ];
-    } else if (ask === "a") {
-      distractors = [
-        a,
-        a + randomRange(1, 3),
-        a + randomRange(4, 7),
-        a - randomRange(4, 7),
-      ];
-    } else {
-      distractors = [
-        b,
-        b + randomRange(1, 3),
-        b + randomRange(4, 7),
-        b - randomRange(1, 3),
-      ];
-    }
     questions.push({
       id: index,
       operandA: a,
       operandB: b,
       result: result,
       ask: ask,
-      correct: distractors[0],
-      distractors: shuffle(distractors),
+      correct: correct,
+      distractors: options,
       operation: "-",
     });
   }
@@ -304,38 +321,17 @@ export const prepareQuestionsAddition = (
       b = randomRange(from, to),
       result = a + b,
       ask = randomOption<TAskOption>(["result", "a", "b"]);
-    let distractors = [];
+    const correct = ask === "result" ? result : ask === "a" ? a : b;
+    const options = buildDistractors(correct);
 
-    if (ask === "result") {
-      distractors = [
-        result,
-        result + randomRange(1, 3),
-        result + randomRange(4, 7),
-        result - randomRange(1, 3),
-      ];
-    } else if (ask === "a") {
-      distractors = [
-        a,
-        a + randomRange(1, 3),
-        a + randomRange(4, 7),
-        a - randomRange(4, 7),
-      ];
-    } else {
-      distractors = [
-        b,
-        b + randomRange(1, 3),
-        b + randomRange(4, 7),
-        b - randomRange(1, 3),
-      ];
-    }
     questions.push({
       id: index,
       operandA: a,
       operandB: b,
       result: result,
       ask: ask,
-      correct: distractors[0],
-      distractors: shuffle(distractors),
+      correct: correct,
+      distractors: options,
       operation: "+",
     });
   }

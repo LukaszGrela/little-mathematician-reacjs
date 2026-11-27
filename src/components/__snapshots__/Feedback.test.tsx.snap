@@ -20,11 +20,16 @@ exports[`Should render Feedback correctly 1`] = `
         />
       </svg>
       <div
+        aria-atomic="true"
+        aria-live="polite"
         class="message cell"
+        role="status"
       >
         Well done!
       </div>
       <button
+        aria-keyshortcuts="Enter"
+        aria-label="Next question"
         class="cell animate"
         data-testid="Feedback-next"
       >
@@ -65,7 +70,10 @@ exports[`Should render Feedback correctly on wrong answer 1`] = `
         />
       </svg>
       <div
+        aria-atomic="true"
+        aria-live="polite"
         class="message cell"
+        role="status"
       >
         Not so, correct answer is 
         <span
@@ -75,6 +83,8 @@ exports[`Should render Feedback correctly on wrong answer 1`] = `
         </span>
       </div>
       <button
+        aria-keyshortcuts="Enter"
+        aria-label="Next question"
         class="cell animate"
         data-testid="Feedback-next"
       >

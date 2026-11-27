@@ -1,0 +1,156 @@
+@use "../sass/_variables.scss";
+
+.history {
+    padding: 50px 12px 12px;
+    max-width: 640px;
+    margin: 0 auto;
+
+    .history-totals {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin: 0 0 18px;
+        padding: 0;
+
+        .history-total {
+            min-width: 96px;
+            margin: 0 6px 8px;
+            padding: 6px 10px;
+            text-align: center;
+            border-radius: 4px;
+            background-color: rgba(variables.$accent-color-1, .12);
+
+            dt {
+                font-size: .75rem;
+                text-transform: uppercase;
+                letter-spacing: .04em;
+                opacity: .75;
+            }
+
+            dd {
+                margin: 2px 0 0;
+                font-size: 1.25rem;
+                font-weight: 700;
+            }
+        }
+    }
+
+    .history-empty {
+        text-align: center;
+        opacity: .75;
+    }
+
+    .history-table {
+        width: 100%;
+        border-collapse: collapse;
+
+        caption {
+            padding-bottom: 6px;
+            font-size: .8rem;
+            opacity: .7;
+        }
+
+        th,
+        td {
+            padding: 6px 4px;
+            text-align: center;
+            border-bottom: 1px solid rgba(variables.$primary-text-color, .15);
+        }
+
+        th {
+            font-size: .75rem;
+            text-transform: uppercase;
+            letter-spacing: .04em;
+            opacity: .7;
+        }
+
+        .history-status-abandoned {
+            font-style: italic;
+            opacity: .75;
+        }
+    }
+
+    /*
+     * Narrow screens: the six column table does not fit, so every row becomes a
+     * card. The header row stays in the accessibility tree (visually hidden) and
+     * each cell repeats its column name through `data-label`, so the values keep
+     * their meaning once the labels above the table are no longer visible.
+     */
+    @media only screen and (max-width: 560px) {
+        padding: 42px 10px 12px;
+
+        .history-totals {
+            .history-total {
+                flex: 1 1 calc(50% - 12px);
+                min-width: 0;
+                margin: 0 6px 8px;
+            }
+        }
+
+        .history-table {
+            display: block;
+
+            /*
+             * A `caption` on a `display: block` table shrinks to its narrowest
+             * width, which wraps the text word by word in the left corner.
+             * Forcing a full-width block keeps it on one line under the cards.
+             */
+            caption {
+                display: block;
+                width: 100%;
+                padding: 0 0 8px 2px;
+                font-size: .75rem;
+                line-height: 1.35;
+                text-align: left;
+            }
+
+            thead {
+                position: absolute;
+                width: 1px;
+                height: 1px;
+                overflow: hidden;
+                clip-path: inset(50%);
+                white-space: nowrap;
+            }
+
+            tbody,
+            tr,
+            td {
+                display: block;
+            }
+
+            tr {
+                margin-bottom: 10px;
+                padding: 6px 10px;
+                border-radius: 4px;
+                border: 1px solid rgba(variables.$primary-text-color, .12);
+                background-color: rgba(variables.$primary-color-light, .25);
+            }
+
+            td {
+                display: flex;
+                align-items: baseline;
+                justify-content: space-between;
+                gap: 12px;
+                width: 100%;
+                padding: 4px 0;
+                text-align: right;
+                border-bottom: 1px solid rgba(variables.$primary-text-color, .1);
+
+                &:last-child {
+                    border-bottom: 0;
+                }
+
+                &::before {
+                    content: attr(data-label);
+                    flex: 0 0 auto;
+                    font-size: .75rem;
+                    text-transform: uppercase;
+                    letter-spacing: .04em;
+                    text-align: left;
+                    opacity: .7;
+                }
+            }
+        }
+    }
+}

@@ -15,15 +15,22 @@
 */
 import { classNames } from "../utils/classNames";
 import "./GameAnswers.scss";
-import { useCallback, type FC } from "react";
+import { useCallback, type FC, type RefObject } from "react";
 
 interface IProps {
   selectionId?: number | null;
   options: number[];
   onSelection: (answer: number, optionId: number) => void;
+  /** Optional ref for the first answer - used to return focus to the answers. */
+  firstAnswerRef?: RefObject<HTMLButtonElement | null>;
 }
 
-const GameAnswers: FC<IProps> = ({ selectionId, onSelection, options }) => {
+const GameAnswers: FC<IProps> = ({
+  selectionId,
+  onSelection,
+  options,
+  firstAnswerRef,
+}) => {
   const generateAnswers = useCallback(() => {
     let i = 0;
 
@@ -37,9 +44,12 @@ const GameAnswers: FC<IProps> = ({ selectionId, onSelection, options }) => {
             selectionId && selectionId === id && "hidden",
           )}
           key={id}
+          ref={id === 1 ? firstAnswerRef : undefined}
           onClick={() => {
             onSelection(option, id);
           }}
+          aria-pressed={selectionId === id}
+          aria-keyshortcuts={String(id)}
         >
           {option}
         </button>
@@ -47,9 +57,18 @@ const GameAnswers: FC<IProps> = ({ selectionId, onSelection, options }) => {
 
       return button;
     });
-  }, [onSelection, options, selectionId]);
+  }, [firstAnswerRef, onSelection, options, selectionId]);
   return (
-    <div className={classNames("game-answers", selectionId && "locked")}>
+    <div
+      className={classNames("game-answers", selectionId && "locked")}
+      role="group"
+      aria-label="Answer options"
+      aria-describedby="game-answers-hint"
+    >
+      <span id="game-answers-hint" className="visually-hidden">
+        Press 1 to 4 to choose an answer. After answering, press Enter for the
+        next question.
+      </span>
       <hr />
       {generateAnswers()}
     </div>

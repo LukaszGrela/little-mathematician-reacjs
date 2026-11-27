@@ -15,6 +15,7 @@ limitations under the License.
 */
 
 import type { TGameType } from "../gameTypes";
+import type { TGameActions } from "./mathGameActions";
 
 export const INCREASE_SCORE_OF_GAME = "INCREASE_SCORE_OF_GAME" as const;
 
@@ -80,3 +81,5 @@ export type TConfigActions =
   | ReturnType<typeof changeNumberOfQuestions>
   | ReturnType<typeof changeRangeFrom>
   | ReturnType<typeof changeRangeTo>;
+
+export type TActions = TConfigActions | TScoreActions | TGameActions;

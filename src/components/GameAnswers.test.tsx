@@ -92,3 +92,80 @@ test("Should GameAnswers className have locked when selectionId exists", () => {
   locked = container.querySelector(".game-answers.locked");
   expect(locked).toBeInTheDocument();
 });
+//
+test("Should expose the answers as an accessible group", () => {
+  const onSelection = vi.fn();
+  const options = [4, 3, 2, 1];
+
+  render(
+    <GameAnswers
+      selectionId={undefined}
+      onSelection={onSelection}
+      options={options}
+    />,
+  );
+
+  const group = screen.getByRole("group", { name: "Answer options" });
+  expect(group).toBeInTheDocument();
+
+  screen.getAllByRole("button").forEach((button) => {
+    expect(button).toHaveAttribute("aria-pressed", "false");
+  });
+});
+//
+test("Should mark the picked answer as pressed", () => {
+  const onSelection = vi.fn();
+  const options = [4, 3, 2, 1];
+
+  render(
+    <GameAnswers selectionId={2} onSelection={onSelection} options={options} />,
+  );
+
+  const buttons = screen.getAllByRole("button");
+  expect(buttons).toHaveLength(4);
+  const pressed = buttons.filter(
+    (button) => button.getAttribute("aria-pressed") === "true",
+  );
+  expect(pressed).toHaveLength(1);
+  expect(pressed[0]).toHaveTextContent("3");
+});
+//
+test("Should advertise the 1-4 keyboard shortcuts for the answers", () => {
+  const onSelection = vi.fn();
+  const options = [4, 3, 2, 1];
+
+  render(
+    <GameAnswers
+      selectionId={undefined}
+      onSelection={onSelection}
+      options={options}
+    />,
+  );
+
+  const buttons = screen.getAllByRole("button");
+  expect(buttons.map((button) => button.getAttribute("aria-keyshortcuts"))).toEqual(
+    ["1", "2", "3", "4"],
+  );
+});
+
+test("Should describe the answer group with the keyboard hint", () => {
+  const onSelection = vi.fn();
+  const options = [4, 3, 2, 1];
+
+  render(
+    <GameAnswers
+      selectionId={undefined}
+      onSelection={onSelection}
+      options={options}
+    />,
+  );
+
+  const group = screen.getByRole("group", { name: "Answer options" });
+  expect(group).toHaveAttribute("aria-describedby", "game-answers-hint");
+
+  const hint = document.getElementById("game-answers-hint");
+  expect(hint).not.toBeNull();
+  expect(hint).toHaveClass("visually-hidden");
+  expect(hint).toHaveTextContent(/Press 1 to 4 to choose an answer/);
+  expect(hint).toHaveTextContent(/press Enter for the next question/);
+});

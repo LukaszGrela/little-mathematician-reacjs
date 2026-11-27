@@ -1,4 +1,4 @@
-import { vi } from "vitest";
+import { expect, test, vi } from "vitest";
 import {
   prepareQuestionsAddition,
   prepareQuestionsSubtraction,
@@ -26,7 +26,7 @@ test("Should prepareQuestionsAddition return correct data object", () => {
     result: 0,
     ask: "result",
     correct: 0,
-    distractors: [0, 1, 4, -1],
+    distractors: [0, 1, 2, 3],
     operation: "+",
   };
   const question = prepareQuestionsAddition(0, 10, 10);
