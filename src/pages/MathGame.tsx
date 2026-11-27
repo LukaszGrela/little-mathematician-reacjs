@@ -125,9 +125,12 @@ export const MathGame: FC = () => {
       if (event.key !== "Enter" || event.repeat) return;
       if (event.altKey || event.ctrlKey || event.metaKey) return;
 
-      const target = event.target as HTMLElement | null;
+      // `event.target` is not always a DOM node (e.g. the window itself when
+      // the key comes from a synthetic dispatch), so check the type first.
+      const target = event.target;
       if (
-        target?.closest(
+        target instanceof Element &&
+        target.closest(
           'button, a[href], input, select, textarea, [role="menuitem"], [contenteditable="true"]',
         )
       ) {

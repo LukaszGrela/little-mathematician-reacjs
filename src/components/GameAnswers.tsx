@@ -57,7 +57,7 @@ const GameAnswers: FC<IProps> = ({
 
       return button;
     });
-  }, [onSelection, options, selectionId]);
+  }, [firstAnswerRef, onSelection, options, selectionId]);
   return (
     <div
       className={classNames("game-answers", selectionId && "locked")}

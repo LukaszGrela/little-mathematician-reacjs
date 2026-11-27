@@ -141,7 +141,7 @@ test("Should advance to the next question with the Enter key", () => {
   fireEvent.keyDown(window, { key: "Enter" });
 
   expect(store.getState().game.currentGame?.questions.at(0)).toBeNull();
-  expect(store.getState().game.hudQuestionCurrent).toBe(2);
+  expect(store.getState().game.currentGame?.hudQuestionCurrent).toBe(2);
 
   unmount();
 });
@@ -151,7 +151,7 @@ test("Should ignore the Enter key before the question is answered", () => {
 
   fireEvent.keyDown(window, { key: "Enter" });
 
-  expect(store.getState().game.hudQuestionCurrent).toBe(1);
+  expect(store.getState().game.currentGame?.hudQuestionCurrent).toBe(1);
   expect(
     store.getState().game.currentGame?.questions.at(0),
   ).not.toBeNull();
@@ -172,7 +172,7 @@ test("Should not advance twice when Enter comes from the focused button", () => 
   fireEvent.keyDown(nextButton, { key: "Enter" });
   fireEvent.click(nextButton);
 
-  expect(store.getState().game.hudQuestionCurrent).toBe(2);
+  expect(store.getState().game.currentGame?.hudQuestionCurrent).toBe(2);
 
   unmount();
 });
@@ -184,7 +184,7 @@ test("Should move focus back to the first answer of the next question", () => {
   fireEvent.keyDown(window, { key: "Enter" });
 
   const firstAnswer = document.querySelector<HTMLButtonElement>(".answer");
-  expect(store.getState().game.hudQuestionCurrent).toBe(2);
+  expect(store.getState().game.currentGame?.hudQuestionCurrent).toBe(2);
   expect(firstAnswer).not.toBeNull();
   expect(document.activeElement).toBe(firstAnswer);
 

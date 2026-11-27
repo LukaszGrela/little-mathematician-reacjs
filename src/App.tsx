@@ -60,14 +60,19 @@ import { newGame, quitGame } from "./actions/mathGameActions";
 import GameOverPage from "./pages/GameOverPage";
 import { MIN_DEVICE_WIDTH } from "./utils/constants";
 
-const App = () => {
-  const location = useLocation();
-  const navigate = useNavigate();
-  const dispatch = useDispatch<TAppDispatch>();
-  const config = useSelector((state: TRootState) => state.config);
+type TNarrowMenuAction = "about" | "config" | "history";
 
+interface INarrowMenuProps {
+  onNavigate: (action: TNarrowMenuAction) => void;
+}
+
+/**
+ * Dropdown used by the narrow layout only. It owns its open state, so the wide
+ * layout unmounts it and every switch back to the narrow layout starts with a
+ * closed menu - no effect has to reset that state.
+ */
+const NarrowMenu = ({ onNavigate }: INarrowMenuProps) => {
   const [ddMenuOpen, setDdMenuOpen] = useState(false);
-  const isWideLayout = useMediaQuery({ minDeviceWidth: MIN_DEVICE_WIDTH });
   const ddMenuToggleRef = useRef<HTMLButtonElement | null>(null);
   const ddMenuContainerRef = useRef<HTMLDivElement | null>(null);
 
@@ -75,13 +80,13 @@ const App = () => {
     setDdMenuOpen((open) => !open);
   }, []);
 
-  // the dropdown exists only in the narrow layout, so do not keep it open
-  // after the viewport switches back to the inline buttons
-  useEffect(() => {
-    if (isWideLayout) {
+  const handleSelect = useCallback(
+    (action: TNarrowMenuAction) => {
       setDdMenuOpen(false);
-    }
-  }, [isWideLayout]);
+      onNavigate(action);
+    },
+    [onNavigate],
+  );
 
   // move focus into the menu as soon as it opens
   useEffect(() => {
@@ -142,6 +147,83 @@ const App = () => {
     },
     [],
   );
+
+  return (
+    <>
+      <button
+        ref={ddMenuToggleRef}
+        className="dd-button-menu"
+        aria-label="More options"
+        aria-haspopup="menu"
+        aria-expanded={ddMenuOpen}
+        aria-controls="dd-menu"
+        onClick={() => {
+          handleDropDown();
+        }}
+      >
+        <IconMore />
+      </button>
+      <div
+        id="dd-menu"
+        className={"dd-menu" + (ddMenuOpen ? " open" : " close")}
+      >
+        <div
+          className="cloak"
+          aria-hidden="true"
+          onClick={() => {
+            setDdMenuOpen(false);
+          }}
+        ></div>
+        <div
+          className="dd-menu-container"
+          ref={ddMenuContainerRef}
+          role="menu"
+          aria-label="Main menu"
+          onKeyDown={handleDdMenuKeyDown}
+        >
+          <button
+            role="menuitem"
+            className="button-history"
+            onClick={() => {
+              handleSelect("history");
+            }}
+          >
+            <IconGrade />
+            <span className="label">History</span>
+          </button>
+          <button
+            role="menuitem"
+            className="button-about"
+            onClick={() => {
+              handleSelect("about");
+            }}
+          >
+            <IconInfo />
+            <span className="label">About</span>
+          </button>
+          <button
+            role="menuitem"
+            className="button-settings"
+            onClick={() => {
+              handleSelect("config");
+            }}
+          >
+            <IconSettings />
+            <span className="label">Config</span>
+          </button>
+        </div>
+      </div>
+    </>
+  );
+};
+
+const App = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const dispatch = useDispatch<TAppDispatch>();
+  const config = useSelector((state: TRootState) => state.config);
+
+  const isWideLayout = useMediaQuery({ minDeviceWidth: MIN_DEVICE_WIDTH });
 
   /**
    * Handles navigation requests, updates state
@@ -206,7 +288,6 @@ const App = () => {
           break;
       }
 
-      setDdMenuOpen(false);
       navigate(to);
     },
     [config, dispatch, location, navigate],
@@ -327,84 +408,8 @@ const App = () => {
       ];
     }
 
-    return [
-      <button
-        key={"dd-menu-btn"}
-        ref={ddMenuToggleRef}
-        className="dd-button-menu"
-        aria-label="More options"
-        aria-haspopup="menu"
-        aria-expanded={ddMenuOpen}
-        aria-controls="dd-menu"
-        onClick={() => {
-          handleDropDown();
-        }}
-      >
-        <IconMore />
-      </button>,
-      <div
-        key={"dd-menu-box"}
-        id="dd-menu"
-        className={"dd-menu" + (ddMenuOpen ? " open" : " close")}
-      >
-        <div
-          className="cloak"
-          aria-hidden="true"
-          onClick={() => {
-            setDdMenuOpen(false);
-          }}
-        ></div>
-        <div
-          className="dd-menu-container"
-          ref={ddMenuContainerRef}
-          role="menu"
-          aria-label="Main menu"
-          onKeyDown={handleDdMenuKeyDown}
-        >
-          <button
-            key={"history-btn"}
-            role="menuitem"
-            className="button-history"
-            onClick={() => {
-              handleNavigationAction("history");
-            }}
-          >
-            <IconGrade />
-            <span className="label">History</span>
-          </button>
-          <button
-            key={"about-btn"}
-            role="menuitem"
-            className="button-about"
-            onClick={() => {
-              handleNavigationAction("about");
-            }}
-          >
-            <IconInfo />
-            <span className="label">About</span>
-          </button>
-          <button
-            key={"settings-btn"}
-            role="menuitem"
-            className="button-settings"
-            onClick={() => {
-              handleNavigationAction("config");
-            }}
-          >
-            <IconSettings />
-            <span className="label">Config</span>
-          </button>
-        </div>
-      </div>,
-    ];
-  }, [
-    ddMenuOpen,
-    handleDdMenuKeyDown,
-    handleDropDown,
-    handleNavigationAction,
-    isWideLayout,
-    location.pathname,
-  ]);
+    return [<NarrowMenu key={"dd-menu"} onNavigate={handleNavigationAction} />];
+  }, [handleNavigationAction, isWideLayout, location.pathname]);
 
   return (
     <div
