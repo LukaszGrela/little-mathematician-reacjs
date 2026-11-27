@@ -40,33 +40,26 @@ export default (
   state = DEFAULT_STATE,
   action: TGameActions | { type: "@@INIT"; payload?: unknown },
 ) => {
-  let newState: TGameState, currentQuestion: TQuestion;
+  let newState: TGameState, currentQuestion: TQuestion | undefined;
   switch (action.type) {
     case NEW_GAME:
       // create current game object
       return { ...state, currentGame: generateGameObject(action.config) };
 
     case GAME_OVER: {
-      if (!state.currentGame) {
+      const currentGame = state.currentGame;
+      if (!currentGame) {
         return state;
       }
-      // add current game object to the history and nullify the currentGame
-
-      newState = {
-        ...state,
-        history: [state.currentGame, ...state.history],
-        currentGame: null,
-      };
-      // clear questions list
-      newState.history[0].questions.length = 0;
+      // add a snapshot of the finished game to the history and nullify the
+      // currentGame; the snapshot must be a new object - clearing the questions
+      // in place would mutate the previous state (state.currentGame)
+      const finishedGame: TGameObject = { ...currentGame, questions: [] };
+      const { historyLengthCap: cap } = state;
+      // cap with a new array, no in-place splice
+      const history = [finishedGame, ...state.history].slice(0, cap);
       //
-      const { historyLengthCap: cap } = newState;
-      // cap
-      if (newState.history.length > cap) {
-        newState.history.splice(cap, newState.history.length - cap);
-      }
-      //
-      return newState;
+      return { ...state, history, currentGame: null };
     }
 
     case ANSWER_QUESTION: {

@@ -48,21 +48,24 @@ test("should add currentGame to history and set currentGame to null for GAME_OVE
   const currentGame: TGameObject = {
     questions: [0, 1, 2] as unknown as TQuestion[],
   } as TGameObject;
-  const state = gameReducer(
-    {
-      ...defaultState,
-      currentGame,
-    },
-    gameOver(),
-  );
+  const prevState = {
+    ...defaultState,
+    currentGame,
+  };
+  const state = gameReducer(prevState, gameOver());
 
   expect(state.currentGame).toBeNull();
 
   expect(state.history.length).toBeGreaterThan(0);
 
-  expect(state.history[0]).toEqual(currentGame);
+  // new entry, without questions
+  expect(state.history[0]).toEqual({ ...currentGame, questions: [] });
+  expect(state.history[0]).not.toBe(currentGame);
   // questions reset to be empty array
   expect(state.history[0].questions).toHaveLength(0);
+  // previous state is untouched (no in-place mutation)
+  expect(prevState.currentGame?.questions).toHaveLength(3);
+  expect(state).not.toBe(prevState);
 });
 
 test("should add currentGame to history keep history within historyLengthCap limit for GAME_OVER action", () => {
@@ -84,7 +87,9 @@ test("should add currentGame to history keep history within historyLengthCap lim
 
   expect(state.history.length).toBe(defaultState.historyLengthCap);
 
-  expect(state.history[0]).toEqual(currentGame);
+  expect(state.history[0]).toEqual({ ...currentGame, questions: [] });
+  // capped entries keep the newest first order
+  expect(state.history[0].questions).toHaveLength(0);
 });
 
 test("should set currentGame to be a new game object", () => {
@@ -173,4 +178,62 @@ test("should ignore NEXT_QUESTION when the current question is missing", () => {
   } as unknown as TGameState;
 
   expect(gameReducer(prevState, nextQuestion())).toBe(prevState);
+});
+
+test("should not mutate the previous state on GAME_OVER", () => {
+  const questions = [{ id: 0 } as TQuestion, { id: 1 } as TQuestion];
+  const game: TGameObject = {
+    type: GAME_ADDITION,
+    history: [{ id: 2 } as TQuestion],
+    hudQuestionCurrent: 2,
+    hudCorrectAnswers: 1,
+    questions,
+    operation: "+",
+    questionCount: 2,
+    from: 0,
+    to: 10,
+  };
+  const prevState: TGameState = {
+    ...defaultState,
+    currentGame: game,
+  };
+  const snapshot = JSON.parse(JSON.stringify(prevState));
+
+  const state = gameReducer(prevState, gameOver());
+
+  // previous state keeps its game, questions and history untouched
+  expect(prevState).toEqual(snapshot);
+  expect(prevState.currentGame).toBe(game);
+  expect(prevState.currentGame?.questions).toBe(questions);
+  expect(prevState.currentGame?.history).toHaveLength(1);
+
+  // history entry is a new object with the game details and no questions
+  expect(state.currentGame).toBeNull();
+  expect(state.history[0]).not.toBe(game);
+  expect(state.history[0]).toEqual({
+    type: GAME_ADDITION,
+    history: game.history,
+    hudQuestionCurrent: 2,
+    hudCorrectAnswers: 1,
+    questions: [],
+    operation: "+",
+    questionCount: 2,
+    from: 0,
+    to: 10,
+  });
+
+  // history cap does not touch the source array either
+  const capped = gameReducer(
+    {
+      ...defaultState,
+      currentGame: game,
+      history: [
+        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11,
+      ] as unknown as TGameObject[],
+    },
+    gameOver(),
+  );
+  expect(capped.history).toHaveLength(defaultState.historyLengthCap);
+  expect(capped.history[0]).toEqual({ ...game, questions: [] });
+  expect(capped.history[1]).toBe(0);
 });
