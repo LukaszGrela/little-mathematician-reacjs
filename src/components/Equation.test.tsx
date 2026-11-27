@@ -1,5 +1,6 @@
 import { render } from "@testing-library/react";
 import Equation from "./Equation";
+import { test, expect } from "vitest";
 
 // let wrapper, operation, userAnswer,
 const questions = {

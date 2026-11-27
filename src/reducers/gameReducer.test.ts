@@ -1,4 +1,4 @@
-import { test, vi } from "vitest";
+import { expect, test, vi } from "vitest";
 import gameReducer, { type TGameState } from "./gameReducer";
 import {
   quitGame,

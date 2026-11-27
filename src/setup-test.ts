@@ -1,3 +1,4 @@
+import '@testing-library/jest-dom/vitest';
  
 // import { toMatchShapeOf, toMatchOneOf } from 'jest-to-match-shape-of';
 
@@ -12,7 +13,6 @@
 //   toMatchShapeOf,
 //   toMatchOneOf,
 // });
-import '@testing-library/jest-dom';
 
 // import { mswServer } from './__tests/mswjs/node';
 // import { signalREventsActive } from './__tests/mswjs/handlers/signalr';

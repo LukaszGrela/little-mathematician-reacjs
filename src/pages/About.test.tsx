@@ -1,4 +1,4 @@
-import { test } from "vitest";
+import { expect, test } from "vitest";
 import { render } from "@testing-library/react";
 import About from "./About";
 

@@ -1,3 +1,4 @@
+import { expect, test } from "vitest";
 import GameHud from "./GameHud";
 import { render } from "@testing-library/react";
 

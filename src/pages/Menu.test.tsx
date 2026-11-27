@@ -5,7 +5,7 @@ import {
   GAME_SUBTRACTION,
   GAME_DIVISION,
 } from "../gameTypes";
-import { expect, vi } from "vitest";
+import { expect, test, vi } from "vitest";
 import { storeDecorator } from "../__tests/storeDecorator";
 import { fireEvent } from "@testing-library/dom";
 import { setupStore } from "../store/Store";

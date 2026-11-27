@@ -1,4 +1,4 @@
-import { vi } from "vitest";
+import { expect, test, vi } from "vitest";
 import Footer from "./Footer";
 import { render } from "@testing-library/react";
 
