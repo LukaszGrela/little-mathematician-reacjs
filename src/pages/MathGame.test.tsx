@@ -67,6 +67,50 @@ test("Should answerQuestion be called", () => {
   expect(answer?.correct).toBeTruthy();
 });
 
+test("Should answer the question with a 1-4 keyboard shortcut", () => {
+  const store = setupStore();
+  store.dispatch(
+    newGame({
+      type: "addition",
+      general: {
+        from: 0,
+        to: 10,
+        questionCount: 10,
+      },
+    }),
+  );
+
+  const { unmount } = routerDecorator({
+    store,
+    routerConfig: {
+      initialEntries: ["/game/addition/"],
+      initialIndex: 0,
+    },
+    path: `/game/addition/`,
+    ui: <MathGame />,
+  });
+
+  expect(
+    store.getState().game.currentGame?.questions.at(0)?.answer,
+  ).not.toBeDefined();
+
+  fireEvent.keyDown(window, { key: "1" });
+
+  expect(
+    store.getState().game.currentGame?.questions.at(0)?.answer,
+  ).toBeDefined();
+
+  // the shortcut is ignored once the question is answered and the listener is
+  // removed on unmount (no leaking window handler between games)
+  const answered = store.getState().game.currentGame?.questions.at(0)?.answer;
+  fireEvent.keyDown(window, { key: "2" });
+  expect(store.getState().game.currentGame?.questions.at(0)?.answer).toBe(
+    answered,
+  );
+
+  unmount();
+});
+
 test("Should nextQuestion to be called", () => {
   const store = setupStore();
   store.dispatch(

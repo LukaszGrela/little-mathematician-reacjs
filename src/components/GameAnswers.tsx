@@ -40,6 +40,7 @@ const GameAnswers: FC<IProps> = ({ selectionId, onSelection, options }) => {
           onClick={() => {
             onSelection(option, id);
           }}
+          aria-pressed={selectionId === id}
         >
           {option}
         </button>
@@ -49,7 +50,11 @@ const GameAnswers: FC<IProps> = ({ selectionId, onSelection, options }) => {
     });
   }, [onSelection, options, selectionId]);
   return (
-    <div className={classNames("game-answers", selectionId && "locked")}>
+    <div
+      className={classNames("game-answers", selectionId && "locked")}
+      role="group"
+      aria-label="Answer options"
+    >
       <hr />
       {generateAnswers()}
     </div>

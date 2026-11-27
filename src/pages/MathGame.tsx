@@ -67,6 +67,45 @@ export const MathGame: FC = () => {
     [dispatch],
   );
 
+  const currentQuestion = game?.questions[hudQuestionCurrent - 1];
+  const answerLocked = Boolean(currentQuestion?.answer);
+  const distractors = currentQuestion?.distractors;
+
+  // Keyboard shortcuts: 1-4 pick the matching answer while the question is
+  // still open. The listener exists only for that window - once feedback is
+  // shown (or the question changes) the effect re-runs and the old handler is
+  // removed, so no stale listener survives an unmount either.
+  useEffect(() => {
+    if (!type || answerLocked || !distractors?.length) return;
+ 
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.altKey || event.ctrlKey || event.metaKey) return;
+
+      const target = event.target as HTMLElement | null;
+      if (target && /^(INPUT|TEXTAREA|SELECT)$/.test(target.tagName)) return;
+
+      const index = Number(event.key);
+      if (
+        !Number.isInteger(index) ||
+        index < 1 ||
+        index > distractors.length
+      ) {
+        return;
+      }
+
+      const option = distractors[index - 1];
+      if (option === undefined) return;
+
+      event.preventDefault();
+      gameAnswerSelectionHandler(option, index);
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [answerLocked, distractors, gameAnswerSelectionHandler, type]);
+
   const getNextEquationView = useCallback(() => {
     if (!game || !hudQuestionCurrent) return null;
 

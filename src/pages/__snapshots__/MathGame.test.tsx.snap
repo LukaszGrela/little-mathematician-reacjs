@@ -78,25 +78,31 @@ exports[`Should render MathGame correctly 1`] = `
         </div>
       </div>
       <div
+        aria-label="Answer options"
         class="game-answers"
+        role="group"
       >
         <hr />
         <button
+          aria-pressed="false"
           class="answer option-1"
         >
           0
         </button>
         <button
+          aria-pressed="false"
           class="answer option-2"
         >
           1
         </button>
         <button
+          aria-pressed="false"
           class="answer option-3"
         >
           2
         </button>
         <button
+          aria-pressed="false"
           class="answer option-4"
         >
           3

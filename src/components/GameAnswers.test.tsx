@@ -92,3 +92,40 @@ test("Should GameAnswers className have locked when selectionId exists", () => {
   locked = container.querySelector(".game-answers.locked");
   expect(locked).toBeInTheDocument();
 });
+//
+test("Should expose the answers as an accessible group", () => {
+  const onSelection = vi.fn();
+  const options = [4, 3, 2, 1];
+
+  render(
+    <GameAnswers
+      selectionId={undefined}
+      onSelection={onSelection}
+      options={options}
+    />,
+  );
+
+  const group = screen.getByRole("group", { name: "Answer options" });
+  expect(group).toBeInTheDocument();
+
+  screen.getAllByRole("button").forEach((button) => {
+    expect(button).toHaveAttribute("aria-pressed", "false");
+  });
+});
+//
+test("Should mark the picked answer as pressed", () => {
+  const onSelection = vi.fn();
+  const options = [4, 3, 2, 1];
+
+  render(
+    <GameAnswers selectionId={2} onSelection={onSelection} options={options} />,
+  );
+
+  const buttons = screen.getAllByRole("button");
+  expect(buttons).toHaveLength(4);
+  const pressed = buttons.filter(
+    (button) => button.getAttribute("aria-pressed") === "true",
+  );
+  expect(pressed).toHaveLength(1);
+  expect(pressed[0]).toHaveTextContent("3");
+});

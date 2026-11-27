@@ -45,7 +45,12 @@ const Feedback: FC<{
     >
       <div className="row">
         <MoodIcon className="cell" isGood={answer.correct} />
-        <div className="message cell">
+        <div
+          className="message cell"
+          role="status"
+          aria-live="polite"
+          aria-atomic="true"
+        >
           {answer.correct
             ? "Well done!"
             : [
@@ -61,6 +66,7 @@ const Feedback: FC<{
           onClick={() => {
             onAction?.();
           }}
+          aria-label="Next question"
         >
           <ButtonIconNext />
         </button>

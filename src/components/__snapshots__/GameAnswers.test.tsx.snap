@@ -3,25 +3,31 @@
 exports[`Should GameAnswers to render correctly 1`] = `
 <div>
   <div
+    aria-label="Answer options"
     class="game-answers"
+    role="group"
   >
     <hr />
     <button
+      aria-pressed="false"
       class="answer option-1"
     >
       4
     </button>
     <button
+      aria-pressed="false"
       class="answer option-2"
     >
       3
     </button>
     <button
+      aria-pressed="false"
       class="answer option-3"
     >
       2
     </button>
     <button
+      aria-pressed="false"
       class="answer option-4"
     >
       1

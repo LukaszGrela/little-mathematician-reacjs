@@ -13,7 +13,13 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 */
-import { useCallback, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  type KeyboardEvent as ReactKeyboardEvent,
+} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Route, Routes, useLocation, useNavigate } from "react-router";
 
@@ -28,7 +34,7 @@ import History from "./pages/History";
 // components
 import Footer from "./components/Footer";
 
-import MediaQuery from "react-responsive";
+import { useMediaQuery } from "react-responsive";
 
 // css
 import "./App.scss";
@@ -61,10 +67,81 @@ const App = () => {
   const config = useSelector((state: TRootState) => state.config);
 
   const [ddMenuOpen, setDdMenuOpen] = useState(false);
+  const isWideLayout = useMediaQuery({ minDeviceWidth: MIN_DEVICE_WIDTH });
+  const ddMenuToggleRef = useRef<HTMLButtonElement | null>(null);
+  const ddMenuContainerRef = useRef<HTMLDivElement | null>(null);
 
   const handleDropDown = useCallback(() => {
-    setDdMenuOpen(true);
+    setDdMenuOpen((open) => !open);
   }, []);
+
+  // the dropdown exists only in the narrow layout, so do not keep it open
+  // after the viewport switches back to the inline buttons
+  useEffect(() => {
+    if (isWideLayout) {
+      setDdMenuOpen(false);
+    }
+  }, [isWideLayout]);
+
+  // move focus into the menu as soon as it opens
+  useEffect(() => {
+    if (!ddMenuOpen) return;
+    ddMenuContainerRef.current
+      ?.querySelector<HTMLElement>('[role="menuitem"]')
+      ?.focus();
+  }, [ddMenuOpen]);
+
+  /**
+   * Keyboard support for the narrow-layout dropdown: Escape closes it and
+   * returns focus to the toggle, arrows/Home/End move between the entries and
+   * Tab is trapped inside the open menu.
+   */
+  const handleDdMenuKeyDown = useCallback(
+    (event: ReactKeyboardEvent<HTMLDivElement>) => {
+      const items = Array.from(
+        ddMenuContainerRef.current?.querySelectorAll<HTMLElement>(
+          '[role="menuitem"]',
+        ) ?? [],
+      );
+      if (!items.length) return;
+
+      const index = items.indexOf(document.activeElement as HTMLElement);
+
+      switch (event.key) {
+        case "Escape":
+          event.preventDefault();
+          setDdMenuOpen(false);
+          ddMenuToggleRef.current?.focus();
+          break;
+        case "ArrowDown":
+          event.preventDefault();
+          items[index === items.length - 1 ? 0 : index + 1].focus();
+          break;
+        case "ArrowUp":
+          event.preventDefault();
+          items[index <= 0 ? items.length - 1 : index - 1].focus();
+          break;
+        case "Home":
+          event.preventDefault();
+          items[0].focus();
+          break;
+        case "End":
+          event.preventDefault();
+          items[items.length - 1].focus();
+          break;
+        case "Tab":
+          if (event.shiftKey && index <= 0) {
+            event.preventDefault();
+            items[items.length - 1].focus();
+          } else if (!event.shiftKey && index === items.length - 1) {
+            event.preventDefault();
+            items[0].focus();
+          }
+          break;
+      }
+    },
+    [],
+  );
 
   /**
    * Handles navigation requests, updates state
@@ -195,6 +272,7 @@ const App = () => {
           onClick={() => {
             handleNavigationAction();
           }}
+          aria-label="Back"
         >
           <IconArrowBack />
         </button>
@@ -209,103 +287,124 @@ const App = () => {
    * @returns {JSX.Element|null} JSX fragment
    */
   const getRightIconSlotFragment = useCallback(() => {
-    if (location.pathname === "/") {
+    if (location.pathname !== "/") {
+      // else if (location === '/config') {}
+      return null;
+    }
+
+    if (isWideLayout) {
       return [
-        <MediaQuery minDeviceWidth={MIN_DEVICE_WIDTH} key={"media-query"}>
-          {(matches) => {
-            if (matches) {
-              return [
-                <button
-                  key={"history-btn"}
-                  className="button-history"
-                  onClick={() => {
-                    handleNavigationAction("history");
-                  }}
-                >
-                  <IconGrade />
-                </button>,
-                <button
-                  key={"about-btn"}
-                  className="button-about"
-                  onClick={() => {
-                    handleNavigationAction("about");
-                  }}
-                >
-                  <IconInfo />
-                </button>,
-                <button
-                  key={"settings-btn"}
-                  className="button-settings"
-                  onClick={() => {
-                    handleNavigationAction("config");
-                  }}
-                >
-                  <IconSettings />
-                </button>,
-              ];
-            } else {
-              return [
-                <button
-                  key={"dd-menu-btn"}
-                  className="dd-button-menu"
-                  onClick={() => {
-                    handleDropDown();
-                  }}
-                >
-                  <IconMore />
-                </button>,
-                <div
-                  key={"dd-menu-box"}
-                  className={"dd-menu" + (ddMenuOpen ? " open" : " close")}
-                >
-                  <div
-                    className="cloak"
-                    onClick={() => {
-                      setDdMenuOpen(false);
-                    }}
-                  ></div>
-                  <div className="dd-menu-container">
-                    <button
-                      key={"history-btn"}
-                      className="button-history"
-                      onClick={() => {
-                        handleNavigationAction("history");
-                      }}
-                    >
-                      <IconGrade />
-                      <span className="label">History</span>
-                    </button>
-                    <button
-                      key={"about-btn"}
-                      className="button-about"
-                      onClick={() => {
-                        handleNavigationAction("about");
-                      }}
-                    >
-                      <IconInfo />
-                      <span className="label">About</span>
-                    </button>
-                    <button
-                      key={"settings-btn"}
-                      className="button-settings"
-                      onClick={() => {
-                        handleNavigationAction("config");
-                      }}
-                    >
-                      <IconSettings />
-                      <span className="label">Config</span>
-                    </button>
-                  </div>
-                </div>,
-              ];
-            }
+        <button
+          key={"history-btn"}
+          className="button-history"
+          aria-label="History"
+          onClick={() => {
+            handleNavigationAction("history");
           }}
-        </MediaQuery>,
+        >
+          <IconGrade />
+        </button>,
+        <button
+          key={"about-btn"}
+          className="button-about"
+          aria-label="About"
+          onClick={() => {
+            handleNavigationAction("about");
+          }}
+        >
+          <IconInfo />
+        </button>,
+        <button
+          key={"settings-btn"}
+          className="button-settings"
+          aria-label="Settings"
+          onClick={() => {
+            handleNavigationAction("config");
+          }}
+        >
+          <IconSettings />
+        </button>,
       ];
     }
-    // else if (location === '/config') {}
-    return null;
-  }, [ddMenuOpen, handleDropDown, handleNavigationAction, location.pathname]);
+
+    return [
+      <button
+        key={"dd-menu-btn"}
+        ref={ddMenuToggleRef}
+        className="dd-button-menu"
+        aria-label="More options"
+        aria-haspopup="menu"
+        aria-expanded={ddMenuOpen}
+        aria-controls="dd-menu"
+        onClick={() => {
+          handleDropDown();
+        }}
+      >
+        <IconMore />
+      </button>,
+      <div
+        key={"dd-menu-box"}
+        id="dd-menu"
+        className={"dd-menu" + (ddMenuOpen ? " open" : " close")}
+      >
+        <div
+          className="cloak"
+          aria-hidden="true"
+          onClick={() => {
+            setDdMenuOpen(false);
+          }}
+        ></div>
+        <div
+          className="dd-menu-container"
+          ref={ddMenuContainerRef}
+          role="menu"
+          aria-label="Main menu"
+          onKeyDown={handleDdMenuKeyDown}
+        >
+          <button
+            key={"history-btn"}
+            role="menuitem"
+            className="button-history"
+            onClick={() => {
+              handleNavigationAction("history");
+            }}
+          >
+            <IconGrade />
+            <span className="label">History</span>
+          </button>
+          <button
+            key={"about-btn"}
+            role="menuitem"
+            className="button-about"
+            onClick={() => {
+              handleNavigationAction("about");
+            }}
+          >
+            <IconInfo />
+            <span className="label">About</span>
+          </button>
+          <button
+            key={"settings-btn"}
+            role="menuitem"
+            className="button-settings"
+            onClick={() => {
+              handleNavigationAction("config");
+            }}
+          >
+            <IconSettings />
+            <span className="label">Config</span>
+          </button>
+        </div>
+      </div>,
+    ];
+  }, [
+    ddMenuOpen,
+    handleDdMenuKeyDown,
+    handleDropDown,
+    handleNavigationAction,
+    isWideLayout,
+    location.pathname,
+  ]);
 
   return (
     <div
