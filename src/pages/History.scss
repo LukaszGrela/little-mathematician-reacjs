@@ -90,7 +90,17 @@
         .history-table {
             display: block;
 
+            /*
+             * A `caption` on a `display: block` table shrinks to its narrowest
+             * width, which wraps the text word by word in the left corner.
+             * Forcing a full-width block keeps it on one line under the cards.
+             */
             caption {
+                display: block;
+                width: 100%;
+                padding: 0 0 8px 2px;
+                font-size: .75rem;
+                line-height: 1.35;
                 text-align: left;
             }
 
