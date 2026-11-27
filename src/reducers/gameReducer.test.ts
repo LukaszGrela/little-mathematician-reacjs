@@ -180,6 +180,88 @@ test("should ignore NEXT_QUESTION when the current question is missing", () => {
   expect(gameReducer(prevState, nextQuestion())).toBe(prevState);
 });
 
+test("should not mutate the previous state on ANSWER_QUESTION", () => {
+  const question = { id: 0, correct: 1 } as TQuestion;
+  const questions = [question];
+  const game = {
+    type: GAME_ADDITION,
+    history: [],
+    hudQuestionCurrent: 1,
+    hudCorrectAnswers: 0,
+    questions,
+    operation: "+",
+    questionCount: 1,
+    from: 0,
+    to: 10,
+  } as unknown as TGameObject;
+  const prevState: TGameState = { ...defaultState, currentGame: game };
+  const snapshot = JSON.parse(JSON.stringify(prevState));
+
+  const state = gameReducer(prevState, answerQuestion(1, 1));
+
+  // previous state and its shared question array/object stay untouched
+  expect(prevState).toEqual(snapshot);
+  expect(prevState.currentGame).toBe(game);
+  expect(game.questions).toBe(questions);
+  expect(question.answer).toBeUndefined();
+
+  // new answer lives on a new object in a new array
+  const answered = state.currentGame?.questions[0];
+  expect(answered).not.toBe(question);
+  expect(answered?.answer).toEqual({ user: 1, correct: true, selectionId: 1 });
+  expect(state.currentGame?.questions).not.toBe(questions);
+  expect(state.currentGame?.hudCorrectAnswers).toBe(1);
+  expect(state.currentGame?.history).toBe(game.history);
+
+  // a second answer on the same state does not accumulate score in place
+  const second = gameReducer(prevState, answerQuestion(2, 2));
+  expect(second.currentGame?.hudCorrectAnswers).toBe(0);
+  expect(second.currentGame?.questions[0]?.answer).toEqual({
+    user: 2,
+    correct: false,
+    selectionId: 2,
+  });
+});
+
+test("should not mutate the previous state on NEXT_QUESTION", () => {
+  const question = {
+    id: 0,
+    correct: 1,
+    answer: { user: 1, correct: true, selectionId: 1 },
+  } as TQuestion;
+  const history: TQuestion[] = [];
+  const questions = [question];
+  const game = {
+    type: GAME_ADDITION,
+    history,
+    hudQuestionCurrent: 1,
+    hudCorrectAnswers: 1,
+    questions,
+    operation: "+",
+    questionCount: 1,
+    from: 0,
+    to: 10,
+  } as unknown as TGameObject;
+  const prevState: TGameState = { ...defaultState, currentGame: game };
+  const snapshot = JSON.parse(JSON.stringify(prevState));
+
+  const state = gameReducer(prevState, nextQuestion());
+
+  // previous state keeps its arrays, no push and no in-place null assignment
+  expect(prevState).toEqual(snapshot);
+  expect(game.history).toBe(history);
+  expect(history).toHaveLength(0);
+  expect(game.questions).toBe(questions);
+  expect(questions[0]).toBe(question);
+
+  // new state owns new history and questions arrays
+  expect(state.currentGame?.history).toEqual([question]);
+  expect(state.currentGame?.history).not.toBe(history);
+  expect(state.currentGame?.questions).not.toBe(questions);
+  expect(state.currentGame?.questions[0]).toBeNull();
+  expect(state.currentGame?.hudQuestionCurrent).toBe(2);
+});
+
 test("should not mutate the previous state on GAME_OVER", () => {
   const questions = [{ id: 0 } as TQuestion, { id: 1 } as TQuestion];
   const game: TGameObject = {

@@ -40,7 +40,6 @@ export default (
   state = DEFAULT_STATE,
   action: TGameActions | { type: "@@INIT"; payload?: unknown },
 ) => {
-  let newState: TGameState, currentQuestion: TQuestion | undefined;
   switch (action.type) {
     case NEW_GAME:
       // create current game object
@@ -63,57 +62,70 @@ export default (
     }
 
     case ANSWER_QUESTION: {
-      newState = { ...state };
-      if (newState.currentGame) {
-        newState.currentGame = { ...newState.currentGame };
-
-        currentQuestion =
-          newState.currentGame.questions[
-            newState.currentGame.hudQuestionCurrent - 1
-          ]!;
-        // nothing to answer (e.g. a game without questions) - keep the state
-        if (!currentQuestion) {
-          return state;
-        }
-        // validate answer
-        currentQuestion.answer = {
-          user: action.answer,
-          correct: action.answer === currentQuestion.correct,
-          selectionId: action.optionId,
-        };
-        newState.currentGame.questions[
-          newState.currentGame.hudQuestionCurrent - 1
-        ] = currentQuestion;
-        // score
-        if (currentQuestion.answer.correct)
-          newState.currentGame.hudCorrectAnswers += 1;
-        //
+      const currentGame = state.currentGame;
+      if (!currentGame) {
+        return state;
       }
-      return newState;
+      const questionIndex = currentGame.hudQuestionCurrent - 1;
+      const currentQuestion = currentGame.questions[questionIndex];
+      // nothing to answer (e.g. a game without questions) - keep the state
+      if (!currentQuestion) {
+        return state;
+      }
+      // validate answer
+      const isCorrect = action.answer === currentQuestion.correct;
+      // a new question object and a copied questions array - assigning the
+      // answer in place would mutate the previous state (Redux immutability)
+      const answeredQuestion: TQuestion = {
+        ...currentQuestion,
+        answer: {
+          user: action.answer,
+          correct: isCorrect,
+          selectionId: action.optionId,
+        },
+      };
+      const questions = [...currentGame.questions];
+      questions[questionIndex] = answeredQuestion;
+
+      return {
+        ...state,
+        currentGame: {
+          ...currentGame,
+          questions,
+          // score
+          hudCorrectAnswers:
+            currentGame.hudCorrectAnswers + (isCorrect ? 1 : 0),
+        },
+      };
     }
 
     case NEXT_QUESTION: {
-      newState = { ...state };
-      if (newState.currentGame) {
-        // move current question to the history stack
-        currentQuestion =
-          newState.currentGame.questions[
-            newState.currentGame.hudQuestionCurrent - 1
-          ]!;
-        // nothing to advance (e.g. a game without questions) - keep the state
-        if (!currentQuestion) {
-          return state;
-        }
-        newState.currentGame.history.push(currentQuestion);
-
-        // nullify current question array slot
-        newState.currentGame.questions[
-          newState.currentGame.hudQuestionCurrent - 1
-        ] = null;
-        // increase question number
-        newState.currentGame.hudQuestionCurrent += 1;
+      const currentGame = state.currentGame;
+      if (!currentGame) {
+        return state;
       }
-      return newState;
+      const questionIndex = currentGame.hudQuestionCurrent - 1;
+      // move current question to the history stack
+      const currentQuestion = currentGame.questions[questionIndex];
+      // nothing to advance (e.g. a game without questions) - keep the state
+      if (!currentQuestion) {
+        return state;
+      }
+      // new arrays instead of push/null assignment on the previous state
+      const questions = [...currentGame.questions];
+      // nullify current question array slot
+      questions[questionIndex] = null;
+
+      return {
+        ...state,
+        currentGame: {
+          ...currentGame,
+          history: [...currentGame.history, currentQuestion],
+          questions,
+          // increase question number
+          hudQuestionCurrent: currentGame.hudQuestionCurrent + 1,
+        },
+      };
     }
     case QUIT_GAME:
       // dispose current game object
