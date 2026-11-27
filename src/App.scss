@@ -9,8 +9,18 @@
 
 .App {
     text-align: center;
+    /*
+     * Sticky footer: the app is at least one viewport tall and the content area
+     * absorbs the leftover space, so the footer sits on the bottom edge of a
+     * short page and is pushed below the content when the page is longer.
+     */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    min-height: 100dvh;
     
     .App-header {
+        flex: 0 0 auto;
         background-color: variables.$primary-color;
         height: 50px;
         padding: 20px;
@@ -86,6 +96,7 @@
     }
     section.content {
         min-height: 180px;
+        flex: 1 0 auto;
     }
 }
 
