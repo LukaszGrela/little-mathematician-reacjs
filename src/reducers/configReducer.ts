@@ -26,6 +26,24 @@ export type TConfigState = {
   general: TGeneralConfig;
 };
 
+/**
+ * Converts an incoming range value to a usable bound.
+ * The game can only draw from whole, non negative numbers - anything else
+ * (NaN, Infinity, fractions, negatives, non numeric payloads) would produce
+ * unanswerable questions (NaN operands), so invalid input falls back to the
+ * value already stored in the state.
+ * @param {unknown} value value received with the action
+ * @param {number} fallback value currently kept in the state
+ * @returns number a whole number greater or equal to zero
+ */
+const normalizeRangeBound = (value: unknown, fallback: number): number => {
+  const numeric = Number(value);
+  if (!Number.isFinite(numeric)) {
+    return fallback;
+  }
+  return Math.max(0, Math.floor(numeric));
+};
+
 export default function reducer(
   state: TConfigState = {
     general: {
@@ -37,7 +55,7 @@ export default function reducer(
   action: TConfigActions | { type: "@@INIT"; payload?: unknown },
 ) {
   const { payload, type } = action;
-  let questionCount, configType, value;
+  let questionCount, configType;
   switch (type) {
     case CHANGE_NUMBER_OF_QUESTIONS:
       // the action and the store may receive any number - keep it playable
@@ -57,7 +75,6 @@ export default function reducer(
       }
       break;
     case CHANGE_RANGE_FROM:
-      value = payload.value;
       configType = payload.configType;
       switch (configType) {
         case ConfigType.GENERAL:
@@ -65,7 +82,7 @@ export default function reducer(
             ...state,
             general: {
               ...state.general,
-              from: value,
+              from: normalizeRangeBound(payload.value, state.general.from),
             },
           };
         default:
@@ -73,7 +90,6 @@ export default function reducer(
       }
       break;
     case CHANGE_RANGE_TO:
-      value = payload.value;
       configType = payload.configType;
       switch (configType) {
         case ConfigType.GENERAL:
@@ -81,7 +97,7 @@ export default function reducer(
             ...state,
             general: {
               ...state.general,
-              to: value,
+              to: normalizeRangeBound(payload.value, state.general.to),
             },
           };
         default:

@@ -23,7 +23,9 @@ import { logger } from "redux-logger";
 
 import reducer from "../reducers";
 
-const middleware = applyMiddleware(logger);
+// Log actions and state only in development. A production build must not print
+// the player's answers or the internal game state to the browser console.
+const middleware = applyMiddleware(...(import.meta.env.DEV ? [logger] : []));
 const composeEnhancers =
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
